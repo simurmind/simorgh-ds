@@ -1,0 +1,600 @@
+
+/* globals.css - فایل CSS کامل و یکپارچه برای تمام صفحات */
+
+/* وارد کردن فونت وزیرمتن از Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* =====================
+   تنظیمات عمومی
+   ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Vazirmatn', sans-serif;
+}
+
+/* تعریف متغیرهای رنگ و استایل */
+:root {
+  --primary-color: #f1c40f;
+  --background-color: #000000;
+  --background-scroll-color: #444444;
+  --text-color: #ffffff;
+  --secondary-color: #f1c40f;
+  --button-hover-color: #f1c40f;
+  --shadow-color: rgba(241, 196, 15, 0.2);
+  --border-radius: 8px;
+  --font-size-base: 1.1rem;
+  --transition: all 0.3s ease;
+}
+
+/* استایل صفحه کلی */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+  text-align: right;
+  box-sizing: border-box;
+  line-height: 1.6;
+  font-size: clamp(1rem, 4vw, 1.2rem);
+  font-family: 'Vazirmatn', sans-serif !important;
+}
+
+/* =====================
+   استایل لینک‌ها
+   ===================== */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+a:hover {
+  color: var(--text-color);
+  transform: scale(1.1);
+  text-decoration: underline;
+}
+
+/* =====================
+   استایل ناوبری
+   ===================== */
+nav {
+  background-color: var(--background-color);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 4px solid var(--secondary-color);
+  box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+nav ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+nav a {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  margin: 0 20px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--text-color);
+}
+
+/* =====================
+   بخش‌های عمومی
+   ===================== */
+.sample-work-section {
+  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* هدر بخش */
+.section-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  font-weight: bold;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* =====================
+   کارت‌های پروژه
+   ===================== */
+.sample-card {
+  background-color: #111;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  margin-bottom: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: justify;
+  width: 100%;
+  max-width: 900px;
+  border: 1px solid var(--primary-color);
+}
+
+.sample-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.sample-card h3 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.sample-card p {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+/* =====================
+   قبل و بعد از طراحی
+   ===================== */
+.before-after {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+}
+
+.before, .after {
+  width: 48%;
+}
+
+.before h4, .after h4 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.before-image, .after-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* =====================
+   استایل‌های صفحه تماس
+   ===================== */
+.contact-section {
+  background-color: #222;
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-top: 3rem;
+}
+
+.contact-section .section-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.contact-section h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #f5c518;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.intro-text {
+  color: #fff;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.contact-details {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.contact-details h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #f5c518;
+  margin-bottom: 1rem;
+}
+
+.contact-details ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-details li {
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 8px 0;
+}
+
+.contact-details a {
+  color: #f5c518;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.contact-details a:hover {
+  color: #fff;
+  border-bottom: 2px solid #fff;
+}
+
+.contact-details strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* =====================
+   استایل‌های صفحه دکوراسیون
+   ===================== */
+.decor-section {
+  background-color: #141414;
+  color: #f5c518;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+  border: 2px solid #f1c40f;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.decor-section h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #f1c40f;
+  text-align: center;
+}
+
+.decor-section p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards 0.2s;
+}
+
+.decor-section ul {
+  list-style: none;
+  padding: 0;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.decor-section li {
+  padding: 10px 0;
+  background-color: #333;
+  border-bottom: 1px solid #f1c40f;
+}
+
+.decor-section li strong {
+  color: #f1c40f;
+}
+
+/* =====================
+   استایل‌های صفحه درباره ما
+   ===================== */
+.about-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--background-color);
+}
+
+.about-section {
+  background-color: var(--background-color);
+  border-radius: 15px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  margin-bottom: 30px;
+  padding: 30px;
+  opacity: 0;
+  animation: fadeInUp 1.5s ease-out forwards;
+  border: 2px solid var(--secondary-color);
+  position: relative;
+  overflow: hidden;
+}
+
+/* افکت خط بالای بخش‌ها */
+.about-section:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary-color), #ff6f61);
+  animation: slideIn 2s infinite;
+}
+.about-section p {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeIn 1.8s ease-out forwards;
+}
+
+/* =====================
+   استایل‌های صفحه پورتفولیو
+   ===================== */
+.portfolio-section {
+  background-color: var(--background-color);
+  border-radius: 15px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  margin-bottom: 30px;
+  padding: 30px;
+  opacity: 0;
+  animation: fadeInUp 1.5s ease-out forwards;
+  border: 2px solid var(--secondary-color);
+}
+
+/* =====================
+   لیست‌ها
+   ===================== */
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 20px;
+}
+
+ul li {
+  padding: 10px 0;
+  font-size: 18px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  border-bottom: 1px solid var(--primary-color);
+  transition: transform 0.3s ease;
+}
+
+ul li strong {
+  color: var(--primary-color);
+}
+
+ul li:hover {
+  transform: translateX(5px);
+}
+
+/* =====================
+   استایل پاراگراف‌ها
+   ===================== */
+p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--text-color);
+  margin-bottom: 30px;
+  text-align: justify;
+  letter-spacing: 0.5px;
+}
+
+/* =====================
+   استایل دکمه‌ها
+   ===================== */
+button {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--background-color);
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2rem);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  will-change: transform;
+}
+
+button:hover,
+button:focus {
+  background: linear-gradient(135deg, var(--button-hover-color), var(--secondary-color));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* =====================
+   تصاویر
+   ===================== */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+}
+
+/* =====================
+   انیمیشن‌ها
+   ===================== */
+@keyframes fadeInUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: -100%;
+  }
+}
+
+/* =====================
+   اسکرولبار سفارشی
+   ===================== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-scroll-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
+/* =====================
+   طراحی ریسپانسیو
+   ===================== */
+@media (max-width: 768px) {
+  /* ناوبری */
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    gap: 1rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  nav a {
+    margin: 10px 0;
+    font-size: 1rem;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: var(--border-radius);
+    background-color: rgba(68, 68, 68, 0.5);
+  }
+
+  /* بخش‌ها */
+  .about-section,
+  .portfolio-section,
+  .decor-section {
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+
+  /* کارت‌ها */
+  .sample-card {
+    padding: 15px;
+    text-align: left;
+  }
+
+  /* قبل و بعد */
+  .before-after {
+    flex-direction: column;
+  }
+
+  .before, .after {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  /* صفحه تماس */
+  .contact-section {
+    padding: 2rem;
+  }
+
+  .contact-section h2 {
+    font-size: 2rem;
+  }
+
+  /* دکوراسیون */
+  .decor-section h2 {
+    font-size: 2rem;
+  }
+
+  .decor-section p,
+  .decor-section ul {
+    font-size: 1rem;
+  }
+
+  /* دکمه‌ها */
+  button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  /* لیست‌ها */
+  ul li {
+    font-size: 16px;
+  }
+
+  /* پاراگراف‌ها */
+  p {
+    font-size: 16px;
+  }
+}
+
+/* تبلت */
+@media (max-width: 1024px) and (min-width: 769px) {
+  nav a {
+    margin: 0 15px;
+  }
+}
