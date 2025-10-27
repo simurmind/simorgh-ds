@@ -1,277 +1,264 @@
-/* وارد کردن فونت وزیرمتن از Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 
 /* ============================================================================
-   SECTION 2: RESET & BASE STYLES
+   RESET & BASE CONFIGURATION
    ============================================================================ */
-
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Vazirmatn', sans-serif;
 }
 
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
-
-/* ============================================================================
-   SECTION 3: CSS VARIABLES (DESIGN TOKENS)
-   ============================================================================ */
-
 :root {
-  /* Primary Colors */
+  /* Primary Color Palette */
   --primary-color: #f1c40f;
-  --primary-hover: #d4a50a;
-  --primary-active: #b8900a;
+  --primary-light: #f4d03f;
+  --primary-dark: #d4a50a;
+  --primary-gradient: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
   
   /* Background Colors */
-  --background-color: #000000;
-  --background-secondary: #111111;
-  --background-tertiary: #1a1a1a;
-  --background-scroll-color: #444444;
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #111111;
+  --bg-card: #1a1a1a;
+  --bg-hover: #222222;
   
   /* Text Colors */
-  --text-color: #ffffff;
+  --text-primary: #ffffff;
   --text-secondary: #cccccc;
-  --text-muted: #999999;
+  --text-muted: #888888;
   
   /* Accent Colors */
-  --secondary-color: #f1c40f;
-  --accent-color: #ff6f61;
-  --success-color: #2ecc71;
-  --warning-color: #e67e22;
-  --danger-color: #e74c3c;
+  --accent-gold: #ffd700;
+  --accent-orange: #ff6f61;
+  --accent-blue: #3498db;
+  --accent-green: #2ecc71;
   
-  /* UI Colors */
-  --button-hover-color: #f1c40f;
-  --shadow-color: rgba(241, 196, 15, 0.2);
-  --shadow-hover: rgba(241, 196, 15, 0.4);
+  /* Shadows & Effects */
+  --shadow-sm: 0 2px 8px rgba(241, 196, 15, 0.1);
+  --shadow-md: 0 4px 16px rgba(241, 196, 15, 0.2);
+  --shadow-lg: 0 8px 32px rgba(241, 196, 15, 0.3);
+  --shadow-xl: 0 16px 48px rgba(241, 196, 15, 0.4);
+  --glow: 0 0 20px rgba(241, 196, 15, 0.5);
+  --glow-strong: 0 0 40px rgba(241, 196, 15, 0.8);
   
   /* Border & Radius */
-  --border-radius-sm: 4px;
-  --border-radius: 8px;
-  --border-radius-lg: 12px;
-  --border-radius-xl: 16px;
-  --border-width: 1px;
-  --border-width-thick: 2px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
   
-  /* Spacing Scale */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-2xl: 3rem;
-  --spacing-3xl: 4rem;
+  /* Spacing System */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
   
-  /* Typography Scale */
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-md: 1.125rem;
-  --font-size-lg: 1.25rem;
-  --font-size-xl: 1.5rem;
-  --font-size-2xl: 2rem;
-  --font-size-3xl: 2.5rem;
-  
-  /* Font Weights */
-  --font-weight-light: 300;
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-  --font-weight-extrabold: 800;
-  
-  /* Line Heights */
-  --line-height-tight: 1.2;
-  --line-height-normal: 1.6;
-  --line-height-relaxed: 1.8;
-  --line-height-loose: 2;
+  /* Typography */
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-base: 1rem;
+  --font-lg: 1.125rem;
+  --font-xl: 1.5rem;
+  --font-2xl: 2rem;
+  --font-3xl: 2.5rem;
+  --font-4xl: 3rem;
   
   /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-base: 300ms ease;
-  --transition-slow: 500ms ease;
-  --transition: all 0.3s ease;
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   
   /* Z-index Scale */
-  --z-index-dropdown: 1000;
-  --z-index-sticky: 1020;
-  --z-index-fixed: 1030;
-  --z-index-modal-backdrop: 1040;
-  --z-index-modal: 1050;
-  --z-index-popover: 1060;
-  --z-index-tooltip: 1070;
+  --z-base: 1;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal: 1050;
+  --z-tooltip: 1070;
   
-  /* Container Widths */
-  --container-sm: 640px;
-  --container-md: 768px;
-  --container-lg: 1024px;
-  --container-xl: 1280px;
-  --container-2xl: 1536px;
-  --max-width: 1200px;
+  /* Container */
+  --container-max: 1200px;
 }
-
-
-/* ============================================================================
-   SECTION 4: HTML & BODY BASE STYLES
-   ============================================================================ */
 
 html {
   font-size: 16px;
-  -webkit-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
   scroll-behavior: smooth;
-  height: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  margin: 0;
-  padding: 0;
+  background: radial-gradient(ellipse at top, #0a0a0a 0%, #000000 100%);
+  color: var(--text-primary);
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: var(--font-base);
+  line-height: 1.7;
   direction: rtl;
   text-align: right;
-  line-height: var(--line-height-normal);
-  font-size: var(--font-size-base);
-  font-family: 'Vazirmatn', sans-serif !important;
-  font-weight: var(--font-weight-normal);
   overflow-x: hidden;
-  width: 100%;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  position: relative;
+}
+
+/* Animated Background Effect */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(241, 196, 15, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(241, 196, 15, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: backgroundPulse 15s ease-in-out infinite;
+}
+
+@keyframes backgroundPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
 
 /* ============================================================================
-   SECTION 5: TYPOGRAPHY
+   TYPOGRAPHY - طراحی مدرن متن
    ============================================================================ */
-
 h1, h2, h3, h4, h5, h6 {
-  margin: 0 0 var(--spacing-md) 0;
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
+  font-weight: 700;
+  line-height: 1.3;
   color: var(--primary-color);
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;
+  margin-bottom: var(--space-md);
+  position: relative;
+  letter-spacing: -0.02em;
+  animation: fadeInUp 0.8s ease-out;
 }
 
-h1 { font-size: clamp(1.75rem, 6vw, 3rem); }
-h2 { font-size: clamp(1.5rem, 5vw, 2.5rem); }
-h3 { font-size: clamp(1.3rem, 4vw, 2rem); }
-h4 { font-size: clamp(1.2rem, 3.5vw, 1.75rem); }
-h5 { font-size: clamp(1.1rem, 3vw, 1.5rem); }
-h6 { font-size: clamp(1rem, 2.5vw, 1.25rem); }
+h1 {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease infinite;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  position: relative;
+  display: inline-block;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  right: 0;
+  width: 0;
+  height: 3px;
+  background: var(--primary-gradient);
+  transition: width var(--transition-slow);
+  border-radius: var(--radius-full);
+}
+
+h2:hover::after {
+  width: 100%;
+}
+
+h3 { font-size: clamp(1.25rem, 4vw, 2rem); }
+h4 { font-size: clamp(1.1rem, 3.5vw, 1.75rem); }
+h5 { font-size: clamp(1rem, 3vw, 1.5rem); }
+h6 { font-size: clamp(0.95rem, 2.5vw, 1.25rem); }
 
 p {
   font-size: clamp(0.95rem, 3vw, 1.125rem);
-  line-height: var(--line-height-relaxed);
-  color: var(--text-color);
-  margin-bottom: var(--spacing-lg);
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
   text-align: justify;
-  letter-spacing: 0.3px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  animation: fadeIn 1s ease-out;
 }
 
 a {
   color: var(--primary-color);
   text-decoration: none;
+  position: relative;
   transition: var(--transition-base);
   display: inline-block;
-  cursor: pointer;
+}
+
+a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-gradient);
+  transition: width var(--transition-base);
 }
 
 a:hover {
-  color: var(--text-color);
-  transform: scale(1.05);
-  text-decoration: underline;
+  color: var(--primary-light);
+  transform: translateY(-2px);
 }
 
-a:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-a:active {
-  transform: scale(0.98);
-}
-
-ul, ol {
-  list-style: none;
-  padding-left: 0;
-  margin-top: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
-}
-
-ul li, ol li {
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: clamp(0.9rem, 3vw, 1.125rem);
-  color: var(--text-color);
-  background-color: var(--background-secondary);
-  border-bottom: var(--border-width) solid var(--primary-color);
-  transition: var(--transition-base);
-  word-wrap: break-word;
-  margin-bottom: var(--spacing-xs);
-  border-radius: var(--border-radius-sm);
-}
-
-ul li:last-child,
-ol li:last-child {
-  border-bottom: none;
-}
-
-ul li:hover,
-ol li:hover {
-  transform: translateX(5px);
-  background-color: var(--background-tertiary);
-}
-
-ul li strong,
-ol li strong {
-  color: var(--primary-color);
-  font-weight: var(--font-weight-semibold);
+a:hover::after {
+  width: 100%;
 }
 
 
 /* ============================================================================
-   SECTION 6: NAVIGATION - استایل یکسان برای همه دستگاه‌ها
+   MODERN NAVIGATION - منوی مدرن و زیبا
    ============================================================================ */
-
-/**
- * 6.1 - Main Navigation
- * منوی افقی برای همه دستگاه‌ها (موبایل، تبلت، دسکتاپ)
- */
 nav {
-  background-color: var(--background-color);
-  padding: var(--spacing-md);
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  padding: var(--space-md);
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 4px solid var(--secondary-color);
-  box-shadow: 0 2px 8px var(--shadow-color);
-  width: 100%;
-  position: relative;
-  z-index: var(--z-index-sticky);
+  border-bottom: 1px solid rgba(241, 196, 15, 0.1);
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary-color) transparent;
+  animation: slideDown 0.5s ease-out;
 }
 
-/* مخفی کردن اسکرولبار در حالت عادی */
+nav::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(241, 196, 15, 0.05) 50%, 
+    transparent 100%);
+  animation: shimmer 3s infinite;
+  pointer-events: none;
+}
+
 nav::-webkit-scrollbar {
-  height: 3px;
+  height: 4px;
 }
 
 nav::-webkit-scrollbar-track {
@@ -279,572 +266,682 @@ nav::-webkit-scrollbar-track {
 }
 
 nav::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
-  border-radius: 10px;
+  background: var(--primary-gradient);
+  border-radius: var(--radius-full);
 }
 
-nav::-webkit-scrollbar-thumb:hover {
-  background: var(--secondary-color);
-}
-
-/**
- * 6.2 - Navigation List
- * لیست منو - همیشه افقی
- */
 nav ul {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-sm);
+  gap: var(--space-xs);
   list-style: none;
-  margin: 0;
-  padding: 0;
   flex-wrap: nowrap;
-  justify-content: center;
   align-items: center;
-  width: auto;
   min-width: max-content;
+  position: relative;
+  z-index: 1;
 }
 
 nav ul li {
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  flex-shrink: 0;
+  position: relative;
 }
 
-/**
- * 6.3 - Navigation Links
- * لینک‌های منو
- */
 nav a {
-  color: var(--primary-color);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
-  transition: var(--transition-base);
-  white-space: nowrap;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  font-size: var(--font-base);
+  font-weight: 500;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
   display: inline-block;
-  background-color: rgba(68, 68, 68, 0.3);
-  border: 1px solid transparent;
-  text-align: center;
-  min-width: fit-content;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(241, 196, 15, 0.1);
+  transition: all var(--transition-base);
+}
+
+nav a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-gradient);
+  transition: left var(--transition-base);
+  z-index: -1;
 }
 
 nav a:hover {
-  color: var(--text-color);
-  background-color: rgba(241, 196, 15, 0.2);
-  transform: translateY(-2px);
+  color: var(--bg-primary);
   border-color: var(--primary-color);
-  text-decoration: none;
+  transform: translateY(-3px);
+  box-shadow: var(--glow);
 }
 
-nav a:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
+nav a:hover::before {
+  left: 0;
+}
+
+nav a:hover::after {
+  width: 0;
 }
 
 nav a:active {
-  transform: translateY(0);
+  transform: translateY(-1px);
 }
 
 
 /* ============================================================================
-   SECTION 7: LAYOUT COMPONENTS
+   CONTAINER & LAYOUT - لی‌اوت مدرن
    ============================================================================ */
-
 .container {
   width: 100%;
-  max-width: var(--max-width);
+  max-width: var(--container-max);
   margin: 0 auto;
-  padding-left: var(--spacing-md);
-  padding-right: var(--spacing-md);
-  box-sizing: border-box;
+  padding: 0 var(--space-md);
+  position: relative;
+  z-index: var(--z-base);
 }
 
 .section-header {
-  margin-bottom: var(--spacing-2xl);
   text-align: center;
-  width: 100%;
-  padding: 0 var(--spacing-md);
+  margin-bottom: var(--space-xl);
+  position: relative;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .section-header h2 {
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
-  color: var(--primary-color);
-  font-weight: var(--font-weight-bold);
-  border-bottom: 2px solid var(--primary-color);
-  padding-bottom: var(--spacing-sm);
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  word-wrap: break-word;
+  letter-spacing: 2px;
+  position: relative;
   display: inline-block;
-  margin: 0 auto;
+  padding-bottom: var(--space-sm);
+}
+
+.section-header h2::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: -20px;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, rgba(241, 196, 15, 0.3), transparent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
 }
 
 .sample-work-section {
-  margin-bottom: var(--spacing-3xl);
+  margin-bottom: var(--space-3xl);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-lg);
-  width: 100%;
-  padding: 0 var(--spacing-md);
-  box-sizing: border-box;
+  gap: var(--space-xl);
+  padding: var(--space-md);
 }
 
 
 /* ============================================================================
-   SECTION 8: CARD COMPONENTS
+   MODERN CARDS - کارت‌های مدرن و زیبا
    ============================================================================ */
-
 .sample-card {
-  background-color: var(--background-secondary);
-  border-radius: var(--border-radius-lg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  padding: var(--spacing-xl);
-  margin-bottom: var(--spacing-2xl);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
-  text-align: justify;
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(20, 20, 20, 0.98) 100%);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
   width: 100%;
   max-width: 900px;
-  border: var(--border-width-thick) solid var(--primary-color);
-  box-sizing: border-box;
-  overflow: hidden;
+  border: 1px solid rgba(241, 196, 15, 0.2);
   position: relative;
+  overflow: hidden;
+  transition: all var(--transition-slow);
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .sample-card::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
+  left: -100%;
   width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-  transform: scaleX(0);
-  transition: transform var(--transition-base);
-  transform-origin: left;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(241, 196, 15, 0.1) 50%, 
+    transparent 100%);
+  transition: left var(--transition-slow);
 }
 
 .sample-card:hover::before {
-  transform: scaleX(1);
+  left: 100%;
+}
+
+.sample-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--primary-gradient);
+  transform: scaleX(0);
+  transition: transform var(--transition-slow);
+  transform-origin: right;
 }
 
 .sample-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 24px var(--shadow-hover);
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: var(--shadow-xl), var(--glow-strong);
+  border-color: var(--primary-color);
+}
+
+.sample-card:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 .sample-card h3 {
-  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
   color: var(--primary-color);
-  margin-bottom: var(--spacing-md);
-  word-wrap: break-word;
-  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-md);
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+}
+
+.sample-card h3::before {
+  content: "✦";
+  position: absolute;
+  right: -30px;
+  top: 0;
+  color: var(--primary-color);
+  opacity: 0;
+  transition: all var(--transition-base);
+}
+
+.sample-card:hover h3::before {
+  opacity: 1;
+  right: -25px;
+  animation: sparkle 1s infinite;
 }
 
 .sample-card p {
-  font-size: clamp(0.95rem, 3vw, 1.1rem);
-  color: var(--text-color);
-  line-height: var(--line-height-relaxed);
-  margin-bottom: var(--spacing-lg);
-  word-wrap: break-word;
+  color: var(--text-secondary);
+  line-height: 1.9;
 }
 
+
+/* ============================================================================
+   BEFORE/AFTER COMPARISON - مقایسه قبل و بعد
+   ============================================================================ */
 .before-after {
   display: flex;
   justify-content: space-between;
-  gap: var(--spacing-lg);
-  width: 100%;
+  gap: var(--space-lg);
   flex-wrap: wrap;
+  margin-top: var(--space-lg);
 }
 
 .before,
 .after {
-  width: 100%;
-  min-width: 0;
   flex: 1;
+  min-width: 280px;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.02);
+  padding: var(--space-md);
+  transition: all var(--transition-base);
+}
+
+.before:hover,
+.after:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-5px);
 }
 
 .before h4,
 .after h4 {
-  font-size: clamp(1rem, 3vw, 1.2rem);
-  font-weight: var(--font-weight-medium);
+  font-size: clamp(1.1rem, 3vw, 1.3rem);
   color: var(--primary-color);
-  margin-bottom: var(--spacing-md);
-  word-wrap: break-word;
+  margin-bottom: var(--space-md);
+  position: relative;
+  padding-right: var(--space-lg);
+}
+
+.before h4::before {
+  content: "→";
+  position: absolute;
+  right: 0;
+  color: var(--accent-orange);
+  font-size: 1.5em;
+}
+
+.after h4::before {
+  content: "✓";
+  position: absolute;
+  right: 0;
+  color: var(--accent-green);
+  font-size: 1.5em;
 }
 
 .before-image,
 .after-image {
   width: 100%;
   height: auto;
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  display: block;
-  max-width: 100%;
-  transition: transform var(--transition-base);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-slow);
+  filter: brightness(0.9);
 }
 
 .before-image:hover,
 .after-image:hover {
-  transform: scale(1.02);
+  transform: scale(1.05);
+  filter: brightness(1);
+  box-shadow: var(--shadow-xl), var(--glow);
 }
 
 
 /* ============================================================================
-   SECTION 9: PAGE SECTIONS
+   CONTACT SECTION - بخش تماس مدرن
    ============================================================================ */
-
 .contact-section {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-  padding: var(--spacing-2xl) var(--spacing-md);
-  border-radius: var(--border-radius-xl);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  margin: var(--spacing-2xl) var(--spacing-md);
-  width: calc(100% - calc(var(--spacing-md) * 2));
-  max-width: var(--max-width);
-  box-sizing: border-box;
-  margin-left: auto;
-  margin-right: auto;
-  border: var(--border-width-thick) solid var(--primary-color);
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(15, 15, 15, 0.98) 100%);
+  backdrop-filter: blur(30px);
+  padding: var(--space-3xl) var(--space-xl);
+  border-radius: var(--radius-xl);
+  margin: var(--space-3xl) auto;
+  max-width: var(--container-max);
+  border: 1px solid rgba(241, 196, 15, 0.2);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 1s ease-out;
 }
 
-.contact-section .section-header {
-  text-align: center;
-  margin-bottom: var(--spacing-xl);
+.contact-section::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(241, 196, 15, 0.05) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
 }
 
 .contact-section h2 {
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
-  font-weight: var(--font-weight-bold);
-  color: var(--primary-color);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: var(--spacing-lg);
-  word-wrap: break-word;
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  position: relative;
+  z-index: 1;
 }
 
 .intro-text {
-  color: var(--text-color);
-  font-size: clamp(1rem, 3vw, 1.2rem);
-  line-height: var(--line-height-relaxed);
   text-align: center;
-  margin-bottom: var(--spacing-xl);
-  word-wrap: break-word;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xl);
+  line-height: 1.9;
+  position: relative;
+  z-index: 1;
 }
 
 .contact-details {
-  margin-top: var(--spacing-xl);
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.3);
-  padding: var(--spacing-xl);
-  border-radius: var(--border-radius-lg);
+  background: rgba(0, 0, 0, 0.4);
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(241, 196, 15, 0.1);
+  position: relative;
+  z-index: 1;
 }
 
 .contact-details h3 {
-  font-size: clamp(1.3rem, 4vw, 1.8rem);
-  font-weight: var(--font-weight-semibold);
-  color: var(--primary-color);
-  margin-bottom: var(--spacing-lg);
-  word-wrap: break-word;
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
 }
 
 .contact-details ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
+  display: grid;
+  gap: var(--space-md);
 }
 
 .contact-details li {
-  color: var(--text-color);
-  font-size: clamp(0.95rem, 3vw, 1.2rem);
-  padding: var(--spacing-md) 0;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  background: none;
-  border: none;
-  margin: 0;
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-md);
+  border-right: 3px solid var(--primary-color);
+  transition: all var(--transition-base);
+}
+
+.contact-details li:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(-5px);
+  border-right-width: 5px;
 }
 
 .contact-details a {
   color: var(--primary-color);
-  text-decoration: none;
-  font-weight: var(--font-weight-medium);
-  transition: var(--transition-base);
-  word-break: break-all;
-  border-bottom: 1px solid transparent;
+  font-weight: 500;
+  transition: all var(--transition-base);
 }
 
 .contact-details a:hover {
-  color: var(--text-color);
-  border-bottom-color: var(--primary-color);
+  color: var(--primary-light);
+  text-shadow: var(--glow);
 }
 
-.contact-details strong {
-  color: var(--text-color);
-  font-weight: var(--font-weight-semibold);
-}
 
+/* ============================================================================
+   DECORATION SECTION - بخش دکوراسیون
+   ============================================================================ */
 .decor-section {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-  color: var(--primary-color);
-  padding: var(--spacing-2xl) var(--spacing-md);
-  border-radius: var(--border-radius-xl);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  margin: var(--spacing-md);
-  opacity: 0;
-  animation: fadeInUp 0.8s ease-out forwards;
-  border: var(--border-width-thick) solid var(--primary-color);
-  display: grid;
-  gap: var(--spacing-lg);
-  width: calc(100% - calc(var(--spacing-md) * 2));
-  max-width: var(--max-width);
-  box-sizing: border-box;
-  margin-left: auto;
-  margin-right: auto;
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+  backdrop-filter: blur(30px);
+  padding: var(--space-3xl) var(--space-xl);
+  border-radius: var(--radius-xl);
+  margin: var(--space-xl) auto;
+  max-width: var(--container-max);
+  border: 1px solid rgba(241, 196, 15, 0.2);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .decor-section h2 {
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-lg);
-  color: var(--primary-color);
   text-align: center;
-  word-wrap: break-word;
+  margin-bottom: var(--space-xl);
 }
 
 .decor-section p {
-  font-size: clamp(0.95rem, 3vw, 1.2rem);
-  line-height: var(--line-height-relaxed);
-  color: var(--text-color);
-  background-color: rgba(0, 0, 0, 0.3);
-  padding: var(--spacing-lg);
-  border-radius: var(--border-radius);
-  opacity: 0;
-  animation: fadeIn 1s ease-out forwards 0.2s;
-  word-wrap: break-word;
-  border-left: 4px solid var(--primary-color);
+  background: rgba(0, 0, 0, 0.3);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  border-right: 4px solid var(--primary-color);
+  margin-bottom: var(--space-lg);
+  transition: all var(--transition-base);
+}
+
+.decor-section p:hover {
+  background: rgba(0, 0, 0, 0.5);
+  transform: translateX(-5px);
+  box-shadow: var(--shadow-md);
 }
 
 .decor-section ul {
   list-style: none;
-  padding: 0;
-  font-size: clamp(0.95rem, 3vw, 1.2rem);
-  color: var(--text-color);
-  margin: 0;
+  display: grid;
+  gap: var(--space-sm);
 }
 
 .decor-section li {
-  padding: var(--spacing-md);
-  background-color: rgba(51, 51, 51, 0.5);
-  border-bottom: var(--border-width) solid var(--primary-color);
-  margin-bottom: var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  word-wrap: break-word;
-  transition: var(--transition-base);
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-md);
+  border-bottom: 2px solid rgba(241, 196, 15, 0.2);
+  transition: all var(--transition-base);
+  position: relative;
+  padding-right: var(--space-xl);
+}
+
+.decor-section li::before {
+  content: "▸";
+  position: absolute;
+  right: var(--space-md);
+  color: var(--primary-color);
+  font-size: 1.2em;
+  transition: all var(--transition-base);
 }
 
 .decor-section li:hover {
-  background-color: rgba(51, 51, 51, 0.8);
-  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(-8px);
+  border-bottom-color: var(--primary-color);
+}
+
+.decor-section li:hover::before {
+  right: var(--space-sm);
+  color: var(--primary-light);
 }
 
 .decor-section li strong {
   color: var(--primary-color);
-  font-weight: var(--font-weight-semibold);
+  font-weight: 600;
 }
 
+
+/* ============================================================================
+   ABOUT & PORTFOLIO SECTIONS
+   ============================================================================ */
 .about-page {
-  max-width: var(--max-width);
+  max-width: var(--container-max);
   margin: 0 auto;
-  padding: var(--spacing-md);
-  background-color: var(--background-color);
-  width: 100%;
-  box-sizing: border-box;
+  padding: var(--space-md);
 }
 
-.about-section {
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-  border-radius: var(--border-radius-xl);
-  box-shadow: 0 8px 24px var(--shadow-color);
-  margin-bottom: var(--spacing-2xl);
-  padding: var(--spacing-2xl) var(--spacing-md);
-  opacity: 0;
-  animation: fadeInUp 1.5s ease-out forwards;
-  border: var(--border-width-thick) solid var(--secondary-color);
+.about-section,
+.portfolio-section {
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+  backdrop-filter: blur(30px);
+  padding: var(--space-3xl) var(--space-xl);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--space-3xl);
+  border: 1px solid rgba(241, 196, 15, 0.2);
   position: relative;
   overflow: hidden;
-  width: 100%;
-  box-sizing: border-box;
+  animation: fadeInUp 1s ease-out;
 }
 
-.about-section::before {
+.about-section::before,
+.portfolio-section::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 5px;
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-  animation: slideIn 3s infinite;
+  right: 0;
+  height: 4px;
+  background: var(--primary-gradient);
+  animation: slideInOut 3s infinite;
 }
 
-.about-section p {
-  background-color: rgba(0, 0, 0, 0.3);
-  color: var(--text-color);
-  padding: var(--spacing-lg);
-  border-radius: var(--border-radius);
-  font-size: clamp(0.95rem, 3vw, 1.2rem);
-  line-height: var(--line-height-relaxed);
-  opacity: 0;
-  animation: fadeIn 1.8s ease-out forwards;
-  word-wrap: break-word;
-  border-left: 4px solid var(--primary-color);
-}
-
-.portfolio-section {
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-  border-radius: var(--border-radius-xl);
-  box-shadow: 0 8px 24px var(--shadow-color);
-  margin: var(--spacing-md);
-  padding: var(--spacing-2xl) var(--spacing-md);
-  opacity: 0;
-  animation: fadeInUp 1.5s ease-out forwards;
-  border: var(--border-width-thick) solid var(--secondary-color);
-  width: calc(100% - calc(var(--spacing-md) * 2));
-  max-width: var(--max-width);
-  box-sizing: border-box;
-  margin-left: auto;
-  margin-right: auto;
+.about-section p,
+.portfolio-section p {
+  background: rgba(0, 0, 0, 0.3);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  border-right: 4px solid var(--primary-color);
 }
 
 
 /* ============================================================================
-   SECTION 10: BUTTONS
+   BUTTONS - دکمه‌های مدرن
    ============================================================================ */
-
 button,
 .btn {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: var(--background-color);
-  padding: var(--spacing-md) var(--spacing-xl);
+  background: var(--primary-gradient);
+  color: var(--bg-primary);
+  padding: var(--space-md) var(--space-xl);
   border: none;
-  border-radius: var(--border-radius);
-  font-size: clamp(0.95rem, 3vw, 1.1rem);
-  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-full);
+  font-size: var(--font-base);
+  font-weight: 600;
   cursor: pointer;
-  transition: var(--transition-base);
-  box-shadow: 0 4px 12px var(--shadow-color);
-  will-change: transform;
-  width: auto;
-  max-width: 100%;
-  display: inline-block;
-  text-align: center;
-  text-decoration: none;
-  line-height: 1.5;
-  font-family: inherit;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-md);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+button::before,
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width var(--transition-slow), height var(--transition-slow);
 }
 
 button:hover,
-.btn:hover,
-button:focus,
-.btn:focus {
-  background: linear-gradient(135deg, var(--button-hover-color), var(--secondary-color));
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px var(--shadow-hover);
+.btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: var(--shadow-xl), var(--glow-strong);
+}
+
+button:hover::before,
+.btn:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 button:active,
 .btn:active {
-  transform: translateY(-1px);
-}
-
-button:focus,
-.btn:focus {
-  outline: 3px solid var(--primary-color);
-  outline-offset: 3px;
-}
-
-button:disabled,
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
+  transform: translateY(-2px) scale(1.02);
 }
 
 
 /* ============================================================================
-   SECTION 11: IMAGES
+   LISTS - لیست‌های مدرن
    ============================================================================ */
+ul, ol {
+  list-style: none;
+  margin: var(--space-lg) 0;
+}
 
+ul li, ol li {
+  padding: var(--space-md);
+  margin-bottom: var(--space-sm);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-md);
+  border-right: 3px solid var(--primary-color);
+  transition: all var(--transition-base);
+  position: relative;
+  padding-right: var(--space-xl);
+}
+
+ul li::before,
+ol li::before {
+  content: "◆";
+  position: absolute;
+  right: var(--space-md);
+  color: var(--primary-color);
+  transition: all var(--transition-base);
+}
+
+ul li:hover,
+ol li:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(-8px);
+  border-right-width: 5px;
+}
+
+ul li:hover::before,
+ol li:hover::before {
+  right: var(--space-sm);
+  animation: bounce 0.6s ease;
+}
+
+
+/* ============================================================================
+   IMAGES - تصاویر با افکت
+   ============================================================================ */
 img {
   max-width: 100%;
   height: auto;
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-lg);
   display: block;
-  vertical-align: middle;
+  transition: all var(--transition-slow);
 }
 
-figure {
-  margin: var(--spacing-xl) 0;
-}
-
-figcaption {
-  color: var(--text-secondary);
-  font-size: var(--font-size-sm);
-  text-align: center;
-  margin-top: var(--spacing-sm);
-  font-style: italic;
+img:hover {
+  transform: scale(1.03);
+  box-shadow: var(--shadow-xl);
+  filter: brightness(1.1);
 }
 
 
 /* ============================================================================
-   SECTION 12: ANIMATIONS
+   MODERN ANIMATIONS - انیمیشن‌های مدرن
    ============================================================================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 @keyframes fadeInUp {
-  0% {
-    transform: translateY(30px);
+  from {
     opacity: 0;
+    transform: translateY(40px);
   }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  100% {
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@keyframes slideIn {
-  0% {
-    left: -100%;
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInOut {
+  0%, 100% {
+    transform: translateX(-100%);
   }
   50% {
-    left: 100%;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
   }
   100% {
-    left: -100%;
+    transform: translateX(100%);
   }
 }
 
 @keyframes pulse {
   0%, 100% {
     transform: scale(1);
+    opacity: 1;
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
   }
 }
 
@@ -857,431 +954,99 @@ figcaption {
   }
 }
 
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: var(--shadow-md);
+  }
+  50% {
+    box-shadow: var(--glow-strong);
+  }
+}
+
 
 /* ============================================================================
-   SECTION 13: SCROLLBAR
+   SCROLLBAR - اسکرولبار مدرن
    ============================================================================ */
-
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background-scroll-color);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
-  border-radius: 10px;
-  transition: background var(--transition-base);
+  background: var(--primary-gradient);
+  border-radius: var(--radius-full);
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  transition: all var(--transition-base);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--secondary-color);
+  background: linear-gradient(135deg, var(--primary-light), var(--accent-gold));
+  box-shadow: var(--glow);
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--primary-color) var(--background-scroll-color);
+  scrollbar-color: var(--primary-color) rgba(255, 255, 255, 0.02);
 }
 
 
 /* ============================================================================
-   SECTION 14: RESPONSIVE DESIGN - MOBILE OPTIMIZATIONS
-   ============================================================================ */
-
-/**
- * 14.1 - موبایل کوچک (320px - 480px)
- * منو افقی با اسکرول - مثل دسکتاپ
- */
-@media screen and (max-width: 480px) {
-  html {
-    font-size: 14px;
-  }
-
-  body {
-    font-size: 0.875rem;
-  }
-
-  /* Navigation - افقی با فونت کوچکتر */
-  nav {
-    padding: var(--spacing-sm) var(--spacing-xs);
-    justify-content: flex-start;
-  }
-
-  nav ul {
-    gap: 0.4rem;
-  }
-
-  nav a {
-    font-size: 0.75rem;
-    padding: 0.4rem 0.6rem;
-    background-color: rgba(68, 68, 68, 0.5);
-  }
-
-  /* Cards */
-  .sample-card {
-    padding: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-  }
-
-  /* Before/After */
-  .before-after {
-    flex-direction: column;
-    gap: var(--spacing-md);
-  }
-
-  .before, .after {
-    width: 100%;
-  }
-
-  /* Sections */
-  .contact-section,
-  .decor-section,
-  .about-section,
-  .portfolio-section {
-    padding: var(--spacing-lg) var(--spacing-sm);
-    margin: var(--spacing-sm);
-    width: calc(100% - calc(var(--spacing-sm) * 2));
-  }
-
-  /* Buttons */
-  button,
-  .btn {
-    padding: var(--spacing-sm) var(--spacing-md);
-    width: 100%;
-    font-size: 0.9rem;
-  }
-
-  /* Headers */
-  .section-header {
-    padding: 0 var(--spacing-xs);
-    margin-bottom: var(--spacing-lg);
-  }
-
-  .sample-work-section {
-    padding: 0 var(--spacing-xs);
-  }
-
-  .container {
-    padding-left: var(--spacing-sm);
-    padding-right: var(--spacing-sm);
-  }
-
-  h1 { font-size: 1.75rem; }
-  h2 { font-size: 1.5rem; }
-  h3 { font-size: 1.3rem; }
-  h4 { font-size: 1.2rem; }
-  h5 { font-size: 1.1rem; }
-  h6 { font-size: 1rem; }
-
-  p {
-    font-size: 0.9rem;
-    margin-bottom: var(--spacing-md);
-  }
-
-  ul li, ol li {
-    font-size: 0.85rem;
-    padding: var(--spacing-xs) var(--spacing-sm);
-  }
-}
-
-/**
- * 14.2 - موبایل متوسط (481px - 767px)
- * منو افقی با فاصله بیشتر
- */
-@media screen and (min-width: 481px) and (max-width: 767px) {
-  html {
-    font-size: 15px;
-  }
-
-  /* Navigation - افقی */
-  nav {
-    padding: var(--spacing-sm) var(--spacing-md);
-  }
-
-  nav ul {
-    gap: 0.5rem;
-  }
-
-  nav a {
-    font-size: 0.85rem;
-    padding: 0.5rem 0.75rem;
-  }
-
-  .before-after {
-    flex-direction: column;
-    gap: var(--spacing-lg);
-  }
-
-  .before, .after {
-    width: 100%;
-  }
-
-  .sample-card {
-    padding: var(--spacing-lg);
-  }
-
-  button,
-  .btn {
-    width: auto;
-    min-width: 150px;
-  }
-
-  .contact-section,
-  .decor-section,
-  .about-section,
-  .portfolio-section {
-    padding: var(--spacing-xl) var(--spacing-md);
-  }
-
-  .container {
-    padding-left: var(--spacing-md);
-    padding-right: var(--spacing-md);
-  }
-}
-
-/**
- * 14.3 - تبلت عمودی (768px - 1024px)
- * منو افقی با فونت نرمال
- */
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  html {
-    font-size: 16px;
-  }
-
-  nav {
-    padding: var(--spacing-md);
-  }
-
-  nav ul {
-    gap: var(--spacing-sm);
-  }
-
-  nav a {
-    font-size: 0.95rem;
-    padding: var(--spacing-sm) var(--spacing-md);
-  }
-
-  .before-after {
-    gap: var(--spacing-lg);
-  }
-
-  .before, .after {
-    width: 48%;
-  }
-
-  .contact-section,
-  .decor-section,
-  .about-section,
-  .portfolio-section {
-    padding: var(--spacing-2xl) var(--spacing-lg);
-    margin: var(--spacing-lg) auto;
-    width: calc(100% - calc(var(--spacing-lg) * 2));
-    max-width: 90%;
-  }
-
-  .sample-card {
-    padding: var(--spacing-xl);
-    max-width: 90%;
-  }
-
-  .container {
-    max-width: var(--container-md);
-  }
-}
-
-/**
- * 14.4 - تبلت افقی و دسکتاپ کوچک (1025px - 1366px)
- */
-@media screen and (min-width: 1025px) and (max-width: 1366px) {
-  nav a {
-    font-size: 1rem;
-    padding: var(--spacing-sm) var(--spacing-md);
-  }
-
-  .before, .after {
-    width: 48%;
-  }
-
-  .contact-section,
-  .decor-section,
-  .about-section,
-  .portfolio-section {
-    max-width: 95%;
-  }
-
-  .sample-card {
-    max-width: 95%;
-  }
-
-  .container {
-    max-width: var(--container-lg);
-  }
-}
-
-/**
- * 14.5 - دسکتاپ بزرگ (1367px+)
- */
-@media screen and (min-width: 1367px) {
-  nav a {
-    font-size: var(--font-size-base);
-    padding: var(--spacing-sm) var(--spacing-lg);
-  }
-
-  .before, .after {
-    width: 48%;
-  }
-
-  .contact-section,
-  .decor-section,
-  .about-section,
-  .portfolio-section,
-  .sample-card {
-    max-width: var(--max-width);
-  }
-
-  .container {
-    max-width: var(--container-xl);
-  }
-}
-
-/**
- * 14.6 - حالت افقی موبایل
- * منو همچنان افقی
- */
-@media screen and (max-width: 926px) and (orientation: landscape) {
-  nav {
-    padding: var(--spacing-xs) var(--spacing-sm);
-  }
-
-  nav ul {
-    gap: 0.3rem;
-  }
-
-  nav a {
-    font-size: 0.8rem;
-    padding: 0.3rem 0.5rem;
-  }
-
-  .contact-section,
-  .decor-section,
-  .about-section,
-  .portfolio-section {
-    padding: var(--spacing-md);
-    margin: var(--spacing-md);
-  }
-
-  .before-after {
-    flex-direction: row;
-  }
-
-  .before, .after {
-    width: 48%;
-  }
-
-  body {
-    font-size: 0.9rem;
-  }
-}
-
-/**
- * 14.7 - iPad Pro (Portrait)
- */
-@media screen and (min-width: 1024px) and (max-width: 1366px) and (orientation: portrait) {
-  nav a {
-    font-size: 0.95rem;
-  }
-
-  .before-after {
-    flex-direction: column;
-  }
-
-  .before, .after {
-    width: 100%;
-  }
-
-  .sample-card {
-    max-width: 85%;
-  }
-}
-
-/**
- * 14.8 - Retina Displays
- */
-@media (-webkit-min-device-pixel-ratio: 2), 
-       (min-resolution: 192dpi) {
-  body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  img {
-    image-rendering: -webkit-optimize-contrast;
-  }
-}
-
-
-/* ============================================================================
-   SECTION 15: UTILITY CLASSES
+   UTILITY CLASSES - کلاس‌های کمکی
    ============================================================================ */
 
 /* Spacing */
-.m-0 { margin: 0; }
-.mt-0 { margin-top: 0; }
-.mr-0 { margin-right: 0; }
-.mb-0 { margin-bottom: 0; }
-.ml-0 { margin-left: 0; }
-
-.m-1 { margin: var(--spacing-sm); }
-.mt-1 { margin-top: var(--spacing-sm); }
-.mr-1 { margin-right: var(--spacing-sm); }
-.mb-1 { margin-bottom: var(--spacing-sm); }
-.ml-1 { margin-left: var(--spacing-sm); }
-
-.m-2 { margin: var(--spacing-md); }
-.mt-2 { margin-top: var(--spacing-md); }
-.mr-2 { margin-right: var(--spacing-md); }
-.mb-2 { margin-bottom: var(--spacing-md); }
-.ml-2 { margin-left: var(--spacing-md); }
-
-.m-3 { margin: var(--spacing-lg); }
-.mt-3 { margin-top: var(--spacing-lg); }
-.mr-3 { margin-right: var(--spacing-lg); }
-.mb-3 { margin-bottom: var(--spacing-lg); }
-.ml-3 { margin-left: var(--spacing-lg); }
-
-.p-0 { padding: 0; }
-.pt-0 { padding-top: 0; }
-.pr-0 { padding-right: 0; }
-.pb-0 { padding-bottom: 0; }
-.pl-0 { padding-left: 0; }
-
-.p-1 { padding: var(--spacing-sm); }
-.pt-1 { padding-top: var(--spacing-sm); }
-.pr-1 { padding-right: var(--spacing-sm); }
-.pb-1 { padding-bottom: var(--spacing-sm); }
-.pl-1 { padding-left: var(--spacing-sm); }
-
-.p-2 { padding: var(--spacing-md); }
-.pt-2 { padding-top: var(--spacing-md); }
-.pr-2 { padding-right: var(--spacing-md); }
-.pb-2 { padding-bottom: var(--spacing-md); }
-.pl-2 { padding-left: var(--spacing-md); }
-
-.p-3 { padding: var(--spacing-lg); }
-.pt-3 { padding-top: var(--spacing-lg); }
-.pr-3 { padding-right: var(--spacing-lg); }
-.pb-3 { padding-bottom: var(--spacing-lg); }
-.pl-3 { padding-left: var(--spacing-lg); }
+.m-0 { margin: 0 !important; }
+.p-0 { padding: 0 !important; }
+.mt-1 { margin-top: var(--space-sm); }
+.mb-1 { margin-bottom: var(--space-sm); }
+.mt-2 { margin-top: var(--space-md); }
+.mb-2 { margin-bottom: var(--space-md); }
+.mt-3 { margin-top: var(--space-lg); }
+.mb-3 { margin-bottom: var(--space-lg); }
+.pt-1 { padding-top: var(--space-sm); }
+.pb-1 { padding-bottom: var(--space-sm); }
+.pt-2 { padding-top: var(--space-md); }
+.pb-2 { padding-bottom: var(--space-md); }
+.pt-3 { padding-top: var(--space-lg); }
+.pb-3 { padding-bottom: var(--space-lg); }
 
 /* Display */
 .d-none { display: none !important; }
 .d-block { display: block !important; }
-.d-inline { display: inline !important; }
-.d-inline-block { display: inline-block !important; }
 .d-flex { display: flex !important; }
 .d-grid { display: grid !important; }
 
@@ -1289,92 +1054,252 @@ figcaption {
 .flex-row { flex-direction: row; }
 .flex-column { flex-direction: column; }
 .flex-wrap { flex-wrap: wrap; }
-.flex-nowrap { flex-wrap: nowrap; }
-
-.justify-start { justify-content: flex-start; }
 .justify-center { justify-content: center; }
-.justify-end { justify-content: flex-end; }
 .justify-between { justify-content: space-between; }
-.justify-around { justify-content: space-around; }
-
-.align-start { align-items: flex-start; }
 .align-center { align-items: center; }
-.align-end { align-items: flex-end; }
-.align-stretch { align-items: stretch; }
-
-.gap-1 { gap: var(--spacing-sm); }
-.gap-2 { gap: var(--spacing-md); }
-.gap-3 { gap: var(--spacing-lg); }
-
-/* Width */
-.w-25 { width: 25%; }
-.w-50 { width: 50%; }
-.w-75 { width: 75%; }
-.w-100 { width: 100%; }
-.w-auto { width: auto; }
+.gap-1 { gap: var(--space-sm); }
+.gap-2 { gap: var(--space-md); }
+.gap-3 { gap: var(--space-lg); }
 
 /* Text */
 .text-center { text-align: center; }
-.text-left { text-align: left; }
 .text-right { text-align: right; }
-.text-justify { text-align: justify; }
-
-.text-bold { font-weight: var(--font-weight-bold); }
-.text-semibold { font-weight: var(--font-weight-semibold); }
-.text-medium { font-weight: var(--font-weight-medium); }
-.text-normal { font-weight: var(--font-weight-normal); }
-.text-light { font-weight: var(--font-weight-light); }
-
+.text-left { text-align: left; }
 .text-primary { color: var(--primary-color); }
 .text-secondary { color: var(--text-secondary); }
-.text-muted { color: var(--text-muted); }
-.text-white { color: var(--text-color); }
+.text-bold { font-weight: 700; }
+.text-medium { font-weight: 500; }
+
+/* Width */
+.w-full { width: 100%; }
+.w-auto { width: auto; }
 
 /* Shadows */
-.shadow-sm {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.shadow {
-  box-shadow: 0 4px 12px var(--shadow-color);
-}
-
-.shadow-lg {
-  box-shadow: 0 8px 24px var(--shadow-hover);
-}
-
-.shadow-none {
-  box-shadow: none !important;
-}
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
 
 /* Borders */
-.border { border: var(--border-width) solid var(--primary-color); }
-.border-top { border-top: var(--border-width) solid var(--primary-color); }
-.border-right { border-right: var(--border-width) solid var(--primary-color); }
-.border-bottom { border-bottom: var(--border-width) solid var(--primary-color); }
-.border-left { border-left: var(--border-width) solid var(--primary-color); }
-.border-none { border: none !important; }
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
 
-.rounded { border-radius: var(--border-radius); }
-.rounded-sm { border-radius: var(--border-radius-sm); }
-.rounded-lg { border-radius: var(--border-radius-lg); }
-.rounded-full { border-radius: 9999px; }
-.rounded-none { border-radius: 0 !important; }
-
-/* Background */
-.bg-primary { background-color: var(--primary-color); }
-.bg-secondary { background-color: var(--background-secondary); }
-.bg-dark { background-color: var(--background-color); }
-.bg-transparent { background-color: transparent; }
+/* Animations */
+.animate-fade { animation: fadeIn 1s ease-out; }
+.animate-slide { animation: fadeInUp 0.8s ease-out; }
+.animate-pulse { animation: pulse 2s infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
 
 
 /* ============================================================================
-   SECTION 16: ACCESSIBILITY
+   RESPONSIVE DESIGN - طراحی ریسپانسیو پیشرفته
    ============================================================================ */
 
+/* موبایل کوچک (320px - 480px) */
+@media screen and (max-width: 480px) {
+  :root {
+    --space-xs: 0.375rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+  }
+
+  html {
+    font-size: 14px;
+  }
+
+  body::before {
+    display: none;
+  }
+
+  nav {
+    padding: var(--space-sm) var(--space-xs);
+  }
+
+  nav ul {
+    gap: 0.3rem;
+  }
+
+  nav a {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .sample-card {
+    padding: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .before-after {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .before,
+  .after {
+    min-width: 100%;
+  }
+
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section {
+    padding: var(--space-xl) var(--space-md);
+    margin: var(--space-md);
+  }
+
+  button,
+  .btn {
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+}
+
+/* موبایل متوسط (481px - 767px) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  html {
+    font-size: 15px;
+  }
+
+  nav {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  nav ul {
+    gap: 0.4rem;
+  }
+
+  nav a {
+    font-size: 0.85rem;
+    padding: 0.6rem 0.9rem;
+  }
+
+  .before-after {
+    flex-direction: column;
+  }
+
+  .before,
+  .after {
+    min-width: 100%;
+  }
+
+  button,
+  .btn {
+    width: auto;
+    min-width: 150px;
+  }
+}
+
+/* تبلت (768px - 1024px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  nav a {
+    font-size: 0.95rem;
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .before,
+  .after {
+    min-width: 45%;
+  }
+
+  .sample-card,
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section {
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* دسکتاپ کوچک (1025px - 1366px) */
+@media screen and (min-width: 1025px) and (max-width: 1366px) {
+  .container {
+    max-width: 95%;
+  }
+
+  .before,
+  .after {
+    min-width: 45%;
+  }
+}
+
+/* دسکتاپ بزرگ (1367px+) */
+@media screen and (min-width: 1367px) {
+  nav a {
+    padding: var(--space-sm) var(--space-lg);
+  }
+
+  .before,
+  .after {
+    min-width: 45%;
+  }
+}
+
+/* حالت افقی موبایل */
+@media screen and (max-width: 926px) and (orientation: landscape) {
+  nav {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  nav a {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .before-after {
+    flex-direction: row;
+  }
+
+  .before,
+  .after {
+    min-width: 45%;
+  }
+}
+
+/* iPad Pro (Portrait) */
+@media screen and (min-width: 1024px) and (max-width: 1366px) and (orientation: portrait) {
+  .before-after {
+    flex-direction: column;
+  }
+
+  .before,
+  .after {
+    min-width: 100%;
+  }
+}
+
+/* Retina Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+
+/* ============================================================================
+   ACCESSIBILITY - دسترسی‌پذیری
+   ============================================================================ */
 *:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
+  outline: 3px solid var(--primary-color);
+  outline-offset: 3px;
 }
 
 *:focus:not(:focus-visible) {
@@ -1382,29 +1307,26 @@ figcaption {
 }
 
 *:focus-visible {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
+  outline: 3px solid var(--primary-color);
+  outline-offset: 3px;
+  box-shadow: var(--glow);
 }
 
 .skip-to-content {
   position: absolute;
   left: -9999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+  top: 0;
+  z-index: var(--z-tooltip);
+  background: var(--primary-gradient);
+  color: var(--bg-primary);
+  padding: var(--space-md);
+  text-decoration: none;
+  border-radius: var(--radius-md);
 }
 
 .skip-to-content:focus {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: auto;
-  height: auto;
-  padding: var(--spacing-md);
-  background-color: var(--primary-color);
-  color: var(--background-color);
-  z-index: var(--z-index-modal);
+  left: var(--space-md);
+  top: var(--space-md);
 }
 
 .sr-only {
@@ -1419,6 +1341,7 @@ figcaption {
   border-width: 0;
 }
 
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1432,18 +1355,23 @@ figcaption {
 
 
 /* ============================================================================
-   SECTION 17: PERFORMANCE OPTIMIZATIONS
+   PERFORMANCE OPTIMIZATIONS - بهینه‌سازی عملکرد
    ============================================================================ */
-
 .sample-card,
+.contact-section,
+.decor-section,
+.about-section,
+.portfolio-section,
 button,
 .btn,
 nav a {
+  will-change: transform;
   transform: translateZ(0);
   backface-visibility: hidden;
   perspective: 1000px;
 }
 
+/* Loading State */
 .loading {
   position: relative;
   pointer-events: none;
@@ -1455,10 +1383,10 @@ nav a {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 20px;
-  height: 20px;
-  margin: -10px 0 0 -10px;
-  border: 2px solid var(--primary-color);
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border: 3px solid var(--primary-color);
   border-top-color: transparent;
   border-radius: 50%;
   animation: rotate 1s linear infinite;
@@ -1466,13 +1394,16 @@ nav a {
 
 
 /* ============================================================================
-   SECTION 18: PRINT STYLES
+   PRINT STYLES - استایل چاپ
    ============================================================================ */
-
 @media print {
   body {
-    background-color: white;
+    background: white;
     color: black;
+  }
+
+  body::before {
+    display: none;
   }
 
   nav,
@@ -1489,69 +1420,87 @@ nav a {
     border: 1px solid #000;
     box-shadow: none;
     page-break-inside: avoid;
+    background: white;
   }
 
   a {
     text-decoration: underline;
     color: #000;
   }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
 }
 
 
 /* ============================================================================
-   SECTION 19: RESPONSIVE HELPER CLASSES
+   RESPONSIVE HELPER CLASSES
+   ============================================================================ */
+@media screen and (max-width: 767px) {
+  .hide-mobile { display: none !important; }
+  .show-mobile { display: block !important; }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .hide-tablet { display: none !important; }
+  .show-tablet { display: block !important; }
+}
+
+@media screen and (min-width: 1025px) {
+  .hide-desktop { display: none !important; }
+  .show-desktop { display: block !important; }
+}
+
+
+/* ============================================================================
+   SPECIAL EFFECTS - افکت‌های ویژه
    ============================================================================ */
 
-/* مخفی کردن در موبایل */
-@media screen and (max-width: 767px) {
-  .hide-mobile {
-    display: none !important;
-  }
+/* Gradient Text */
+.gradient-text {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* مخفی کردن در تبلت */
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  .hide-tablet {
-    display: none !important;
-  }
+/* Glass Effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* مخفی کردن در دسکتاپ */
-@media screen and (min-width: 1025px) {
-  .hide-desktop {
-    display: none !important;
-  }
+/* Glow Effect */
+.glow-effect {
+  box-shadow: var(--glow);
+  animation: glow 2s ease-in-out infinite;
 }
 
-/* نمایش فقط در موبایل */
-.show-mobile {
-  display: none !important;
+/* Hover Lift */
+.hover-lift {
+  transition: all var(--transition-base);
 }
 
-@media screen and (max-width: 767px) {
-  .show-mobile {
-    display: block !important;
-  }
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
 }
 
-/* نمایش فقط در تبلت */
-.show-tablet {
-  display: none !important;
+/* Pulse Border */
+.pulse-border {
+  position: relative;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  .show-tablet {
-    display: block !important;
-  }
-}
-
-/* نمایش فقط در دسکتاپ */
-.show-desktop {
-  display: none !important;
-}
-
-@media screen and (min-width: 1025px) {
-  .show-desktop {
-    display: block !important;
-  }
+.pulse-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: var(--primary-gradient);
+  opacity: 0;
+  animation: pulse 2s infinite;
+  z-index: -1;
 }
