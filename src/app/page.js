@@ -254,7 +254,7 @@ export default function RootLayout({ children }) {
             }}
           >
             <li style={{ marginBottom: "1rem" }}>
-              <strong>شماره تلفن:</strong> <a href="tel:09187570577" style={{ color: "#f5c518" }}>۰۹۱۸۷۵۷۰۵۷۷</a>
+              <strong>شماره تلفن:</strong> <a href="tel:09187634731" style={{ color: "#f5c518" }}>۰۹۱۸۷۶۳۴۷۳۱</a>
             </li>
             <li style={{ marginBottom: "1rem" }}>
               <strong>آیدی تلگرام:</strong> <a href="https://t.me/SimorghAdmin" style={{ color: "#f5c518" }}>@SimorghAdmin</a>

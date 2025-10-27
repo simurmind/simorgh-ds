@@ -28,7 +28,7 @@ const Contact = () => {
           <h3>راه‌های ارتباطی:</h3>
           <ul>
             <li>
-              <strong>تلفن:</strong> <a href="tel:+981234567890">۰۹۱۸۷۵۷۰۵۵</a>
+              <strong>تلفن:</strong> <a href="tel:+981234567890">۰۹۱۸۷۶۳۴۷۳۱</a>
             </li>
             <li>
               <strong>آیدی تلگرام:</strong> <a href="https://t.me/SimorghAdmin">@SimorghAdmin</a>

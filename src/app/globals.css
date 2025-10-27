@@ -6,10 +6,6 @@
    SECTION 2: RESET & BASE STYLES
    ============================================================================ */
 
-/**
- * 2.1 - Universal Reset
- * حذف margin و padding پیش‌فرض از تمام المان‌ها
- */
 * {
   margin: 0;
   padding: 0;
@@ -27,10 +23,6 @@
    SECTION 3: CSS VARIABLES (DESIGN TOKENS)
    ============================================================================ */
 
-/**
- * 3.1 - Root Variables
- * متغیرهای طراحی برای یکپارچگی و نگهداری آسان
- */
 :root {
   /* Primary Colors */
   --primary-color: #f1c40f;
@@ -69,23 +61,23 @@
   --border-width-thick: 2px;
   
   /* Spacing Scale */
-  --spacing-xs: 0.25rem;    /* 4px */
-  --spacing-sm: 0.5rem;     /* 8px */
-  --spacing-md: 1rem;       /* 16px */
-  --spacing-lg: 1.5rem;     /* 24px */
-  --spacing-xl: 2rem;       /* 32px */
-  --spacing-2xl: 3rem;      /* 48px */
-  --spacing-3xl: 4rem;      /* 64px */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
   
   /* Typography Scale */
-  --font-size-xs: 0.75rem;    /* 12px */
-  --font-size-sm: 0.875rem;   /* 14px */
-  --font-size-base: 1rem;     /* 16px */
-  --font-size-md: 1.125rem;   /* 18px */
-  --font-size-lg: 1.25rem;    /* 20px */
-  --font-size-xl: 1.5rem;     /* 24px */
-  --font-size-2xl: 2rem;      /* 32px */
-  --font-size-3xl: 2.5rem;    /* 40px */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
   
   /* Font Weights */
   --font-weight-light: 300;
@@ -130,10 +122,6 @@
    SECTION 4: HTML & BODY BASE STYLES
    ============================================================================ */
 
-/**
- * 4.1 - HTML Root Settings
- * تنظیمات پایه‌ای برای المان html
- */
 html {
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
@@ -143,10 +131,6 @@ html {
   height: 100%;
 }
 
-/**
- * 4.2 - Body Base Styles
- * استایل‌های پایه‌ای صفحه
- */
 body {
   background-color: var(--background-color);
   color: var(--text-color);
@@ -171,10 +155,6 @@ body {
    SECTION 5: TYPOGRAPHY
    ============================================================================ */
 
-/**
- * 5.1 - Headings
- * استایل‌های عنوان‌ها
- */
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 var(--spacing-md) 0;
   font-weight: var(--font-weight-bold);
@@ -185,34 +165,13 @@ h1, h2, h3, h4, h5, h6 {
   hyphens: auto;
 }
 
-h1 {
-  font-size: clamp(1.75rem, 6vw, 3rem);
-}
+h1 { font-size: clamp(1.75rem, 6vw, 3rem); }
+h2 { font-size: clamp(1.5rem, 5vw, 2.5rem); }
+h3 { font-size: clamp(1.3rem, 4vw, 2rem); }
+h4 { font-size: clamp(1.2rem, 3.5vw, 1.75rem); }
+h5 { font-size: clamp(1.1rem, 3vw, 1.5rem); }
+h6 { font-size: clamp(1rem, 2.5vw, 1.25rem); }
 
-h2 {
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
-}
-
-h3 {
-  font-size: clamp(1.3rem, 4vw, 2rem);
-}
-
-h4 {
-  font-size: clamp(1.2rem, 3.5vw, 1.75rem);
-}
-
-h5 {
-  font-size: clamp(1.1rem, 3vw, 1.5rem);
-}
-
-h6 {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-}
-
-/**
- * 5.2 - Paragraphs
- * استایل پاراگراف‌ها
- */
 p {
   font-size: clamp(0.95rem, 3vw, 1.125rem);
   line-height: var(--line-height-relaxed);
@@ -224,10 +183,6 @@ p {
   overflow-wrap: break-word;
 }
 
-/**
- * 5.3 - Links
- * استایل لینک‌ها
- */
 a {
   color: var(--primary-color);
   text-decoration: none;
@@ -251,10 +206,6 @@ a:active {
   transform: scale(0.98);
 }
 
-/**
- * 5.4 - Lists
- * استایل لیست‌ها
- */
 ul, ol {
   list-style: none;
   padding-left: 0;
@@ -291,62 +242,67 @@ ol li strong {
   font-weight: var(--font-weight-semibold);
 }
 
-/**
- * 5.5 - Text Utilities
- * کلاس‌های کمکی متن
- */
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
-.text-justify { text-align: justify; }
-
-.text-bold { font-weight: var(--font-weight-bold); }
-.text-semibold { font-weight: var(--font-weight-semibold); }
-.text-medium { font-weight: var(--font-weight-medium); }
-.text-normal { font-weight: var(--font-weight-normal); }
-.text-light { font-weight: var(--font-weight-light); }
-
-.text-primary { color: var(--primary-color); }
-.text-secondary { color: var(--text-secondary); }
-.text-muted { color: var(--text-muted); }
-.text-white { color: var(--text-color); }
-
 
 /* ============================================================================
-   SECTION 6: NAVIGATION
+   SECTION 6: NAVIGATION - استایل یکسان برای همه دستگاه‌ها
    ============================================================================ */
 
 /**
  * 6.1 - Main Navigation
- * ناوبری اصلی سایت
+ * منوی افقی برای همه دستگاه‌ها (موبایل، تبلت، دسکتاپ)
  */
 nav {
   background-color: var(--background-color);
   padding: var(--spacing-md);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   border-bottom: 4px solid var(--secondary-color);
   box-shadow: 0 2px 8px var(--shadow-color);
   width: 100%;
-  flex-wrap: wrap;
   position: relative;
   z-index: var(--z-index-sticky);
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) transparent;
+}
+
+/* مخفی کردن اسکرولبار در حالت عادی */
+nav::-webkit-scrollbar {
+  height: 3px;
+}
+
+nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+nav::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+
+nav::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
 }
 
 /**
  * 6.2 - Navigation List
- * لیست آیتم‌های ناوبری
+ * لیست منو - همیشه افقی
  */
 nav ul {
   display: flex;
-  gap: var(--spacing-md);
+  flex-direction: row;
+  gap: var(--spacing-sm);
   list-style: none;
   margin: 0;
   padding: 0;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
-  width: 100%;
+  align-items: center;
+  width: auto;
+  min-width: max-content;
 }
 
 nav ul li {
@@ -354,28 +310,34 @@ nav ul li {
   border: none;
   padding: 0;
   margin: 0;
+  flex-shrink: 0;
 }
 
 /**
  * 6.3 - Navigation Links
- * لینک‌های ناوبری
+ * لینک‌های منو
  */
 nav a {
   color: var(--primary-color);
-  font-size: var(--font-size-lg);
-  margin: 0 var(--spacing-sm);
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   transition: var(--transition-base);
   white-space: nowrap;
-  padding: var(--spacing-xs) var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--border-radius);
   display: inline-block;
+  background-color: rgba(68, 68, 68, 0.3);
+  border: 1px solid transparent;
+  text-align: center;
+  min-width: fit-content;
 }
 
 nav a:hover {
   color: var(--text-color);
-  background-color: rgba(241, 196, 15, 0.1);
+  background-color: rgba(241, 196, 15, 0.2);
   transform: translateY(-2px);
+  border-color: var(--primary-color);
+  text-decoration: none;
 }
 
 nav a:focus {
@@ -383,15 +345,15 @@ nav a:focus {
   outline-offset: 2px;
 }
 
+nav a:active {
+  transform: translateY(0);
+}
+
 
 /* ============================================================================
    SECTION 7: LAYOUT COMPONENTS
    ============================================================================ */
 
-/**
- * 7.1 - Container
- * کانتینر اصلی برای محتوا
- */
 .container {
   width: 100%;
   max-width: var(--max-width);
@@ -401,10 +363,6 @@ nav a:focus {
   box-sizing: border-box;
 }
 
-/**
- * 7.2 - Section Header
- * هدر بخش‌ها
- */
 .section-header {
   margin-bottom: var(--spacing-2xl);
   text-align: center;
@@ -425,10 +383,6 @@ nav a:focus {
   margin: 0 auto;
 }
 
-/**
- * 7.3 - Sample Work Section
- * بخش نمایش نمونه کارها
- */
 .sample-work-section {
   margin-bottom: var(--spacing-3xl);
   display: flex;
@@ -445,10 +399,6 @@ nav a:focus {
    SECTION 8: CARD COMPONENTS
    ============================================================================ */
 
-/**
- * 8.1 - Sample Card
- * کارت نمایش پروژه‌ها
- */
 .sample-card {
   background-color: var(--background-secondary);
   border-radius: var(--border-radius-lg);
@@ -503,10 +453,6 @@ nav a:focus {
   word-wrap: break-word;
 }
 
-/**
- * 8.2 - Before/After Comparison
- * مقایسه قبل و بعد پروژه
- */
 .before-after {
   display: flex;
   justify-content: space-between;
@@ -552,10 +498,6 @@ nav a:focus {
    SECTION 9: PAGE SECTIONS
    ============================================================================ */
 
-/**
- * 9.1 - Contact Section
- * بخش تماس با ما
- */
 .contact-section {
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   padding: var(--spacing-2xl) var(--spacing-md);
@@ -646,10 +588,6 @@ nav a:focus {
   font-weight: var(--font-weight-semibold);
 }
 
-/**
- * 9.2 - Decoration Section
- * بخش دکوراسیون
- */
 .decor-section {
   background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
   color: var(--primary-color);
@@ -719,10 +657,6 @@ nav a:focus {
   font-weight: var(--font-weight-semibold);
 }
 
-/**
- * 9.3 - About Section
- * بخش درباره ما
- */
 .about-page {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -771,10 +705,6 @@ nav a:focus {
   border-left: 4px solid var(--primary-color);
 }
 
-/**
- * 9.4 - Portfolio Section
- * بخش نمونه کارها
- */
 .portfolio-section {
   background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
   border-radius: var(--border-radius-xl);
@@ -793,13 +723,9 @@ nav a:focus {
 
 
 /* ============================================================================
-   SECTION 10: BUTTONS & FORM ELEMENTS
+   SECTION 10: BUTTONS
    ============================================================================ */
 
-/**
- * 10.1 - Button Styles
- * استایل دکمه‌ها
- */
 button,
 .btn {
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -849,49 +775,11 @@ button:disabled,
   transform: none;
 }
 
-/**
- * 10.2 - Button Variants
- * انواع دکمه‌ها
- */
-.btn-primary {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-}
-
-.btn-secondary {
-  background: linear-gradient(135deg, #333, #555);
-  color: var(--text-color);
-}
-
-.btn-outline {
-  background: transparent;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-}
-
-.btn-outline:hover {
-  background: var(--primary-color);
-  color: var(--background-color);
-}
-
-.btn-small {
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: var(--font-size-sm);
-}
-
-.btn-large {
-  padding: var(--spacing-lg) var(--spacing-2xl);
-  font-size: var(--font-size-lg);
-}
-
 
 /* ============================================================================
-   SECTION 11: IMAGES & MEDIA
+   SECTION 11: IMAGES
    ============================================================================ */
 
-/**
- * 11.1 - Image Base Styles
- * استایل‌های پایه تصاویر
- */
 img {
   max-width: 100%;
   height: auto;
@@ -912,40 +800,11 @@ figcaption {
   font-style: italic;
 }
 
-/**
- * 11.2 - Responsive Images
- * تصاویر ریسپانسیو
- */
-.img-fluid {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-.img-thumbnail {
-  padding: 4px;
-  background-color: var(--background-secondary);
-  border: var(--border-width) solid var(--primary-color);
-  border-radius: var(--border-radius);
-}
-
-.img-rounded {
-  border-radius: var(--border-radius-lg);
-}
-
-.img-circle {
-  border-radius: 50%;
-}
-
 
 /* ============================================================================
    SECTION 12: ANIMATIONS
    ============================================================================ */
 
-/**
- * 12.1 - Fade In Up Animation
- * انیمیشن ظاهر شدن از پایین
- */
 @keyframes fadeInUp {
   0% {
     transform: translateY(30px);
@@ -957,10 +816,6 @@ figcaption {
   }
 }
 
-/**
- * 12.2 - Fade In Animation
- * انیمیشن محو شدن
- */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -972,10 +827,6 @@ figcaption {
   }
 }
 
-/**
- * 12.3 - Slide In Animation
- * انیمیشن اسلاید
- */
 @keyframes slideIn {
   0% {
     left: -100%;
@@ -988,10 +839,6 @@ figcaption {
   }
 }
 
-/**
- * 12.4 - Pulse Animation
- * انیمیشن نبض
- */
 @keyframes pulse {
   0%, 100% {
     transform: scale(1);
@@ -1001,10 +848,6 @@ figcaption {
   }
 }
 
-/**
- * 12.5 - Rotate Animation
- * انیمیشن چرخش
- */
 @keyframes rotate {
   from {
     transform: rotate(0deg);
@@ -1014,48 +857,11 @@ figcaption {
   }
 }
 
-/**
- * 12.6 - Shimmer Effect
- * افکت درخشش
- */
-@keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
-}
-
-/**
- * 12.7 - Animation Utility Classes
- * کلاس‌های کمکی انیمیشن
- */
-.animate-fadeIn {
-  animation: fadeIn 1s ease-out;
-}
-
-.animate-fadeInUp {
-  animation: fadeInUp 1s ease-out;
-}
-
-.animate-pulse {
-  animation: pulse 2s infinite;
-}
-
-.animate-rotate {
-  animation: rotate 2s linear infinite;
-}
-
 
 /* ============================================================================
-   SECTION 13: SCROLLBAR CUSTOMIZATION
+   SECTION 13: SCROLLBAR
    ============================================================================ */
 
-/**
- * 13.1 - Custom Scrollbar
- * اسکرولبار سفارشی
- */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -1076,7 +882,6 @@ figcaption {
   background: var(--secondary-color);
 }
 
-/* Firefox Scrollbar */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--primary-color) var(--background-scroll-color);
@@ -1084,13 +889,346 @@ figcaption {
 
 
 /* ============================================================================
-   SECTION 14: UTILITY CLASSES
+   SECTION 14: RESPONSIVE DESIGN - MOBILE OPTIMIZATIONS
    ============================================================================ */
 
 /**
- * 14.1 - Spacing Utilities
- * کلاس‌های کمکی فاصله‌گذاری
+ * 14.1 - موبایل کوچک (320px - 480px)
+ * منو افقی با اسکرول - مثل دسکتاپ
  */
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  body {
+    font-size: 0.875rem;
+  }
+
+  /* Navigation - افقی با فونت کوچکتر */
+  nav {
+    padding: var(--spacing-sm) var(--spacing-xs);
+    justify-content: flex-start;
+  }
+
+  nav ul {
+    gap: 0.4rem;
+  }
+
+  nav a {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+    background-color: rgba(68, 68, 68, 0.5);
+  }
+
+  /* Cards */
+  .sample-card {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+  }
+
+  /* Before/After */
+  .before-after {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .before, .after {
+    width: 100%;
+  }
+
+  /* Sections */
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section {
+    padding: var(--spacing-lg) var(--spacing-sm);
+    margin: var(--spacing-sm);
+    width: calc(100% - calc(var(--spacing-sm) * 2));
+  }
+
+  /* Buttons */
+  button,
+  .btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  /* Headers */
+  .section-header {
+    padding: 0 var(--spacing-xs);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .sample-work-section {
+    padding: 0 var(--spacing-xs);
+  }
+
+  .container {
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
+
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.3rem; }
+  h4 { font-size: 1.2rem; }
+  h5 { font-size: 1.1rem; }
+  h6 { font-size: 1rem; }
+
+  p {
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  ul li, ol li {
+    font-size: 0.85rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+}
+
+/**
+ * 14.2 - موبایل متوسط (481px - 767px)
+ * منو افقی با فاصله بیشتر
+ */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  html {
+    font-size: 15px;
+  }
+
+  /* Navigation - افقی */
+  nav {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  nav ul {
+    gap: 0.5rem;
+  }
+
+  nav a {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .before-after {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .before, .after {
+    width: 100%;
+  }
+
+  .sample-card {
+    padding: var(--spacing-lg);
+  }
+
+  button,
+  .btn {
+    width: auto;
+    min-width: 150px;
+  }
+
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .container {
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+}
+
+/**
+ * 14.3 - تبلت عمودی (768px - 1024px)
+ * منو افقی با فونت نرمال
+ */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  html {
+    font-size: 16px;
+  }
+
+  nav {
+    padding: var(--spacing-md);
+  }
+
+  nav ul {
+    gap: var(--spacing-sm);
+  }
+
+  nav a {
+    font-size: 0.95rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .before-after {
+    gap: var(--spacing-lg);
+  }
+
+  .before, .after {
+    width: 48%;
+  }
+
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section {
+    padding: var(--spacing-2xl) var(--spacing-lg);
+    margin: var(--spacing-lg) auto;
+    width: calc(100% - calc(var(--spacing-lg) * 2));
+    max-width: 90%;
+  }
+
+  .sample-card {
+    padding: var(--spacing-xl);
+    max-width: 90%;
+  }
+
+  .container {
+    max-width: var(--container-md);
+  }
+}
+
+/**
+ * 14.4 - تبلت افقی و دسکتاپ کوچک (1025px - 1366px)
+ */
+@media screen and (min-width: 1025px) and (max-width: 1366px) {
+  nav a {
+    font-size: 1rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .before, .after {
+    width: 48%;
+  }
+
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section {
+    max-width: 95%;
+  }
+
+  .sample-card {
+    max-width: 95%;
+  }
+
+  .container {
+    max-width: var(--container-lg);
+  }
+}
+
+/**
+ * 14.5 - دسکتاپ بزرگ (1367px+)
+ */
+@media screen and (min-width: 1367px) {
+  nav a {
+    font-size: var(--font-size-base);
+    padding: var(--spacing-sm) var(--spacing-lg);
+  }
+
+  .before, .after {
+    width: 48%;
+  }
+
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section,
+  .sample-card {
+    max-width: var(--max-width);
+  }
+
+  .container {
+    max-width: var(--container-xl);
+  }
+}
+
+/**
+ * 14.6 - حالت افقی موبایل
+ * منو همچنان افقی
+ */
+@media screen and (max-width: 926px) and (orientation: landscape) {
+  nav {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  nav ul {
+    gap: 0.3rem;
+  }
+
+  nav a {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section {
+    padding: var(--spacing-md);
+    margin: var(--spacing-md);
+  }
+
+  .before-after {
+    flex-direction: row;
+  }
+
+  .before, .after {
+    width: 48%;
+  }
+
+  body {
+    font-size: 0.9rem;
+  }
+}
+
+/**
+ * 14.7 - iPad Pro (Portrait)
+ */
+@media screen and (min-width: 1024px) and (max-width: 1366px) and (orientation: portrait) {
+  nav a {
+    font-size: 0.95rem;
+  }
+
+  .before-after {
+    flex-direction: column;
+  }
+
+  .before, .after {
+    width: 100%;
+  }
+
+  .sample-card {
+    max-width: 85%;
+  }
+}
+
+/**
+ * 14.8 - Retina Displays
+ */
+@media (-webkit-min-device-pixel-ratio: 2), 
+       (min-resolution: 192dpi) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+
+/* ============================================================================
+   SECTION 15: UTILITY CLASSES
+   ============================================================================ */
+
+/* Spacing */
 .m-0 { margin: 0; }
 .mt-0 { margin-top: 0; }
 .mr-0 { margin-right: 0; }
@@ -1139,10 +1277,7 @@ figcaption {
 .pb-3 { padding-bottom: var(--spacing-lg); }
 .pl-3 { padding-left: var(--spacing-lg); }
 
-/**
- * 14.2 - Display Utilities
- * کلاس‌های نمایش
- */
+/* Display */
 .d-none { display: none !important; }
 .d-block { display: block !important; }
 .d-inline { display: inline !important; }
@@ -1150,10 +1285,7 @@ figcaption {
 .d-flex { display: flex !important; }
 .d-grid { display: grid !important; }
 
-/**
- * 14.3 - Flexbox Utilities
- * کلاس‌های فلکس‌باکس
- */
+/* Flexbox */
 .flex-row { flex-direction: row; }
 .flex-column { flex-direction: column; }
 .flex-wrap { flex-wrap: wrap; }
@@ -1174,20 +1306,31 @@ figcaption {
 .gap-2 { gap: var(--spacing-md); }
 .gap-3 { gap: var(--spacing-lg); }
 
-/**
- * 14.4 - Width Utilities
- * کلاس‌های عرض
- */
+/* Width */
 .w-25 { width: 25%; }
 .w-50 { width: 50%; }
 .w-75 { width: 75%; }
 .w-100 { width: 100%; }
 .w-auto { width: auto; }
 
-/**
- * 14.5 - Shadow Utilities
- * کلاس‌های سایه
- */
+/* Text */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+.text-bold { font-weight: var(--font-weight-bold); }
+.text-semibold { font-weight: var(--font-weight-semibold); }
+.text-medium { font-weight: var(--font-weight-medium); }
+.text-normal { font-weight: var(--font-weight-normal); }
+.text-light { font-weight: var(--font-weight-light); }
+
+.text-primary { color: var(--primary-color); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.text-white { color: var(--text-color); }
+
+/* Shadows */
 .shadow-sm {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -1204,10 +1347,7 @@ figcaption {
   box-shadow: none !important;
 }
 
-/**
- * 14.6 - Border Utilities
- * کلاس‌های حاشیه
- */
+/* Borders */
 .border { border: var(--border-width) solid var(--primary-color); }
 .border-top { border-top: var(--border-width) solid var(--primary-color); }
 .border-right { border-right: var(--border-width) solid var(--primary-color); }
@@ -1221,10 +1361,7 @@ figcaption {
 .rounded-full { border-radius: 9999px; }
 .rounded-none { border-radius: 0 !important; }
 
-/**
- * 14.7 - Background Utilities
- * کلاس‌های پس‌زمینه
- */
+/* Background */
 .bg-primary { background-color: var(--primary-color); }
 .bg-secondary { background-color: var(--background-secondary); }
 .bg-dark { background-color: var(--background-color); }
@@ -1232,418 +1369,106 @@ figcaption {
 
 
 /* ============================================================================
-   SECTION 15: RESPONSIVE DESIGN - MOBILE SMALL (320px - 480px)
+   SECTION 16: ACCESSIBILITY
    ============================================================================ */
 
-/**
- * 15.1 - Extra Small Devices
- * موبایل‌های کوچک (320-480px)
- */
-@media screen and (max-width: 480px) {
-  /* Base Font Size */
-  html {
-    font-size: 14px;
-  }
+*:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
 
-  body {
-    font-size: 0.875rem;
-    padding: 0;
-  }
+*:focus:not(:focus-visible) {
+  outline: none;
+}
 
-  /* Navigation */
-  nav {
-    padding: var(--spacing-sm);
-    flex-direction: column;
-    gap: var(--spacing-sm);
-  }
+*:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
 
-  nav ul {
-    flex-direction: column;
-    width: 100%;
-    gap: var(--spacing-sm);
-  }
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 
-  nav a {
-    font-size: 0.95rem;
-    padding: var(--spacing-sm) var(--spacing-md);
-    margin: 0;
-    display: block;
-    text-align: center;
-    background-color: rgba(68, 68, 68, 0.5);
-    border-radius: var(--border-radius);
-    width: 100%;
-  }
+.skip-to-content:focus {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  padding: var(--spacing-md);
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  z-index: var(--z-index-modal);
+}
 
-  /* Cards */
-  .sample-card {
-    padding: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-  }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
 
-  /* Before/After */
-  .before-after {
-    flex-direction: column;
-    gap: var(--spacing-md);
-  }
-
-  .before, .after {
-    width: 100%;
-  }
-
-  /* Sections */
-  .contact-section,
-  .decor-section,
-  .about-section,
-  .portfolio-section {
-    padding: var(--spacing-lg) var(--spacing-sm);
-    margin: var(--spacing-sm);
-    width: calc(100% - calc(var(--spacing-sm) * 2));
-  }
-
-  /* Buttons */
-  button,
-  .btn {
-    padding: var(--spacing-sm) var(--spacing-md);
-    width: 100%;
-    font-size: 0.9rem;
-  }
-
-  /* Headers */
-  .section-header {
-    padding: 0 var(--spacing-xs);
-    margin-bottom: var(--spacing-lg);
-  }
-
-  /* Sample Work */
-  .sample-work-section {
-    padding: 0 var(--spacing-xs);
-  }
-
-  /* Container */
-  .container {
-    padding-left: var(--spacing-sm);
-    padding-right: var(--spacing-sm);
-  }
-
-  /* Typography */
-  h1 { font-size: 1.75rem; }
-  h2 { font-size: 1.5rem; }
-  h3 { font-size: 1.3rem; }
-  h4 { font-size: 1.2rem; }
-  h5 { font-size: 1.1rem; }
-  h6 { font-size: 1rem; }
-
-  p {
-    font-size: 0.9rem;
-    margin-bottom: var(--spacing-md);
-  }
-
-  /* Lists */
-  ul li, ol li {
-    font-size: 0.85rem;
-    padding: var(--spacing-xs) var(--spacing-sm);
-  }
-
-  /* Hide on mobile */
-  .hide-mobile {
-    display: none !important;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
 
 /* ============================================================================
-   SECTION 16: RESPONSIVE DESIGN - MOBILE MEDIUM (481px - 767px)
+   SECTION 17: PERFORMANCE OPTIMIZATIONS
    ============================================================================ */
 
-/**
- * 16.1 - Small Devices
- * موبایل‌های متوسط (481-767px)
- */
-@media screen and (min-width: 481px) and (max-width: 767px) {
-  html {
-    font-size: 15px;
-  }
+.sample-card,
+button,
+.btn,
+nav a {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
 
-  /* Navigation */
-  nav {
-    padding: var(--spacing-md);
-    flex-direction: column;
-  }
+.loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.6;
+}
 
-  nav ul {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--spacing-sm);
-  }
-
-  nav a {
-    font-size: 1rem;
-    padding: var(--spacing-sm) var(--spacing-md);
-    background-color: rgba(68, 68, 68, 0.3);
-    border-radius: var(--border-radius);
-  }
-
-  /* Before/After */
-  .before-after {
-    flex-direction: column;
-    gap: var(--spacing-lg);
-  }
-
-  .before, .after {
-    width: 100%;
-  }
-
-  /* Cards */
-  .sample-card {
-    padding: var(--spacing-lg);
-  }
-
-  /* Buttons */
-  button,
-  .btn {
-    width: auto;
-    min-width: 150px;
-  }
-
-  /* Sections */
-  .contact-section,
-  .decor-section,
-  .about-section,
-  .portfolio-section {
-    padding: var(--spacing-xl) var(--spacing-md);
-  }
-
-  /* Container */
-  .container {
-    padding-left: var(--spacing-md);
-    padding-right: var(--spacing-md);
-  }
+.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid var(--primary-color);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
 }
 
 
 /* ============================================================================
-   SECTION 17: RESPONSIVE DESIGN - TABLET (768px - 1024px)
+   SECTION 18: PRINT STYLES
    ============================================================================ */
 
-/**
- * 17.1 - Medium Devices
- * تبلت عمودی (768-1024px)
- */
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  html {
-    font-size: 16px;
-  }
-
-  /* Navigation */
-  nav {
-    padding: var(--spacing-lg);
-  }
-
-  nav ul {
-    gap: var(--spacing-md);
-    justify-content: center;
-  }
-
-  nav a {
-    font-size: 1.1rem;
-    margin: 0 var(--spacing-sm);
-  }
-
-  /* Before/After */
-  .before-after {
-    gap: var(--spacing-lg);
-  }
-
-  .before, .after {
-    width: 48%;
-  }
-
-  /* Sections */
-  .contact-section,
-  .decor-section,
-  .about-section,
-  .portfolio-section {
-    padding: var(--spacing-2xl) var(--spacing-lg);
-    margin: var(--spacing-lg) auto;
-    width: calc(100% - calc(var(--spacing-lg) * 2));
-    max-width: 90%;
-  }
-
-  /* Cards */
-  .sample-card {
-    padding: var(--spacing-xl);
-    max-width: 90%;
-  }
-
-  /* Container */
-  .container {
-    max-width: var(--container-md);
-  }
-}
-
-
-/* ============================================================================
-   SECTION 18: RESPONSIVE DESIGN - TABLET LANDSCAPE (1025px - 1366px)
-   ============================================================================ */
-
-/**
- * 18.1 - Large Devices
- * تبلت افقی و دسکتاپ کوچک (1025-1366px)
- */
-@media screen and (min-width: 1025px) and (max-width: 1366px) {
-  /* Before/After */
-  .before, .after {
-    width: 48%;
-  }
-
-  /* Sections */
-  .contact-section,
-  .decor-section,
-  .about-section,
-  .portfolio-section {
-    max-width: 95%;
-  }
-
-  /* Cards */
-  .sample-card {
-    max-width: 95%;
-  }
-
-  /* Container */
-  .container {
-    max-width: var(--container-lg);
-  }
-
-  /* Navigation */
-  nav a {
-    margin: 0 var(--spacing-md);
-  }
-}
-
-
-/* ============================================================================
-   SECTION 19: RESPONSIVE DESIGN - DESKTOP (1367px+)
-   ============================================================================ */
-
-/**
- * 19.1 - Extra Large Devices
- * دسکتاپ بزرگ (1367px به بالا)
- */
-@media screen and (min-width: 1367px) {
-  /* Before/After */
-  .before, .after {
-    width: 48%;
-  }
-
-  /* Sections */
-  .contact-section,
-  .decor-section,
-  .about-section,
-  .portfolio-section,
-  .sample-card {
-    max-width: var(--max-width);
-  }
-
-  /* Container */
-  .container {
-    max-width: var(--container-xl);
-  }
-
-  /* Navigation */
-  nav a {
-    margin: 0 var(--spacing-lg);
-    font-size: 1.2rem;
-  }
-}
-
-
-/* ============================================================================
-   SECTION 20: SPECIAL RESPONSIVE CASES
-   ============================================================================ */
-
-/**
- * 20.1 - iPad Pro & Large Tablets (Portrait)
- * تنظیمات خاص برای آیپد Pro و تبلت‌های بزرگ
- */
-@media screen and (min-width: 1024px) and (max-width: 1366px) and (orientation: portrait) {
-  nav ul {
-    justify-content: center;
-  }
-
-  .before-after {
-    flex-direction: column;
-  }
-
-  .before, .after {
-    width: 100%;
-  }
-
-  .sample-card {
-    max-width: 85%;
-  }
-}
-
-/**
- * 20.2 - Mobile Landscape
- * حالت افقی موبایل
- */
-@media screen and (max-width: 926px) and (orientation: landscape) {
-  nav {
-    padding: var(--spacing-xs);
-  }
-
-  nav ul {
-    flex-direction: row;
-    gap: var(--spacing-xs);
-  }
-
-  nav a {
-    font-size: 0.9rem;
-    padding: var(--spacing-xs) var(--spacing-sm);
-  }
-
-  .contact-section,
-  .decor-section,
-  .about-section,
-  .portfolio-section {
-    padding: var(--spacing-md);
-    margin: var(--spacing-md);
-  }
-
-  .before-after {
-    flex-direction: row;
-  }
-
-  .before, .after {
-    width: 48%;
-  }
-
-  body {
-    font-size: 0.9rem;
-  }
-}
-
-/**
- * 20.3 - Retina & High-DPI Displays
- * بهینه‌سازی برای صفحه‌نمایش‌های Retina
- */
-@media (-webkit-min-device-pixel-ratio: 2), 
-       (min-resolution: 192dpi) {
-  body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  img {
-    image-rendering: -webkit-optimize-contrast;
-  }
-}
-
-/**
- * 20.4 - Print Styles
- * استایل‌های چاپ
- */
 @media print {
   body {
     background-color: white;
@@ -1674,121 +1499,59 @@ figcaption {
 
 
 /* ============================================================================
-   SECTION 21: ACCESSIBILITY
+   SECTION 19: RESPONSIVE HELPER CLASSES
    ============================================================================ */
 
-/**
- * 21.1 - Focus Styles
- * استایل‌های فوکوس برای دسترسی‌پذیری
- */
-*:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-*:focus:not(:focus-visible) {
-  outline: none;
-}
-
-*:focus-visible {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-/**
- * 21.2 - Skip to Content
- * پرش به محتوا
- */
-.skip-to-content {
-  position: absolute;
-  left: -9999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-.skip-to-content:focus {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: auto;
-  height: auto;
-  padding: var(--spacing-md);
-  background-color: var(--primary-color);
-  color: var(--background-color);
-  z-index: var(--z-index-modal);
-}
-
-/**
- * 21.3 - Screen Reader Only
- * فقط برای خواننده صفحه
- */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-/**
- * 21.4 - Reduced Motion
- * کاهش حرکت برای کاربران حساس به انیمیشن
- */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+/* مخفی کردن در موبایل */
+@media screen and (max-width: 767px) {
+  .hide-mobile {
+    display: none !important;
   }
 }
 
-
-/* ============================================================================
-   SECTION 22: PERFORMANCE OPTIMIZATIONS
-   ============================================================================ */
-
-/**
- * 22.1 - Hardware Acceleration
- * شتاب سخت‌افزاری برای انیمیشن‌های روان
- */
-.sample-card,
-button,
-.btn,
-nav a {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000px;
+/* مخفی کردن در تبلت */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .hide-tablet {
+    display: none !important;
+  }
 }
 
-/**
- * 22.2 - Loading States
- * حالت‌های بارگذاری
- */
-.loading {
-  position: relative;
-  pointer-events: none;
-  opacity: 0.6;
+/* مخفی کردن در دسکتاپ */
+@media screen and (min-width: 1025px) {
+  .hide-desktop {
+    display: none !important;
+  }
 }
 
-.loading::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  margin: -10px 0 0 -10px;
-  border: 2px solid var(--primary-color);
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: rotate 1s linear infinite;
+/* نمایش فقط در موبایل */
+.show-mobile {
+  display: none !important;
+}
+
+@media screen and (max-width: 767px) {
+  .show-mobile {
+    display: block !important;
+  }
+}
+
+/* نمایش فقط در تبلت */
+.show-tablet {
+  display: none !important;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .show-tablet {
+    display: block !important;
+  }
+}
+
+/* نمایش فقط در دسکتاپ */
+.show-desktop {
+  display: none !important;
+}
+
+@media screen and (min-width: 1025px) {
+  .show-desktop {
+    display: block !important;
+  }
 }
