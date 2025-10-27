@@ -499,260 +499,94 @@ img {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--secondary-color);
 }
- 
-/* موبایل کوچیک (عرض < 480px) */
-@media (max-width: 480px) {
+ /* =====================
+   طراحی ریسپانسیو
+   ===================== */
+@media (max-width: 768px) {
+  /* ناوبری */
   nav {
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px;
-    gap: 0.5rem;
+    padding: 15px;
+    gap: 1rem;
   }
 
   nav ul {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
     width: 100%;
   }
 
   nav a {
-    margin: 5px 0;
-    font-size: 0.95rem;
+    margin: 10px 0;
+    font-size: 1rem;
     padding: 0.5rem;
     text-align: center;
     border-radius: var(--border-radius);
     background-color: rgba(68, 68, 68, 0.5);
   }
 
-  section-header h2 {
-    font-size: 1.6rem;
+  /* بخش‌ها */
+  .about-section,
+  .portfolio-section,
+  .decor-section {
+    padding: 20px;
+    margin: 10px;
   }
 
-  sample-card {
-    padding: 12px;
-    margin-bottom: 20px;
-    text-align: right; /* حفظ RTL */
+  .section-header h2 {
+    font-size: 1.8rem;
   }
 
-  .sample-card h3 {
-    font-size: 1.4rem;
+  /* کارت‌ها */
+  .sample-card {
+    padding: 15px;
+    text-align: left;
   }
 
-  .sample-card p {
-    font-size: 0.95rem;
-  }
-
-  before-after {
+  /* قبل و بعد */
+  .before-after {
     flex-direction: column;
-    gap: 10px;
   }
 
   .before, .after {
     width: 100%;
-    margin-bottom: 15px;
-  }
-
-  contact-section {
-    padding: 1.5rem;
-  }
-
-  .contact-section h2 {
-    font-size: 1.8rem;
-  }
-
-  .intro-text {
-    font-size: 1rem;
-  }
-
-  .contact-details li {
-    font-size: 1rem;
-  }
-
-  .decor-section {
-    padding: 20px;
-    gap: 1rem;
-  }
-
-  .decor-section h2 {
-    font-size: 1.8rem;
-  }
-
-  .decor-section p,
-  .decor-section ul {
-    font-size: 0.95rem;
-  }
-
-  .about-section,
-  .portfolio-section {
-    padding: 15px;
-  }
-
-  .about-section:before {
-    height: 3px; /* کوچیک‌تر برای موبایل */
-  }
-
-  ul li {
-    font-size: 14px;
-    padding: 8px 0;
-  }
-
-  p {
-    font-size: 14px;
     margin-bottom: 20px;
   }
 
-  button {
-    width: 100%;
-    padding: 0.8rem 1.5rem;
-    font-size: 0.95rem;
-  }
-}
-
-/* موبایل متوسط (481px - 768px) */
-@media (min-width: 481px) and (max-width: 768px) {
-  nav {
-    padding: 15px;
-    gap: 0.8rem;
-  }
-
-  nav a {
-    font-size: 1.1rem;
-    margin: 8px 0;
-  }
-
-  .section-header h2 {
-    font-size: 2rem;
-  }
-
-  .sample-card {
-    padding: 18px;
-  }
-
-  .sample-card h3 {
-    font-size: 1.6rem;
-  }
-
+  /* صفحه تماس */
   .contact-section {
     padding: 2rem;
   }
 
-  .decor-section {
-    padding: 30px;
-    gap: 1.2rem;
+  .contact-section h2 {
+    font-size: 2rem;
   }
 
-  .about-section,
-  .portfolio-section {
-    padding: 25px;
+  /* دکوراسیون */
+  .decor-section h2 {
+    font-size: 2rem;
   }
 
+  .decor-section p,
+  .decor-section ul {
+    font-size: 1rem;
+  }
+
+  /* دکمه‌ها */
   button {
-    padding: 1rem 2rem;
-  }
-}
-
-/* تبلت و iPad portrait (769px - 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-  nav {
-    padding: 25px;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
   }
 
-  nav a {
-    margin: 0 15px;
-    font-size: 1.15rem;
-  }
-
-  .section-header h2 {
-    font-size: 2.2rem;
-  }
-
-  .sample-card {
-    padding: 25px;
-    max-width: 800px;
-  }
-
-  .before-after {
-    gap: 15px;
-  }
-
-  .contact-section {
-    padding: 2.5rem;
-  }
-
-  .decor-section {
-    padding: 35px;
-  }
-
-  .about-section,
-  .portfolio-section {
-    padding: 35px;
-  }
-
+  /* لیست‌ها */
   ul li {
     font-size: 16px;
   }
-  
+
+  /* پاراگراف‌ها */
   p {
     font-size: 16px;
-  }
-}
-
-/* تبلت بزرگ و iPad landscape (1025px - 1200px) */
-@media (min-width: 1025px) and (max-width: 1200px) and (orientation: landscape) {
-  nav {
-    justify-content: flex-end; /* حفظ RTL در landscape */
-    padding: 25px;
-  }
-
-  nav a {
-    margin: 0 18px;
-  }
-
-  .sample-card {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* دو ستون برای landscape */
-    gap: 20px;
-    max-width: 1000px;
-  }
-
-  .before-after {
-    grid-column: span 2; /* فول‌ویدث در grid */
-    flex-direction: row-reverse; /* حفظ RTL */
-  }
-
-  .section-header h2 {
-    font-size: 2.3rem;
-  }
-
-  .contact-section {
-    padding: 3rem;
-  }
-
-  .decor-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* دو ستون برای محتوای دکور */
-    gap: 2rem;
-  }
-}
-
-/* دسکتاپ بزرگ (>1200px) – بدون تغییر اضافی، فقط بهینه‌سازی */
-@media (min-width: 1201px) {
-  .about-page {
-    padding: 40px;
-  }
-
-  .sample-card {
-    display: flex;
-    flex-direction: row-reverse; /* RTL حفظ */
-    gap: 30px;
-  }
-
-  .before-after {
-    flex: 1;
-    flex-direction: column;
-  }
-
-  .section-header h2 {
-    font-size: 2.5rem;
   }
 }
