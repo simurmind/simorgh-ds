@@ -1,12 +1,15 @@
-
-/* globals.css - فایل CSS کامل و یکپارچه برای تمام صفحات */
-
 /* وارد کردن فونت وزیرمتن از Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-/* =====================
-   تنظیمات عمومی
-   ===================== */
+
+/* ============================================================================
+   SECTION 2: RESET & BASE STYLES
+   ============================================================================ */
+
+/**
+ * 2.1 - Universal Reset
+ * حذف margin و padding پیش‌فرض از تمام المان‌ها
+ */
 * {
   margin: 0;
   padding: 0;
@@ -14,21 +17,136 @@
   font-family: 'Vazirmatn', sans-serif;
 }
 
-/* تعریف متغیرهای رنگ و استایل */
-:root {
-  --primary-color: #f1c40f;
-  --background-color: #000000;
-  --background-scroll-color: #444444;
-  --text-color: #ffffff;
-  --secondary-color: #f1c40f;
-  --button-hover-color: #f1c40f;
-  --shadow-color: rgba(241, 196, 15, 0.2);
-  --border-radius: 8px;
-  --font-size-base: 1.1rem;
-  --transition: all 0.3s ease;
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
-/* استایل صفحه کلی */
+
+/* ============================================================================
+   SECTION 3: CSS VARIABLES (DESIGN TOKENS)
+   ============================================================================ */
+
+/**
+ * 3.1 - Root Variables
+ * متغیرهای طراحی برای یکپارچگی و نگهداری آسان
+ */
+:root {
+  /* Primary Colors */
+  --primary-color: #f1c40f;
+  --primary-hover: #d4a50a;
+  --primary-active: #b8900a;
+  
+  /* Background Colors */
+  --background-color: #000000;
+  --background-secondary: #111111;
+  --background-tertiary: #1a1a1a;
+  --background-scroll-color: #444444;
+  
+  /* Text Colors */
+  --text-color: #ffffff;
+  --text-secondary: #cccccc;
+  --text-muted: #999999;
+  
+  /* Accent Colors */
+  --secondary-color: #f1c40f;
+  --accent-color: #ff6f61;
+  --success-color: #2ecc71;
+  --warning-color: #e67e22;
+  --danger-color: #e74c3c;
+  
+  /* UI Colors */
+  --button-hover-color: #f1c40f;
+  --shadow-color: rgba(241, 196, 15, 0.2);
+  --shadow-hover: rgba(241, 196, 15, 0.4);
+  
+  /* Border & Radius */
+  --border-radius-sm: 4px;
+  --border-radius: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-width: 1px;
+  --border-width-thick: 2px;
+  
+  /* Spacing Scale */
+  --spacing-xs: 0.25rem;    /* 4px */
+  --spacing-sm: 0.5rem;     /* 8px */
+  --spacing-md: 1rem;       /* 16px */
+  --spacing-lg: 1.5rem;     /* 24px */
+  --spacing-xl: 2rem;       /* 32px */
+  --spacing-2xl: 3rem;      /* 48px */
+  --spacing-3xl: 4rem;      /* 64px */
+  
+  /* Typography Scale */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-md: 1.125rem;   /* 18px */
+  --font-size-lg: 1.25rem;    /* 20px */
+  --font-size-xl: 1.5rem;     /* 24px */
+  --font-size-2xl: 2rem;      /* 32px */
+  --font-size-3xl: 2.5rem;    /* 40px */
+  
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.6;
+  --line-height-relaxed: 1.8;
+  --line-height-loose: 2;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+  --transition: all 0.3s ease;
+  
+  /* Z-index Scale */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+  
+  /* Container Widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+  --max-width: 1200px;
+}
+
+
+/* ============================================================================
+   SECTION 4: HTML & BODY BASE STYLES
+   ============================================================================ */
+
+/**
+ * 4.1 - HTML Root Settings
+ * تنظیمات پایه‌ای برای المان html
+ */
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+/**
+ * 4.2 - Body Base Styles
+ * استایل‌های پایه‌ای صفحه
+ */
 body {
   background-color: var(--background-color);
   color: var(--text-color);
@@ -36,190 +154,460 @@ body {
   padding: 0;
   direction: rtl;
   text-align: right;
-  box-sizing: border-box;
-  line-height: 1.6;
-  font-size: clamp(1rem, 4vw, 1.2rem);
+  line-height: var(--line-height-normal);
+  font-size: var(--font-size-base);
   font-family: 'Vazirmatn', sans-serif !important;
+  font-weight: var(--font-weight-normal);
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* =====================
-   استایل لینک‌ها
-   ===================== */
+
+/* ============================================================================
+   SECTION 5: TYPOGRAPHY
+   ============================================================================ */
+
+/**
+ * 5.1 - Headings
+ * استایل‌های عنوان‌ها
+ */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 var(--spacing-md) 0;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--primary-color);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 6vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+}
+
+h3 {
+  font-size: clamp(1.3rem, 4vw, 2rem);
+}
+
+h4 {
+  font-size: clamp(1.2rem, 3.5vw, 1.75rem);
+}
+
+h5 {
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+}
+
+h6 {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+}
+
+/**
+ * 5.2 - Paragraphs
+ * استایل پاراگراف‌ها
+ */
+p {
+  font-size: clamp(0.95rem, 3vw, 1.125rem);
+  line-height: var(--line-height-relaxed);
+  color: var(--text-color);
+  margin-bottom: var(--spacing-lg);
+  text-align: justify;
+  letter-spacing: 0.3px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/**
+ * 5.3 - Links
+ * استایل لینک‌ها
+ */
 a {
   color: var(--primary-color);
   text-decoration: none;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition: var(--transition-base);
+  display: inline-block;
+  cursor: pointer;
 }
 
 a:hover {
   color: var(--text-color);
-  transform: scale(1.1);
+  transform: scale(1.05);
   text-decoration: underline;
 }
 
-/* =====================
-   استایل ناوبری
-   ===================== */
+a:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+a:active {
+  transform: scale(0.98);
+}
+
+/**
+ * 5.4 - Lists
+ * استایل لیست‌ها
+ */
+ul, ol {
+  list-style: none;
+  padding-left: 0;
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+ul li, ol li {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: clamp(0.9rem, 3vw, 1.125rem);
+  color: var(--text-color);
+  background-color: var(--background-secondary);
+  border-bottom: var(--border-width) solid var(--primary-color);
+  transition: var(--transition-base);
+  word-wrap: break-word;
+  margin-bottom: var(--spacing-xs);
+  border-radius: var(--border-radius-sm);
+}
+
+ul li:last-child,
+ol li:last-child {
+  border-bottom: none;
+}
+
+ul li:hover,
+ol li:hover {
+  transform: translateX(5px);
+  background-color: var(--background-tertiary);
+}
+
+ul li strong,
+ol li strong {
+  color: var(--primary-color);
+  font-weight: var(--font-weight-semibold);
+}
+
+/**
+ * 5.5 - Text Utilities
+ * کلاس‌های کمکی متن
+ */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+.text-bold { font-weight: var(--font-weight-bold); }
+.text-semibold { font-weight: var(--font-weight-semibold); }
+.text-medium { font-weight: var(--font-weight-medium); }
+.text-normal { font-weight: var(--font-weight-normal); }
+.text-light { font-weight: var(--font-weight-light); }
+
+.text-primary { color: var(--primary-color); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.text-white { color: var(--text-color); }
+
+
+/* ============================================================================
+   SECTION 6: NAVIGATION
+   ============================================================================ */
+
+/**
+ * 6.1 - Main Navigation
+ * ناوبری اصلی سایت
+ */
 nav {
   background-color: var(--background-color);
-  padding: 20px;
+  padding: var(--spacing-md);
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 4px solid var(--secondary-color);
-  box-shadow: 0 2px 5px var(--shadow-color);
+  box-shadow: 0 2px 8px var(--shadow-color);
+  width: 100%;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: var(--z-index-sticky);
 }
 
+/**
+ * 6.2 - Navigation List
+ * لیست آیتم‌های ناوبری
+ */
 nav ul {
   display: flex;
-  gap: 1rem;
+  gap: var(--spacing-md);
   list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
 }
 
+nav ul li {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/**
+ * 6.3 - Navigation Links
+ * لینک‌های ناوبری
+ */
 nav a {
   color: var(--primary-color);
-  font-size: 1.2rem;
-  margin: 0 20px;
-  font-weight: 500;
-  transition: color 0.3s ease;
+  font-size: var(--font-size-lg);
+  margin: 0 var(--spacing-sm);
+  font-weight: var(--font-weight-medium);
+  transition: var(--transition-base);
+  white-space: nowrap;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius);
+  display: inline-block;
 }
 
 nav a:hover {
   color: var(--text-color);
+  background-color: rgba(241, 196, 15, 0.1);
+  transform: translateY(-2px);
 }
 
-/* =====================
-   بخش‌های عمومی
-   ===================== */
-.sample-work-section {
-  margin-bottom: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+nav a:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }
 
-/* هدر بخش */
+
+/* ============================================================================
+   SECTION 7: LAYOUT COMPONENTS
+   ============================================================================ */
+
+/**
+ * 7.1 - Container
+ * کانتینر اصلی برای محتوا
+ */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
+  box-sizing: border-box;
+}
+
+/**
+ * 7.2 - Section Header
+ * هدر بخش‌ها
+ */
 .section-header {
-  margin-bottom: 30px;
+  margin-bottom: var(--spacing-2xl);
   text-align: center;
+  width: 100%;
+  padding: 0 var(--spacing-md);
 }
 
 .section-header h2 {
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
   color: var(--primary-color);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   border-bottom: 2px solid var(--primary-color);
-  padding-bottom: 10px;
+  padding-bottom: var(--spacing-sm);
   text-transform: uppercase;
   letter-spacing: 1px;
+  word-wrap: break-word;
+  display: inline-block;
+  margin: 0 auto;
 }
 
-/* =====================
-   کارت‌های پروژه
-   ===================== */
+/**
+ * 7.3 - Sample Work Section
+ * بخش نمایش نمونه کارها
+ */
+.sample-work-section {
+  margin-bottom: var(--spacing-3xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  width: 100%;
+  padding: 0 var(--spacing-md);
+  box-sizing: border-box;
+}
+
+
+/* ============================================================================
+   SECTION 8: CARD COMPONENTS
+   ============================================================================ */
+
+/**
+ * 8.1 - Sample Card
+ * کارت نمایش پروژه‌ها
+ */
 .sample-card {
-  background-color: #111;
-  border-radius: 10px;
+  background-color: var(--background-secondary);
+  border-radius: var(--border-radius-lg);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  padding: 20px;
-  margin-bottom: 30px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
   text-align: justify;
   width: 100%;
   max-width: 900px;
-  border: 1px solid var(--primary-color);
+  border: var(--border-width-thick) solid var(--primary-color);
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.sample-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  transform: scaleX(0);
+  transition: transform var(--transition-base);
+  transform-origin: left;
+}
+
+.sample-card:hover::before {
+  transform: scaleX(1);
 }
 
 .sample-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px var(--shadow-color);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px var(--shadow-hover);
 }
 
 .sample-card h3 {
-  font-size: 1.8rem;
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
   color: var(--primary-color);
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing-md);
+  word-wrap: break-word;
+  font-weight: var(--font-weight-bold);
 }
 
 .sample-card p {
-  font-size: 1.1rem;
+  font-size: clamp(0.95rem, 3vw, 1.1rem);
   color: var(--text-color);
-  line-height: 1.7;
-  margin-bottom: 20px;
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-lg);
+  word-wrap: break-word;
 }
 
-/* =====================
-   قبل و بعد از طراحی
-   ===================== */
+/**
+ * 8.2 - Before/After Comparison
+ * مقایسه قبل و بعد پروژه
+ */
 .before-after {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: var(--spacing-lg);
   width: 100%;
+  flex-wrap: wrap;
 }
 
-.before, .after {
-  width: 48%;
+.before,
+.after {
+  width: 100%;
+  min-width: 0;
+  flex: 1;
 }
 
-.before h4, .after h4 {
-  font-size: 1.2rem;
-  font-weight: 500;
+.before h4,
+.after h4 {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-weight: var(--font-weight-medium);
   color: var(--primary-color);
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing-md);
+  word-wrap: break-word;
 }
 
-.before-image, .after-image {
+.before-image,
+.after-image {
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: block;
+  max-width: 100%;
+  transition: transform var(--transition-base);
 }
 
-/* =====================
-   استایل‌های صفحه تماس
-   ===================== */
+.before-image:hover,
+.after-image:hover {
+  transform: scale(1.02);
+}
+
+
+/* ============================================================================
+   SECTION 9: PAGE SECTIONS
+   ============================================================================ */
+
+/**
+ * 9.1 - Contact Section
+ * بخش تماس با ما
+ */
 .contact-section {
-  background-color: #222;
-  padding: 3rem;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  margin-top: 3rem;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: var(--spacing-2xl) var(--spacing-md);
+  border-radius: var(--border-radius-xl);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  margin: var(--spacing-2xl) var(--spacing-md);
+  width: calc(100% - calc(var(--spacing-md) * 2));
+  max-width: var(--max-width);
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  border: var(--border-width-thick) solid var(--primary-color);
 }
 
 .contact-section .section-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-xl);
 }
 
 .contact-section h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #f5c518;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--primary-color);
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-lg);
+  word-wrap: break-word;
 }
 
 .intro-text {
-  color: #fff;
-  font-size: 1.2rem;
-  line-height: 1.8;
+  color: var(--text-color);
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  line-height: var(--line-height-relaxed);
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-xl);
+  word-wrap: break-word;
 }
 
 .contact-details {
-  margin-top: 2rem;
+  margin-top: var(--spacing-xl);
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-lg);
 }
 
 .contact-details h3 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #f5c518;
-  margin-bottom: 1rem;
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  font-weight: var(--font-weight-semibold);
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-lg);
+  word-wrap: break-word;
 }
 
 .contact-details ul {
@@ -229,226 +617,338 @@ nav a:hover {
 }
 
 .contact-details li {
-  color: #fff;
-  font-size: 1.2rem;
-  padding: 8px 0;
+  color: var(--text-color);
+  font-size: clamp(0.95rem, 3vw, 1.2rem);
+  padding: var(--spacing-md) 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  background: none;
+  border: none;
+  margin: 0;
 }
 
 .contact-details a {
-  color: #f5c518;
+  color: var(--primary-color);
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
+  font-weight: var(--font-weight-medium);
+  transition: var(--transition-base);
+  word-break: break-all;
+  border-bottom: 1px solid transparent;
 }
 
 .contact-details a:hover {
-  color: #fff;
-  border-bottom: 2px solid #fff;
+  color: var(--text-color);
+  border-bottom-color: var(--primary-color);
 }
 
 .contact-details strong {
-  color: #fff;
-  font-weight: 600;
+  color: var(--text-color);
+  font-weight: var(--font-weight-semibold);
 }
 
-/* =====================
-   استایل‌های صفحه دکوراسیون
-   ===================== */
+/**
+ * 9.2 - Decoration Section
+ * بخش دکوراسیون
+ */
 .decor-section {
-  background-color: #141414;
-  color: #f5c518;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  color: var(--primary-color);
+  padding: var(--spacing-2xl) var(--spacing-md);
+  border-radius: var(--border-radius-xl);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  margin: var(--spacing-md);
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards;
-  border: 2px solid #f1c40f;
+  border: var(--border-width-thick) solid var(--primary-color);
   display: grid;
-  gap: 1.5rem;
+  gap: var(--spacing-lg);
+  width: calc(100% - calc(var(--spacing-md) * 2));
+  max-width: var(--max-width);
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .decor-section h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: #f1c40f;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-lg);
+  color: var(--primary-color);
   text-align: center;
+  word-wrap: break-word;
 }
 
 .decor-section p {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  border-radius: 10px;
+  font-size: clamp(0.95rem, 3vw, 1.2rem);
+  line-height: var(--line-height-relaxed);
+  color: var(--text-color);
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
   opacity: 0;
   animation: fadeIn 1s ease-out forwards 0.2s;
+  word-wrap: break-word;
+  border-left: 4px solid var(--primary-color);
 }
 
 .decor-section ul {
   list-style: none;
   padding: 0;
-  font-size: 1.2rem;
-  color: white;
+  font-size: clamp(0.95rem, 3vw, 1.2rem);
+  color: var(--text-color);
+  margin: 0;
 }
 
 .decor-section li {
-  padding: 10px 0;
-  background-color: #333;
-  border-bottom: 1px solid #f1c40f;
+  padding: var(--spacing-md);
+  background-color: rgba(51, 51, 51, 0.5);
+  border-bottom: var(--border-width) solid var(--primary-color);
+  margin-bottom: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  word-wrap: break-word;
+  transition: var(--transition-base);
+}
+
+.decor-section li:hover {
+  background-color: rgba(51, 51, 51, 0.8);
+  transform: translateX(5px);
 }
 
 .decor-section li strong {
-  color: #f1c40f;
+  color: var(--primary-color);
+  font-weight: var(--font-weight-semibold);
 }
 
-/* =====================
-   استایل‌های صفحه درباره ما
-   ===================== */
+/**
+ * 9.3 - About Section
+ * بخش درباره ما
+ */
 .about-page {
-  max-width: 1200px;
+  max-width: var(--max-width);
   margin: 0 auto;
-  padding: 20px;
+  padding: var(--spacing-md);
   background-color: var(--background-color);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .about-section {
-  background-color: var(--background-color);
-  border-radius: 15px;
-  box-shadow: 0 4px 12px var(--shadow-color);
-  margin-bottom: 30px;
-  padding: 30px;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  border-radius: var(--border-radius-xl);
+  box-shadow: 0 8px 24px var(--shadow-color);
+  margin-bottom: var(--spacing-2xl);
+  padding: var(--spacing-2xl) var(--spacing-md);
   opacity: 0;
   animation: fadeInUp 1.5s ease-out forwards;
-  border: 2px solid var(--secondary-color);
+  border: var(--border-width-thick) solid var(--secondary-color);
   position: relative;
   overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* افکت خط بالای بخش‌ها */
-.about-section:before {
+.about-section::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 5px;
-  background: linear-gradient(90deg, var(--primary-color), #ff6f61);
-  animation: slideIn 2s infinite;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  animation: slideIn 3s infinite;
 }
+
 .about-section p {
-  background-color: var(--background-color);
+  background-color: rgba(0, 0, 0, 0.3);
   color: var(--text-color);
-  padding: 15px;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  line-height: 1.8;
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  font-size: clamp(0.95rem, 3vw, 1.2rem);
+  line-height: var(--line-height-relaxed);
   opacity: 0;
   animation: fadeIn 1.8s ease-out forwards;
+  word-wrap: break-word;
+  border-left: 4px solid var(--primary-color);
 }
 
-/* =====================
-   استایل‌های صفحه پورتفولیو
-   ===================== */
+/**
+ * 9.4 - Portfolio Section
+ * بخش نمونه کارها
+ */
 .portfolio-section {
-  background-color: var(--background-color);
-  border-radius: 15px;
-  box-shadow: 0 4px 12px var(--shadow-color);
-  margin-bottom: 30px;
-  padding: 30px;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  border-radius: var(--border-radius-xl);
+  box-shadow: 0 8px 24px var(--shadow-color);
+  margin: var(--spacing-md);
+  padding: var(--spacing-2xl) var(--spacing-md);
   opacity: 0;
   animation: fadeInUp 1.5s ease-out forwards;
-  border: 2px solid var(--secondary-color);
+  border: var(--border-width-thick) solid var(--secondary-color);
+  width: calc(100% - calc(var(--spacing-md) * 2));
+  max-width: var(--max-width);
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* =====================
-   لیست‌ها
-   ===================== */
-ul {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 20px;
-}
 
-ul li {
-  padding: 10px 0;
-  font-size: 18px;
-  color: var(--text-color);
-  background-color: var(--background-color);
-  border-bottom: 1px solid var(--primary-color);
-  transition: transform 0.3s ease;
-}
+/* ============================================================================
+   SECTION 10: BUTTONS & FORM ELEMENTS
+   ============================================================================ */
 
-ul li strong {
-  color: var(--primary-color);
-}
-
-ul li:hover {
-  transform: translateX(5px);
-}
-
-/* =====================
-   استایل پاراگراف‌ها
-   ===================== */
-p {
-  font-size: 18px;
-  line-height: 1.8;
-  color: var(--text-color);
-  margin-bottom: 30px;
-  text-align: justify;
-  letter-spacing: 0.5px;
-}
-
-/* =====================
-   استایل دکمه‌ها
-   ===================== */
-button {
+/**
+ * 10.1 - Button Styles
+ * استایل دکمه‌ها
+ */
+button,
+.btn {
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: var(--background-color);
-  padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2rem);
+  padding: var(--spacing-md) var(--spacing-xl);
   border: none;
   border-radius: var(--border-radius);
-  font-size: var(--font-size-base);
-  font-weight: 500;
+  font-size: clamp(0.95rem, 3vw, 1.1rem);
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
-  transition: var(--transition);
+  transition: var(--transition-base);
   box-shadow: 0 4px 12px var(--shadow-color);
   will-change: transform;
+  width: auto;
+  max-width: 100%;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1.5;
+  font-family: inherit;
 }
 
 button:hover,
-button:focus {
+.btn:hover,
+button:focus,
+.btn:focus {
   background: linear-gradient(135deg, var(--button-hover-color), var(--secondary-color));
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px var(--shadow-color);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px var(--shadow-hover);
 }
 
-button:active {
-  transform: translateY(0);
+button:active,
+.btn:active {
+  transform: translateY(-1px);
 }
 
-button:focus {
-  outline: none;
-  box-shadow: 0 0 10px var(--primary-color);
+button:focus,
+.btn:focus {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 3px;
 }
 
-/* =====================
-   تصاویر
-   ===================== */
+button:disabled,
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/**
+ * 10.2 - Button Variants
+ * انواع دکمه‌ها
+ */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #333, #555);
+  color: var(--text-color);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-outline:hover {
+  background: var(--primary-color);
+  color: var(--background-color);
+}
+
+.btn-small {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+}
+
+.btn-large {
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  font-size: var(--font-size-lg);
+}
+
+
+/* ============================================================================
+   SECTION 11: IMAGES & MEDIA
+   ============================================================================ */
+
+/**
+ * 11.1 - Image Base Styles
+ * استایل‌های پایه تصاویر
+ */
 img {
   max-width: 100%;
   height: auto;
   border-radius: var(--border-radius);
+  display: block;
+  vertical-align: middle;
 }
 
-/* =====================
-   انیمیشن‌ها
-   ===================== */
+figure {
+  margin: var(--spacing-xl) 0;
+}
+
+figcaption {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  margin-top: var(--spacing-sm);
+  font-style: italic;
+}
+
+/**
+ * 11.2 - Responsive Images
+ * تصاویر ریسپانسیو
+ */
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.img-thumbnail {
+  padding: 4px;
+  background-color: var(--background-secondary);
+  border: var(--border-width) solid var(--primary-color);
+  border-radius: var(--border-radius);
+}
+
+.img-rounded {
+  border-radius: var(--border-radius-lg);
+}
+
+.img-circle {
+  border-radius: 50%;
+}
+
+
+/* ============================================================================
+   SECTION 12: ANIMATIONS
+   ============================================================================ */
+
+/**
+ * 12.1 - Fade In Up Animation
+ * انیمیشن ظاهر شدن از پایین
+ */
 @keyframes fadeInUp {
   0% {
-    transform: translateY(20px);
+    transform: translateY(30px);
     opacity: 0;
   }
   100% {
@@ -457,6 +957,10 @@ img {
   }
 }
 
+/**
+ * 12.2 - Fade In Animation
+ * انیمیشن محو شدن
+ */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -468,6 +972,10 @@ img {
   }
 }
 
+/**
+ * 12.3 - Slide In Animation
+ * انیمیشن اسلاید
+ */
 @keyframes slideIn {
   0% {
     left: -100%;
@@ -480,113 +988,807 @@ img {
   }
 }
 
-/* =====================
-   اسکرولبار سفارشی
-   ===================== */
+/**
+ * 12.4 - Pulse Animation
+ * انیمیشن نبض
+ */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/**
+ * 12.5 - Rotate Animation
+ * انیمیشن چرخش
+ */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/**
+ * 12.6 - Shimmer Effect
+ * افکت درخشش
+ */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/**
+ * 12.7 - Animation Utility Classes
+ * کلاس‌های کمکی انیمیشن
+ */
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 1s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+.animate-rotate {
+  animation: rotate 2s linear infinite;
+}
+
+
+/* ============================================================================
+   SECTION 13: SCROLLBAR CUSTOMIZATION
+   ============================================================================ */
+
+/**
+ * 13.1 - Custom Scrollbar
+ * اسکرولبار سفارشی
+ */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--background-scroll-color);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--primary-color);
-  border-radius: 4px;
+  border-radius: 10px;
+  transition: background var(--transition-base);
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--secondary-color);
 }
- /* =====================
-   طراحی ریسپانسیو
-   ===================== */
-@media (max-width: 768px) {
-  /* ناوبری */
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--background-scroll-color);
+}
+
+
+/* ============================================================================
+   SECTION 14: UTILITY CLASSES
+   ============================================================================ */
+
+/**
+ * 14.1 - Spacing Utilities
+ * کلاس‌های کمکی فاصله‌گذاری
+ */
+.m-0 { margin: 0; }
+.mt-0 { margin-top: 0; }
+.mr-0 { margin-right: 0; }
+.mb-0 { margin-bottom: 0; }
+.ml-0 { margin-left: 0; }
+
+.m-1 { margin: var(--spacing-sm); }
+.mt-1 { margin-top: var(--spacing-sm); }
+.mr-1 { margin-right: var(--spacing-sm); }
+.mb-1 { margin-bottom: var(--spacing-sm); }
+.ml-1 { margin-left: var(--spacing-sm); }
+
+.m-2 { margin: var(--spacing-md); }
+.mt-2 { margin-top: var(--spacing-md); }
+.mr-2 { margin-right: var(--spacing-md); }
+.mb-2 { margin-bottom: var(--spacing-md); }
+.ml-2 { margin-left: var(--spacing-md); }
+
+.m-3 { margin: var(--spacing-lg); }
+.mt-3 { margin-top: var(--spacing-lg); }
+.mr-3 { margin-right: var(--spacing-lg); }
+.mb-3 { margin-bottom: var(--spacing-lg); }
+.ml-3 { margin-left: var(--spacing-lg); }
+
+.p-0 { padding: 0; }
+.pt-0 { padding-top: 0; }
+.pr-0 { padding-right: 0; }
+.pb-0 { padding-bottom: 0; }
+.pl-0 { padding-left: 0; }
+
+.p-1 { padding: var(--spacing-sm); }
+.pt-1 { padding-top: var(--spacing-sm); }
+.pr-1 { padding-right: var(--spacing-sm); }
+.pb-1 { padding-bottom: var(--spacing-sm); }
+.pl-1 { padding-left: var(--spacing-sm); }
+
+.p-2 { padding: var(--spacing-md); }
+.pt-2 { padding-top: var(--spacing-md); }
+.pr-2 { padding-right: var(--spacing-md); }
+.pb-2 { padding-bottom: var(--spacing-md); }
+.pl-2 { padding-left: var(--spacing-md); }
+
+.p-3 { padding: var(--spacing-lg); }
+.pt-3 { padding-top: var(--spacing-lg); }
+.pr-3 { padding-right: var(--spacing-lg); }
+.pb-3 { padding-bottom: var(--spacing-lg); }
+.pl-3 { padding-left: var(--spacing-lg); }
+
+/**
+ * 14.2 - Display Utilities
+ * کلاس‌های نمایش
+ */
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-inline { display: inline !important; }
+.d-inline-block { display: inline-block !important; }
+.d-flex { display: flex !important; }
+.d-grid { display: grid !important; }
+
+/**
+ * 14.3 - Flexbox Utilities
+ * کلاس‌های فلکس‌باکس
+ */
+.flex-row { flex-direction: row; }
+.flex-column { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+
+.align-start { align-items: flex-start; }
+.align-center { align-items: center; }
+.align-end { align-items: flex-end; }
+.align-stretch { align-items: stretch; }
+
+.gap-1 { gap: var(--spacing-sm); }
+.gap-2 { gap: var(--spacing-md); }
+.gap-3 { gap: var(--spacing-lg); }
+
+/**
+ * 14.4 - Width Utilities
+ * کلاس‌های عرض
+ */
+.w-25 { width: 25%; }
+.w-50 { width: 50%; }
+.w-75 { width: 75%; }
+.w-100 { width: 100%; }
+.w-auto { width: auto; }
+
+/**
+ * 14.5 - Shadow Utilities
+ * کلاس‌های سایه
+ */
+.shadow-sm {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.shadow {
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.shadow-lg {
+  box-shadow: 0 8px 24px var(--shadow-hover);
+}
+
+.shadow-none {
+  box-shadow: none !important;
+}
+
+/**
+ * 14.6 - Border Utilities
+ * کلاس‌های حاشیه
+ */
+.border { border: var(--border-width) solid var(--primary-color); }
+.border-top { border-top: var(--border-width) solid var(--primary-color); }
+.border-right { border-right: var(--border-width) solid var(--primary-color); }
+.border-bottom { border-bottom: var(--border-width) solid var(--primary-color); }
+.border-left { border-left: var(--border-width) solid var(--primary-color); }
+.border-none { border: none !important; }
+
+.rounded { border-radius: var(--border-radius); }
+.rounded-sm { border-radius: var(--border-radius-sm); }
+.rounded-lg { border-radius: var(--border-radius-lg); }
+.rounded-full { border-radius: 9999px; }
+.rounded-none { border-radius: 0 !important; }
+
+/**
+ * 14.7 - Background Utilities
+ * کلاس‌های پس‌زمینه
+ */
+.bg-primary { background-color: var(--primary-color); }
+.bg-secondary { background-color: var(--background-secondary); }
+.bg-dark { background-color: var(--background-color); }
+.bg-transparent { background-color: transparent; }
+
+
+/* ============================================================================
+   SECTION 15: RESPONSIVE DESIGN - MOBILE SMALL (320px - 480px)
+   ============================================================================ */
+
+/**
+ * 15.1 - Extra Small Devices
+ * موبایل‌های کوچک (320-480px)
+ */
+@media screen and (max-width: 480px) {
+  /* Base Font Size */
+  html {
+    font-size: 14px;
+  }
+
+  body {
+    font-size: 0.875rem;
+    padding: 0;
+  }
+
+  /* Navigation */
   nav {
+    padding: var(--spacing-sm);
     flex-direction: column;
-    align-items: flex-start;
-    padding: 15px;
-    gap: 1rem;
+    gap: var(--spacing-sm);
   }
 
   nav ul {
     flex-direction: column;
-    gap: 1rem;
     width: 100%;
+    gap: var(--spacing-sm);
   }
 
   nav a {
-    margin: 10px 0;
-    font-size: 1rem;
-    padding: 0.5rem;
+    font-size: 0.95rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin: 0;
+    display: block;
     text-align: center;
-    border-radius: var(--border-radius);
     background-color: rgba(68, 68, 68, 0.5);
+    border-radius: var(--border-radius);
+    width: 100%;
   }
 
-  /* بخش‌ها */
+  /* Cards */
+  .sample-card {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+  }
+
+  /* Before/After */
+  .before-after {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .before, .after {
+    width: 100%;
+  }
+
+  /* Sections */
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section {
+    padding: var(--spacing-lg) var(--spacing-sm);
+    margin: var(--spacing-sm);
+    width: calc(100% - calc(var(--spacing-sm) * 2));
+  }
+
+  /* Buttons */
+  button,
+  .btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  /* Headers */
+  .section-header {
+    padding: 0 var(--spacing-xs);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  /* Sample Work */
+  .sample-work-section {
+    padding: 0 var(--spacing-xs);
+  }
+
+  /* Container */
+  .container {
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
+
+  /* Typography */
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.3rem; }
+  h4 { font-size: 1.2rem; }
+  h5 { font-size: 1.1rem; }
+  h6 { font-size: 1rem; }
+
+  p {
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  /* Lists */
+  ul li, ol li {
+    font-size: 0.85rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  /* Hide on mobile */
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+
+/* ============================================================================
+   SECTION 16: RESPONSIVE DESIGN - MOBILE MEDIUM (481px - 767px)
+   ============================================================================ */
+
+/**
+ * 16.1 - Small Devices
+ * موبایل‌های متوسط (481-767px)
+ */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  html {
+    font-size: 15px;
+  }
+
+  /* Navigation */
+  nav {
+    padding: var(--spacing-md);
+    flex-direction: column;
+  }
+
+  nav ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-sm);
+  }
+
+  nav a {
+    font-size: 1rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: rgba(68, 68, 68, 0.3);
+    border-radius: var(--border-radius);
+  }
+
+  /* Before/After */
+  .before-after {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .before, .after {
+    width: 100%;
+  }
+
+  /* Cards */
+  .sample-card {
+    padding: var(--spacing-lg);
+  }
+
+  /* Buttons */
+  button,
+  .btn {
+    width: auto;
+    min-width: 150px;
+  }
+
+  /* Sections */
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  /* Container */
+  .container {
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+}
+
+
+/* ============================================================================
+   SECTION 17: RESPONSIVE DESIGN - TABLET (768px - 1024px)
+   ============================================================================ */
+
+/**
+ * 17.1 - Medium Devices
+ * تبلت عمودی (768-1024px)
+ */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  html {
+    font-size: 16px;
+  }
+
+  /* Navigation */
+  nav {
+    padding: var(--spacing-lg);
+  }
+
+  nav ul {
+    gap: var(--spacing-md);
+    justify-content: center;
+  }
+
+  nav a {
+    font-size: 1.1rem;
+    margin: 0 var(--spacing-sm);
+  }
+
+  /* Before/After */
+  .before-after {
+    gap: var(--spacing-lg);
+  }
+
+  .before, .after {
+    width: 48%;
+  }
+
+  /* Sections */
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section {
+    padding: var(--spacing-2xl) var(--spacing-lg);
+    margin: var(--spacing-lg) auto;
+    width: calc(100% - calc(var(--spacing-lg) * 2));
+    max-width: 90%;
+  }
+
+  /* Cards */
+  .sample-card {
+    padding: var(--spacing-xl);
+    max-width: 90%;
+  }
+
+  /* Container */
+  .container {
+    max-width: var(--container-md);
+  }
+}
+
+
+/* ============================================================================
+   SECTION 18: RESPONSIVE DESIGN - TABLET LANDSCAPE (1025px - 1366px)
+   ============================================================================ */
+
+/**
+ * 18.1 - Large Devices
+ * تبلت افقی و دسکتاپ کوچک (1025-1366px)
+ */
+@media screen and (min-width: 1025px) and (max-width: 1366px) {
+  /* Before/After */
+  .before, .after {
+    width: 48%;
+  }
+
+  /* Sections */
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section {
+    max-width: 95%;
+  }
+
+  /* Cards */
+  .sample-card {
+    max-width: 95%;
+  }
+
+  /* Container */
+  .container {
+    max-width: var(--container-lg);
+  }
+
+  /* Navigation */
+  nav a {
+    margin: 0 var(--spacing-md);
+  }
+}
+
+
+/* ============================================================================
+   SECTION 19: RESPONSIVE DESIGN - DESKTOP (1367px+)
+   ============================================================================ */
+
+/**
+ * 19.1 - Extra Large Devices
+ * دسکتاپ بزرگ (1367px به بالا)
+ */
+@media screen and (min-width: 1367px) {
+  /* Before/After */
+  .before, .after {
+    width: 48%;
+  }
+
+  /* Sections */
+  .contact-section,
+  .decor-section,
   .about-section,
   .portfolio-section,
-  .decor-section {
-    padding: 20px;
-    margin: 10px;
-  }
-
-  .section-header h2 {
-    font-size: 1.8rem;
-  }
-
-  /* کارت‌ها */
   .sample-card {
-    padding: 15px;
-    text-align: left;
+    max-width: var(--max-width);
   }
 
-  /* قبل و بعد */
+  /* Container */
+  .container {
+    max-width: var(--container-xl);
+  }
+
+  /* Navigation */
+  nav a {
+    margin: 0 var(--spacing-lg);
+    font-size: 1.2rem;
+  }
+}
+
+
+/* ============================================================================
+   SECTION 20: SPECIAL RESPONSIVE CASES
+   ============================================================================ */
+
+/**
+ * 20.1 - iPad Pro & Large Tablets (Portrait)
+ * تنظیمات خاص برای آیپد Pro و تبلت‌های بزرگ
+ */
+@media screen and (min-width: 1024px) and (max-width: 1366px) and (orientation: portrait) {
+  nav ul {
+    justify-content: center;
+  }
+
   .before-after {
     flex-direction: column;
   }
 
   .before, .after {
     width: 100%;
-    margin-bottom: 20px;
   }
 
-  /* صفحه تماس */
-  .contact-section {
-    padding: 2rem;
+  .sample-card {
+    max-width: 85%;
+  }
+}
+
+/**
+ * 20.2 - Mobile Landscape
+ * حالت افقی موبایل
+ */
+@media screen and (max-width: 926px) and (orientation: landscape) {
+  nav {
+    padding: var(--spacing-xs);
   }
 
-  .contact-section h2 {
-    font-size: 2rem;
+  nav ul {
+    flex-direction: row;
+    gap: var(--spacing-xs);
   }
 
-  /* دکوراسیون */
-  .decor-section h2 {
-    font-size: 2rem;
+  nav a {
+    font-size: 0.9rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
   }
 
-  .decor-section p,
-  .decor-section ul {
-    font-size: 1rem;
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section {
+    padding: var(--spacing-md);
+    margin: var(--spacing-md);
   }
 
-  /* دکمه‌ها */
-  button {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1rem;
+  .before-after {
+    flex-direction: row;
   }
 
-  /* لیست‌ها */
-  ul li {
-    font-size: 16px;
+  .before, .after {
+    width: 48%;
   }
 
-  /* پاراگراف‌ها */
-  p {
-    font-size: 16px;
+  body {
+    font-size: 0.9rem;
   }
+}
+
+/**
+ * 20.3 - Retina & High-DPI Displays
+ * بهینه‌سازی برای صفحه‌نمایش‌های Retina
+ */
+@media (-webkit-min-device-pixel-ratio: 2), 
+       (min-resolution: 192dpi) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+/**
+ * 20.4 - Print Styles
+ * استایل‌های چاپ
+ */
+@media print {
+  body {
+    background-color: white;
+    color: black;
+  }
+
+  nav,
+  button,
+  .btn {
+    display: none;
+  }
+
+  .sample-card,
+  .contact-section,
+  .decor-section,
+  .about-section,
+  .portfolio-section {
+    border: 1px solid #000;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+
+  a {
+    text-decoration: underline;
+    color: #000;
+  }
+}
+
+
+/* ============================================================================
+   SECTION 21: ACCESSIBILITY
+   ============================================================================ */
+
+/**
+ * 21.1 - Focus Styles
+ * استایل‌های فوکوس برای دسترسی‌پذیری
+ */
+*:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/**
+ * 21.2 - Skip to Content
+ * پرش به محتوا
+ */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skip-to-content:focus {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  padding: var(--spacing-md);
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  z-index: var(--z-index-modal);
+}
+
+/**
+ * 21.3 - Screen Reader Only
+ * فقط برای خواننده صفحه
+ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/**
+ * 21.4 - Reduced Motion
+ * کاهش حرکت برای کاربران حساس به انیمیشن
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ============================================================================
+   SECTION 22: PERFORMANCE OPTIMIZATIONS
+   ============================================================================ */
+
+/**
+ * 22.1 - Hardware Acceleration
+ * شتاب سخت‌افزاری برای انیمیشن‌های روان
+ */
+.sample-card,
+button,
+.btn,
+nav a {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/**
+ * 22.2 - Loading States
+ * حالت‌های بارگذاری
+ */
+.loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid var(--primary-color);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
 }
