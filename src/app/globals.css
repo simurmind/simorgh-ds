@@ -591,3 +591,139 @@ img {
     font-size: 16px;
   }
 }
+/* =====================
+   طراحی ریسپانسیو (ادامه)
+   ===================== */
+
+/* برای موبایل */
+@media (max-width: 768px) {
+  /* استایل منو */
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    gap: 1rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  nav a {
+    margin: 10px 0;
+    font-size: 1rem;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: var(--border-radius);
+    background-color: rgba(68, 68, 68, 0.5);
+  }
+
+  /* تغییر استایل بخش‌های مختلف */
+  .about-section, .portfolio-section, .decor-section {
+    padding: 20px;
+    margin: 10px;
+  }
+
+  /* عنوان بخش‌ها */
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+
+  /* استایل کارت‌ها */
+  .sample-card {
+    padding: 15px;
+    text-align: left;
+  }
+
+  /* بخش‌های قبل و بعد */
+  .before-after {
+    flex-direction: column;
+  }
+
+  .before, .after {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  /* صفحه تماس */
+  .contact-section {
+    padding: 2rem;
+  }
+
+  .contact-section h2 {
+    font-size: 2rem;
+  }
+
+  /* دکمه‌ها */
+  button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  /* لیست‌ها */
+  ul li {
+    font-size: 16px;
+  }
+
+  /* پاراگراف‌ها */
+  p {
+    font-size: 16px;
+  }
+}
+
+/* تبلت */
+@media (max-width: 1024px) and (min-width: 769px) {
+  nav a {
+    margin: 0 15px;
+  }
+
+  /* اصلاح اندازه و فضای کارت‌ها */
+  .sample-card {
+    max-width: 48%;
+    margin-bottom: 30px;
+  }
+
+  .sample-card:hover {
+    transform: translateY(-8px);
+  }
+
+  /* استایل دکمه‌ها */
+  button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* برای دسکتاپ (بیشتر از 1024px) */
+@media (min-width: 1025px) {
+  /* استایل منو */
+  nav {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  /* تنظیم کارت‌ها */
+  .sample-card {
+    width: 45%;
+  }
+
+  /* بخش‌ها */
+  .about-section,
+  .portfolio-section,
+  .decor-section {
+    padding: 30px;
+    margin: 20px;
+  }
+
+  /* دکمه‌ها */
+  button {
+    width: auto;
+    padding: 0.75rem 2rem;
+    font-size: 1.2rem;
+  }
+}
