@@ -1,4 +1,4 @@
-Content is user-generated and unverified.
+
 "use client";
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
