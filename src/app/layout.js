@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
   const navLinks = [
     { href: "/", label: "صفحه اصلی" },
     { href: "/web-design", label: "طراحی سایت" },
-    { href: "/decoration", label: "دکوراسیون" },
+    { href: "/decoration", label: "طراحی دکوراسیون" },
     { href: "/portfolio", label: "نمونه کار" },
     { href: "/contact", label: "تماس با ما" },
     { href: "/about", label: "درباره ما" },
