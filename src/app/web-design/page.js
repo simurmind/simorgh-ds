@@ -1,9 +1,6 @@
-
-
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import "../app/globals.css";
 
 export default function WebDesignPage() {
   const services = [
