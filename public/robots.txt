@@ -1,0 +1,16 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+
+# Host
+Host: https://www.simorghdesign.ir
+
+# Sitemaps
+Sitemap: https://www.simorghdesign.ir/sitemap.xml
