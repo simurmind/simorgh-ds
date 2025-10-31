@@ -102,7 +102,7 @@ export default function RootLayout({ children }) {
     { href: "/web-design", label: "طراحی سایت" },
     { href: "/decoration", label: "دکوراسیون" },
     { href: "/portfolio", label: "نمونه کار" },
-    { href: "/contact", label: "تماس با ما" },
+    { href: "/contact", label: "ارتباط با ما" },
     { href: "/about", label: "درباره ما" },
   ];
 
