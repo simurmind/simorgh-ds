@@ -4,12 +4,74 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "./globals.css";
+import Script from 'next/script'
 
 export default function RootLayout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+ const metadata = {
+  title: 'سیمرغ | طراحی سایت و دکوراسیون',
+  description: 'طراحی سایت‌های مدرن، سریع و کاربرپسند با استفاده از جدیدترین تکنولوژی‌های روز دنیا',
+  manifest: '/site.webmanifest',
+  icons: {
+    icon: [
+      { url: '/images/favicon.ico' },
+      { url: '/images/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/images/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/images/apple-touch-icon.png' },
+    ],
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://simorghdesign.ir',
+    title: 'سیمرغ | طراحی سایت و دکوراسیون',
+    description: 'طراحی سایت‌های مدرن، سریع و کاربرپسند با استفاده از جدیدترین تکنولوژی‌های روز دنیا',
+    images: [
+      {
+        url: 'https://simorghdesign.ir/images/Logo.jpg',
+        width: 512,
+        height: 512,
+        alt: 'لوگو سیمرغ دیزاین',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'سیمرغ | طراحی سایت و دکوراسیون',
+    description: 'طراحی سایت‌های مدرن، سریع و کاربرپسند با استفاده از جدیدترین تکنولوژی‌های روز دنیا',
+    images: ['https://simorghdesign.ir/images/Logo.jpg'],
+  },
+}
 
+ function RootLayout({ children }) {
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'سیمرغ دیزاین',
+    alternateName: 'Simorgh Design',
+    url: 'https://simorghdesign.ir',
+    logo: 'https://simorghdesign.ir/images/Logo.jpg',
+    description: 'طراحی سایت‌های مدرن، سریع و کاربرپسند با استفاده از جدیدترین تکنولوژی‌های روز دنیا',
+  }
+
+  return (
+    <html lang="fa" dir="rtl">
+      <head>
+        <Script
+          id="organization-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+      </head>
+      <body>{children}</body>
+    </html>
+  )
+}
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
