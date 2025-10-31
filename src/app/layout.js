@@ -1,77 +1,28 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Head from "next/head";
+import Script from "next/script";
 import "./globals.css";
-import Script from 'next/script'
 
 export default function RootLayout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
- const metadata = {
-  title: 'سیمرغ | طراحی سایت و دکوراسیون',
-  description: 'طراحی سایت‌های مدرن، سریع و کاربرپسند با استفاده از جدیدترین تکنولوژی‌های روز دنیا',
-  manifest: '/site.webmanifest',
-  icons: {
-    icon: [
-      { url: '/images/favicon.ico' },
-      { url: '/images/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/images/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-    ],
-    apple: [
-      { url: '/images/apple-touch-icon.png' },
-    ],
-  },
-  openGraph: {
-    type: 'website',
-    url: 'https://simorghdesign.ir',
-    title: 'سیمرغ | طراحی سایت و دکوراسیون',
-    description: 'طراحی سایت‌های مدرن، سریع و کاربرپسند با استفاده از جدیدترین تکنولوژی‌های روز دنیا',
-    images: [
-      {
-        url: 'https://simorghdesign.ir/images/Logo.jpg',
-        width: 512,
-        height: 512,
-        alt: 'لوگو سیمرغ دیزاین',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'سیمرغ | طراحی سایت و دکوراسیون',
-    description: 'طراحی سایت‌های مدرن، سریع و کاربرپسند با استفاده از جدیدترین تکنولوژی‌های روز دنیا',
-    images: ['https://simorghdesign.ir/images/Logo.jpg'],
-  },
-}
 
- function RootLayout({ children }) {
   const organizationSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'سیمرغ دیزاین',
-    alternateName: 'Simorgh Design',
-    url: 'https://simorghdesign.ir',
-    logo: 'https://simorghdesign.ir/images/Logo.jpg',
-    description: 'طراحی سایت‌های مدرن، سریع و کاربرپسند با استفاده از جدیدترین تکنولوژی‌های روز دنیا',
-  }
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "سیمرغ دیزاین",
+    alternateName: "Simorgh Design",
+    url: "https://simorghdesign.ir",
+    logo: "https://simorghdesign.ir/images/Logo.jpg",
+    description: "طراحی سایت‌های مدرن، سریع و کاربرپسند با استفاده از جدیدترین تکنولوژی‌های روز دنیا",
+  };
 
-  return (
-    <html lang="fa" dir="rtl">
-      <head>
-        <Script
-          id="organization-schema"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
-        />
-      </head>
-      <body>{children}</body>
-    </html>
-  )
-}
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -80,7 +31,7 @@ export default function RootLayout({ children }) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-    
+
   // بستن منو هنگام تغییر مسیر
   useEffect(() => {
     setIsMenuOpen(false);
@@ -116,6 +67,34 @@ export default function RootLayout({ children }) {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="google-site-verification" content="5U1W7lbKuQF6uA5q45pBvc1yK3EptfE97vLATDkiipE" />
+        
+        {/* Favicon */}
+        <link rel="icon" href="/images/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
+        <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+        <link rel="manifest" href="/images/site.webmanifest" />
+        
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://simorghdesign.ir" />
+        <meta property="og:title" content="سیمرغ | طراحی سایت و دکوراسیون" />
+        <meta property="og:description" content="طراحی سایت‌های مدرن، سریع و کاربرپسند با استفاده از جدیدترین تکنولوژی‌های روز دنیا" />
+        <meta property="og:image" content="https://simorghdesign.ir/images/Logo.jpg" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="سیمرغ | طراحی سایت و دکوراسیون" />
+        <meta name="twitter:description" content="طراحی سایت‌های مدرن، سریع و کاربرپسند با استفاده از جدیدترین تکنولوژی‌های روز دنیا" />
+        <meta name="twitter:image" content="https://simorghdesign.ir/images/Logo.jpg" />
+
+        <Script
+          id="organization-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
       </head>
       <body>
         {/* Header */}
@@ -184,29 +163,41 @@ export default function RootLayout({ children }) {
               <h3>سیمرغ</h3>
               <p>تلفیق طراحی مدرن با اصالت ایرانی</p>
             </div>
-            
+
             <div className="footer-links">
               <div className="footer-column">
                 <h4>دسترسی سریع</h4>
                 <ul>
-                  <li><Link href="/web-design">طراحی سایت</Link></li>
-                  <li><Link href="/decoration">دکوراسیون</Link></li>
-                  <li><Link href="/portfolio">نمونه کار</Link></li>
+                  <li>
+                    <Link href="/web-design">طراحی سایت</Link>
+                  </li>
+                  <li>
+                    <Link href="/decoration">دکوراسیون</Link>
+                  </li>
+                  <li>
+                    <Link href="/portfolio">نمونه کار</Link>
+                  </li>
                 </ul>
               </div>
-              
+
               <div className="footer-column">
                 <h4>ارتباط با ما</h4>
                 <ul>
-                  <li><Link href="/contact">تماس</Link></li>
-                  <li><Link href="/about">درباره ما</Link></li>
+                  <li>
+                    <Link href="/contact">تماس</Link>
+                  </li>
+                  <li>
+                    <Link href="/about">درباره ما</Link>
+                  </li>
                 </ul>
               </div>
             </div>
           </div>
-          
+
           <div className="footer-bottom">
-            <p>© {new Date().getFullYear()} مجموعه سیمرغ | طراحی و توسعه توسط احمدرضا رضائی</p>
+            <p>
+              © {new Date().getFullYear()} مجموعه سیمرغ | طراحی و توسعه توسط احمدرضا رضائی
+            </p>
           </div>
         </footer>
 
@@ -521,7 +512,7 @@ export default function RootLayout({ children }) {
             padding: 0;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
             color: #f5c518;
-            font-family: 'Vazirmatn', sans-serif;
+            font-family: "Vazirmatn", sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
           }
@@ -546,12 +537,24 @@ export default function RootLayout({ children }) {
             animation: fadeIn 0.5s ease forwards;
           }
 
-          .mobile-nav ul li:nth-child(1) { animation-delay: 0.1s; }
-          .mobile-nav ul li:nth-child(2) { animation-delay: 0.15s; }
-          .mobile-nav ul li:nth-child(3) { animation-delay: 0.2s; }
-          .mobile-nav ul li:nth-child(4) { animation-delay: 0.25s; }
-          .mobile-nav ul li:nth-child(5) { animation-delay: 0.3s; }
-          .mobile-nav ul li:nth-child(6) { animation-delay: 0.35s; }
+          .mobile-nav ul li:nth-child(1) {
+            animation-delay: 0.1s;
+          }
+          .mobile-nav ul li:nth-child(2) {
+            animation-delay: 0.15s;
+          }
+          .mobile-nav ul li:nth-child(3) {
+            animation-delay: 0.2s;
+          }
+          .mobile-nav ul li:nth-child(4) {
+            animation-delay: 0.25s;
+          }
+          .mobile-nav ul li:nth-child(5) {
+            animation-delay: 0.3s;
+          }
+          .mobile-nav ul li:nth-child(6) {
+            animation-delay: 0.35s;
+          }
         `}</style>
       </body>
     </html>
