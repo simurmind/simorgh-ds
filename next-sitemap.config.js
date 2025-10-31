@@ -1,7 +1,7 @@
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://www.simorghdesign.ir',
+  siteUrl: process.env.SITE_URL || 'https://simorghdesign.ir',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   changefreq: 'daily',
@@ -76,7 +76,7 @@ module.exports = {
       lastmod: new Date().toISOString(),
       alternateRefs: [
         {
-          href: `https://www.simorghdesign.ir${path}`,
+          href: `https://simorghdesign.ir${path}`,
           hreflang: 'fa-IR',
         },
       ],
