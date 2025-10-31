@@ -1,8 +1,11 @@
 
 "use client";
 import React, { useState, useEffect } from "react";
-import Head from "next/head";
 import "../app/globals.css";
+
+// ✅ Metadata به صورت export (این خط رو در Next.js 13+ App Router نمیشه با "use client" استفاده کرد)
+// پس metadata رو باید تو یه فایل جدا به اسم app/page-metadata.js بذاریم
+// یا اینکه از generateMetadata استفاده کنیم
 
 export default function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,19 +28,6 @@ export default function HomePage() {
 
   return (
     <>
-      <Head>
-        <title>سیمرغ | طراحی سایت و دکوراسیون</title>
-        <meta
-          name="description"
-          content="مجموعه سیمرغ: تلفیق طراحی مدرن با اصالت ایرانی در سایت و دکوراسیون داخلی."
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-
       <div className="homepage-container">
         {/* اهداف مجموعه سیمرغ */}
         <section className="goals-section">

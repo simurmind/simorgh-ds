@@ -4,8 +4,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Head from "next/head";
-import Script from "next/script";
+
 import "./globals.css";
 
 export default function RootLayout({ children }) {
@@ -60,36 +59,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
       <head>
-        <title>سیمرغ | طراحی سایت و دکوراسیون</title>
-        <meta
-          name="description"
-          content="مجموعه سیمرغ: تلفیق طراحی مدرن با اصالت ایرانی در سایت و دکوراسیون داخلی."
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="google-site-verification" content="5U1W7lbKuQF6uA5q45pBvc1yK3EptfE97vLATDkiipE" />
-        
-        {/* Favicon */}
         <link rel="icon" href="/images/favicon.ico" />
         <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
         <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
         <link rel="manifest" href="/images/site.webmanifest" />
         
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://simorghdesign.ir" />
-        <meta property="og:title" content="سیمرغ | طراحی سایت و دکوراسیون" />
-        <meta property="og:description" content="طراحی سایت‌های مدرن، سریع و کاربرپسند با استفاده از جدیدترین تکنولوژی‌های روز دنیا" />
-        <meta property="og:image" content="https://simorghdesign.ir/images/Logo.jpg" />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="سیمرغ | طراحی سایت و دکوراسیون" />
-        <meta name="twitter:description" content="طراحی سایت‌های مدرن، سریع و کاربرپسند با استفاده از جدیدترین تکنولوژی‌های روز دنیا" />
-        <meta name="twitter:image" content="https://simorghdesign.ir/images/Logo.jpg" />
-
-        <Script
-          id="organization-schema"
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationSchema),
