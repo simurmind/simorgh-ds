@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
+    
   // بستن منو هنگام تغییر مسیر
   useEffect(() => {
     setIsMenuOpen(false);
@@ -53,6 +53,7 @@ export default function RootLayout({ children }) {
           content="مجموعه سیمرغ: تلفیق طراحی مدرن با اصالت ایرانی در سایت و دکوراسیون داخلی."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="google-site-verification" content="5U1W7lbKuQF6uA5q45pBvc1yK3EptfE97vLATDkiipE" />
       </head>
       <body>
         {/* Header */}
