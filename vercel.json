@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.simorghdesign.ir"
+        }
+      ],
+      "destination": "https://simorghdesign.ir/:path*",
+      "permanent": true
+    }
+  ]
+}
