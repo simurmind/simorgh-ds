@@ -1,3 +1,5 @@
+// metadata.js (برای app router در Next.js 13+)
+import { Metadata } from 'next';
 export const metadata = {
   // ========== اطلاعات اصلی ==========
   title: {
