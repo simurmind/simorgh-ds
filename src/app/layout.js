@@ -1,20 +1,21 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useEffect, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
-
 import "./globals.css";
 
 export default function RootLayout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const lastScrollY = useRef(0);
   const pathname = usePathname();
 
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
+
     name: "سیمرغ دیزاین",
     alternateName: "Simorgh Design",
     url: "https://simorghdesign.ir",
@@ -22,473 +23,612 @@ export default function RootLayout({ children }) {
     description: "طراحی سایت‌های مدرن، سریع و کاربرپسند با استفاده از جدیدترین تکنولوژی‌های روز دنیا",
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // بستن منو هنگام تغییر مسیر
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [pathname]);
-
-  // جلوگیری از اسکرول body وقتی منو باز است
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [isMenuOpen]);
-
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
   const navLinks = [
     { href: "/", label: "صفحه اصلی" },
-    { href: "/web-design", label: "طراحی سایت" },
-    { href: "/decoration", label: "دکوراسیون" },
+    {
+      href: "#",
+      label: "خدمات ما",
+      hasSubmenu: true,
+      submenu: [
+        { href: "/web-design", label: "طراحی سایت" },
+        { href: "/decoration", label: "دکوراسیون" },
+      ],
+    },
+
     { href: "/portfolio", label: "نمونه کار" },
     { href: "/contact", label: "ارتباط با ما" },
     { href: "/about", label: "درباره ما" },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY < 10) {
+        setIsHeaderVisible(true);
+      } else if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        setIsHeaderVisible(false);
+      } else if (currentScrollY < lastScrollY.current) {
+        setIsHeaderVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setIsServicesOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "unset";
+  }, [isMenuOpen]);
+
   return (
     <html lang="fa" dir="rtl">
       <head>
         <meta name="google-site-verification" content="5U1W7lbKuQF6uA5q45pBvc1yK3EptfE97vLATDkiipE" />
+
         <link rel="icon" href="/images/favicon.ico" />
         <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
         <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
         <link rel="manifest" href="/images/site.webmanifest" />
-        
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
       <body>
-        {/* Header */}
-        <header className={`header ${scrolled ? "scrolled" : ""}`}>
-          <div className="header-container">
-            {/* Logo */}
-            <Link href="/" className="logo">
-              سیمرغ
-            </Link>
+        <header className={`header ${isHeaderVisible ? "visible" : "hidden"}`}>
+          <div className="container">
 
-            {/* Desktop Navigation */}
-            <nav className="desktop-nav">
-              <ul>
-                {navLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
+            <a href="/" className="logo">
+              سیمرغ دیزاین
+            </a>
+
+            <nav className="nav-desktop">
+              {navLinks.map((link) => (
+                <div key={link.href} className="nav-item">
+                  {link.hasSubmenu ? (
+                    <>
+                      <button
+                        className="nav-link-btn"
+                        onMouseEnter={() => setIsServicesOpen(true)}
+                        onMouseLeave={() => setIsServicesOpen(false)}
+                      >
+                        {link.label}
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 12 12"
+                          fill="currentColor"
+
+                          style={{ marginRight: "4px" }}
+                        >
+                          <path d="M6 8L2 4h8z" />
+                        </svg>
+                      </button>
+                      {isServicesOpen && (
+                        <div
+                          className="submenu"
+                          onMouseEnter={() => setIsServicesOpen(true)}
+                          onMouseLeave={() => setIsServicesOpen(false)}
+                        >
+                          {link.submenu.map((sublink) => (
+                            <a
+                              key={sublink.href}
+                              href={sublink.href}
+                              className="submenu-link"
+                            >
+                              {sublink.label}
+
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <a
                       href={link.href}
-                      className={pathname === link.href ? "active" : ""}
+                      className={`nav-link ${pathname === link.href ? "active" : ""}`}
                     >
                       {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+                    </a>
+                  )}
+                </div>
+              ))}
             </nav>
 
-            {/* Hamburger Menu Button */}
             <button
               className={`hamburger ${isMenuOpen ? "open" : ""}`}
-              onClick={toggleMenu}
+              onClick={() => setIsMenuOpen(!
+
+isMenuOpen)}
               aria-label="منوی موبایل"
             >
-              <span></span>
-              <span></span>
-              <span></span>
+              <span />
+              <span />
+              <span />
             </button>
           </div>
         </header>
 
-        {/* Mobile Navigation Overlay */}
-        <div className={`mobile-nav-overlay ${isMenuOpen ? "open" : ""}`}>
-          <nav className="mobile-nav">
-            <ul>
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
+        <div className={`menu-mobile ${isMenuOpen ? "open" : ""}`}>
+          <nav>
+            {navLinks.map((link, i) => (
+              <div key={link.href} style={{ animationDelay: `${i * 0.05}s` }}>
+                {link.hasSubmenu ? (
+                  <>
+                    <button
+                      className={`mobile-link ${pathname === link.href ? "active" : ""}`}
+                      onClick={() => 
+
+setIsServicesOpen(!isServicesOpen)}
+                    >
+                      <span>{link.label}</span>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        style={{
+                          transform: isServicesOpen ? "rotate(180deg)" : "rotate(0)",
+                          transition: "transform 0.3s ease",
+                        }}
+                      >
+                        <path d="M8 10L4 6h8z" />
+                      </svg>
+                    </button>
+                    <div className={`mobile-submenu ${isServicesOpen ? "open" : ""}`}>
+                      {link.submenu.map((sublink) => (
+
+                        <a
+                          key={sublink.href}
+                          href={sublink.href}
+                          className="mobile-submenu-link"
+                        >
+                          {sublink.label}
+                        </a>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <a
                     href={link.href}
-                    className={pathname === link.href ? "active" : ""}
-                    onClick={() => setIsMenuOpen(false)}
+                    className={`mobile-link ${pathname === link.href ? "active" : ""}`}
                   >
                     {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                  </a>
+                )}
+              </div>
+            ))}
           </nav>
+
         </div>
 
-        {/* Main Content */}
-        <main className="main-content">{children}</main>
+        <main className="main">{children}</main>
 
-        {/* Footer */}
         <footer className="footer">
-          <div className="footer-content">
-            <div className="footer-brand">
-              <h3>سیمرغ</h3>
-              <p>تلفیق طراحی مدرن با اصالت ایرانی</p>
-            </div>
-
-            <div className="footer-links">
-              <div className="footer-column">
-                <h4>دسترسی سریع</h4>
-                <ul>
-                  <li>
-                    <Link href="/web-design">طراحی سایت</Link>
-                  </li>
-                  <li>
-                    <Link href="/decoration">دکوراسیون</Link>
-                  </li>
-                  <li>
-                    <Link href="/portfolio">نمونه کار</Link>
-                  </li>
-                </ul>
+          <div className="container">
+            <div className="footer-center">
+              <div className="footer-logo">
+                <h3>سیمرغ دیزاین</h3>
+              </div>
+              
+              <div className="footer-links">
+                <a href="/portfolio">مشاهده نمونه کارها</a>
+                <a href="/web-design">طراحی سایت</a>
+                <a href="/decoration">دکوراسیون</a>
+                <a href="/contact">دعوت به همکاری</a>
               </div>
 
-              <div className="footer-column">
-                <h4>ارتباط با ما</h4>
-                <ul>
-                  <li>
-                    <Link href="/contact">تماس</Link>
-                  </li>
-                  <li>
-                    <Link href="/about">درباره ما</Link>
-                  </li>
-                </ul>
+              <div className="footer-phone">
+
+                <a href="tel:09187634731">09187634731</a>
+              </div>
+
+              <div className="footer-links">
+                <a href="/contact">درباره ما</a>
               </div>
             </div>
-          </div>
 
-          <div className="footer-bottom">
-            <p>
-              © {new Date().getFullYear()} مجموعه سیمرغ | طراحی و توسعه توسط احمدرضا رضائی
-            </p>
+            <div className="footer-bottom">
+              <p>
+                © {new Date().getFullYear()} مجموعه سیمرغ دیزاین | طراحی و توسعه توسط احمدرضا رضائی
+              </p>
+            </div>
           </div>
         </footer>
 
         <style jsx>{`
-          /* ============== HEADER STYLES ============== */
           .header {
-            position: sticky;
+
+            position: fixed;
             top: 0;
+            right: 0;
+            left: 0;
             z-index: 1000;
-            background: rgba(20, 20, 20, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(245, 197, 24, 0.1);
-            transition: all 0.3s ease;
+            background: rgba(10, 10, 10, 0.95);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           }
 
-          .header.scrolled {
-            background: rgba(20, 20, 20, 0.98);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            border-bottom-color: rgba(245, 197, 24, 0.3);
+          .header.visible {
+            transform: translateY(0);
           }
 
-          .header-container {
+          .header.hidden {
+            transform: translateY(-100%);
+          }
+
+          .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1.2rem 2rem;
+            padding: 0.75rem 1.5rem;
+
             display: flex;
             justify-content: space-between;
             align-items: center;
           }
 
-          /* ============== LOGO ============== */
           .logo {
-            font-size: 2rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: #f5c518;
             text-decoration: none;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            position: relative;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
           }
 
-          .logo::after {
-            content: "";
-            position: absolute;
-            bottom: -5px;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #f5c518, #ffd700);
-            transition: width 0.3s ease;
-          }
-
-          .logo:hover::after {
-            width: 100%;
-          }
-
-          /* ============== DESKTOP NAVIGATION ============== */
-          .desktop-nav {
-            display: none;
-          }
-
-          .desktop-nav ul {
-            display: flex;
-            list-style: none;
-            gap: 0.5rem;
-            margin: 0;
-            padding: 0;
-          }
-
-          .desktop-nav a {
-            color: #f5c518;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.7rem 1.2rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            position: relative;
-            white-space: nowrap;
-          }
-
-          .desktop-nav a::before {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            right: 50%;
-            width: 0;
-            height: 2px;
-            background: #f5c518;
-            transition: all 0.3s ease;
-          }
-
-          .desktop-nav a:hover,
-          .desktop-nav a.active {
-            background: rgba(245, 197, 24, 0.1);
+          .logo:hover {
             color: #ffd700;
           }
 
-          .desktop-nav a:hover::before,
-          .desktop-nav a.active::before {
-            width: 80%;
-            right: 10%;
+          .nav-desktop {
+            display: none;
+            gap: 0.25rem;
+            align-items: center;
+
           }
 
-          /* ============== HAMBURGER MENU ============== */
+          .nav-item {
+            position: relative;
+          }
+
+          .nav-link,
+          .nav-link-btn {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            padding: 0.5rem 0.875rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+            white-space: nowrap;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+          }
+
+          .nav-link:hover,
+          .nav-link-btn:hover,
+          .nav-link.active {
+            color: #f5c518;
+          }
+
+          .submenu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(10, 10, 10, 0.98);
+            padding: 0.75rem;
+            min-width: 180px;
+            margin-top: 0.5rem;
+            border-radius: 8px;
+            z-index: 1001;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            animation: fadeInSubmenu 0.3s ease forwards;
+          }
+
+          @keyframes fadeInSubmenu {
+            from {
+              opacity: 0;
+              transform: translateY(-10px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          .submenu-link {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.5rem 0.875rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            text-align: right;
+
+            margin-bottom: 0.25rem;
+          }
+
+          .submenu-link:last-child {
+            margin-bottom: 0;
+          }
+
+          .submenu-link:hover {
+            color: #f5c518;
+            background: rgba(245, 197, 24, 0.1);
+          }
+
           .hamburger {
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            background: transparent;
+            gap: 4px;
+            background: none;
             border: none;
             cursor: pointer;
-            padding: 8px;
+            padding: 6px;
             z-index: 1001;
           }
 
           .hamburger span {
-            width: 28px;
-            height: 3px;
+            width: 22px;
+            height: 2px;
             background: #f5c518;
-            border-radius: 3px;
-            transition: all 0.3s ease;
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           }
 
           .hamburger.open span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
+            transform: rotate(45deg) translate(6px, 6px);
           }
 
           .hamburger.open span:nth-child(2) {
             opacity: 0;
-            transform: translateX(20px);
           }
 
           .hamburger.open span:nth-child(3) {
-            transform: rotate(-45deg) translate(8px, -8px);
+            transform: rotate(-45deg) translate(6px, -6px);
+
           }
 
-          /* ============== MOBILE NAVIGATION ============== */
-          .mobile-nav-overlay {
+          .menu-mobile {
             position: fixed;
             top: 0;
             right: -100%;
             width: 100%;
             height: 100vh;
             background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(10px);
             z-index: 999;
-            transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             overflow-y: auto;
           }
 
-          .mobile-nav-overlay.open {
+          .menu-mobile.open {
             right: 0;
           }
 
-          .mobile-nav {
-            padding: 6rem 2rem 2rem;
-          }
-
-          .mobile-nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+          .menu-mobile nav {
+            padding: 4.5rem 1.5rem 2rem;
             display: flex;
+
             flex-direction: column;
             gap: 0.5rem;
           }
 
-          .mobile-nav a {
-            display: block;
-            color: #f5c518;
+          .mobile-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            color: #fff;
             text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: 600;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.875rem 1rem;
+            border-radius: 0;
+            background: none;
+            transition: all 0.3s;
+            opacity: 0;
+            animation: fadeIn 0.4s ease forwards;
+            border: none;
+            cursor: pointer;
+
+            text-align: right;
+          }
+
+          .mobile-link:hover,
+          .mobile-link.active {
+            color: #f5c518;
+          }
+
+          .mobile-submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0;
+            padding-right: 1rem;
+            opacity: 0;
+          }
+
+          .mobile-submenu.open {
+            max-height: 300px;
+
+            margin-top: 0.75rem;
+            opacity: 1;
+          }
+
+          .mobile-submenu-link {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.875rem 1rem;
+            border-radius: 0;
+            background: none;
             transition: all 0.3s ease;
-            border: 1px solid rgba(245, 197, 24, 0.2);
-            background: rgba(255, 255, 255, 0.02);
+            text-align: right;
+            border: none;
           }
 
-          .mobile-nav a:hover,
-          .mobile-nav a.active {
-            background: rgba(245, 197, 24, 0.15);
-            border-color: #f5c518;
-            transform: translateX(-5px);
+          .mobile-submenu-link:hover {
+            color: #f5c518;
           }
 
-          /* ============== MAIN CONTENT ============== */
-          .main-content {
-            min-height: calc(100vh - 400px);
-            padding: 2rem 1rem;
+          @keyframes fadeIn {
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+            from {
+              opacity: 0;
+              transform: translateY(10px);
+            }
+          }
+
+          .main {
+            min-height: calc(100vh - 300px);
+            padding: 4.5rem 1rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
           }
 
-          /* ============== FOOTER ============== */
           .footer {
             background: linear-gradient(180deg, #0a0a0a 0%, #111 100%);
-            border-top: 1px solid rgba(245, 197, 24, 0.2);
-            margin-top: 4rem;
+            margin-top: 3rem;
+
           }
 
-          .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-            display: grid;
-            grid-template-columns: 1fr;
+          .footer .container {
+            display: block;
+            padding: 3rem 1.5rem 2rem;
+          }
+
+          .footer-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             gap: 2rem;
           }
 
-          .footer-brand h3 {
+          .footer-logo h3 {
             color: #f5c518;
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-          }
-
-          .footer-brand p {
-            color: #999;
-            font-size: 0.95rem;
+            font-size: 1.5rem;
+            margin: 0;
+            text-align: center;
           }
 
           .footer-links {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            display: flex;
             gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
           }
 
-          .footer-column h4 {
-            color: #f5c518;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-          }
-
-          .footer-column ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-          }
-
-          .footer-column a {
-            color: #999;
+          .footer-links a {
+            color: #fff;
             text-decoration: none;
-            display: block;
-            padding: 0.5rem 0;
-            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 400;
           }
 
-          .footer-column a:hover {
+          .footer-links a:hover {
             color: #f5c518;
-            transform: translateX(-5px);
+          }
+
+          .footer-phone a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 500;
+
+            letter-spacing: 1px;
+          }
+
+          .footer-phone a:hover {
+            color: #f5c518;
           }
 
           .footer-bottom {
             text-align: center;
-            padding: 1.5rem 2rem;
+            padding: 1rem 0 0;
+            margin-top: 2rem;
             border-top: 1px solid rgba(245, 197, 24, 0.1);
-            color: #666;
-            font-size: 0.9rem;
+            color: #fff;
+            font-size: 0.8rem;
           }
 
-          /* ============== RESPONSIVE TABLET ============== */
+          .footer-bottom p {
+            margin: 0;
+          }
+
           @media (min-width: 768px) {
-            .header-container {
-              padding: 1.5rem 3rem;
+            .container {
+
+              padding: 0.875rem 2rem;
             }
 
-            .main-content {
-              padding: 3rem 2rem;
+            .logo {
+              font-size: 1.35rem;
             }
 
-            .footer-content {
-              grid-template-columns: 1.5fr 1fr;
-              padding: 4rem 3rem;
+            .main {
+              padding: 5rem 2rem 3rem;
+            }
+
+            .footer .container {
+              padding: 3.5rem 2rem 2rem;
             }
 
             .footer-links {
-              grid-template-columns: 1fr 1fr;
+              gap: 2.5rem;
             }
 
-            .mobile-nav a {
-              font-size: 1.5rem;
+            .menu-mobile nav {
+              padding: 5rem 2rem 2rem;
             }
+
           }
 
-          /* ============== RESPONSIVE DESKTOP ============== */
           @media (min-width: 1024px) {
-            .desktop-nav {
-              display: block;
+            .nav-desktop {
+              display: flex;
             }
 
-            .hamburger {
-              display: none;
-            }
-
-            .mobile-nav-overlay {
+            .hamburger,
+            .menu-mobile {
               display: none;
             }
 
             .logo {
-              font-size: 2.2rem;
+              font-size: 1.5rem;
             }
 
-            .footer-content {
-              grid-template-columns: 2fr 1fr;
+            .footer-links {
+              gap: 3rem;
             }
           }
 
-          /* ============== BODY STYLES ============== */
           :global(body) {
+
             margin: 0;
             padding: 0;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            color: #f5c518;
+            color: #fff;
             font-family: "Vazirmatn", sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
@@ -498,39 +638,8 @@ export default function RootLayout({ children }) {
             scroll-behavior: smooth;
           }
 
-          /* ============== ANIMATIONS ============== */
-          @keyframes fadeIn {
-            from {
-              opacity: 0;
-              transform: translateY(20px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-
-          .mobile-nav ul li {
-            animation: fadeIn 0.5s ease forwards;
-          }
-
-          .mobile-nav ul li:nth-child(1) {
-            animation-delay: 0.1s;
-          }
-          .mobile-nav ul li:nth-child(2) {
-            animation-delay: 0.15s;
-          }
-          .mobile-nav ul li:nth-child(3) {
-            animation-delay: 0.2s;
-          }
-          .mobile-nav ul li:nth-child(4) {
-            animation-delay: 0.25s;
-          }
-          .mobile-nav ul li:nth-child(5) {
-            animation-delay: 0.3s;
-          }
-          .mobile-nav ul li:nth-child(6) {
-            animation-delay: 0.35s;
+          :global(*) {
+            box-sizing: border-box;
           }
         `}</style>
       </body>
