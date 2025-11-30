@@ -1,509 +1,654 @@
 
 "use client";
 import React, { useState, useEffect } from "react";
-import Head from "next/head";
 
-export default function WebDesignPage() {
-  const services = [
-    {
-      id: 1,
-      icon: "🚀",
-      title: "طراحی سایت سئو شده",
-      description: "طراحی سایت‌هایی که از ابتدا با رعایت اصول سئو ساخته می‌شوند تا در موتورهای جستجو رتبه بالاتری داشته باشند. این سایت‌ها شامل ساختار مناسب URL‌ها، متا تگ‌ها، بهینه‌سازی تصاویر و محتوا هستند.",
-      duration: "۷ تا ۱۵ روز",
-      color: "#f5c518",
-    },
-    {
-      id: 2,
-      icon: "🛒",
-      title: "طراحی سایت فروشگاهی",
-      description: "طراحی سایت‌های فروشگاهی با سیستم‌های پرداخت آنلاین، سبد خرید، مدیریت محصولات و موجودی به شما کمک می‌کند که به راحتی محصولات خود را بفروشید. این سایت‌ها باید به گونه‌ای طراحی شوند که تجربه خرید مشتریان را بهبود دهند و امنیت آن‌ها تضمین شود.",
-      duration: "۷ تا ۱۲ روز",
-      color: "#4CAF50",
-    },
-    {
-      id: 3,
-      icon: "🏢",
-      title: "طراحی سایت شرکتی",
-      description: "طراحی سایت‌های شرکتی برای کسب‌وکارهایی است که می‌خواهند خدمات خود را به بهترین نحو معرفی کنند. این سایت‌ها معمولاً ساده و کاربرپسند هستند، اما می‌توانند ویژگی‌های خاصی مانند فرم‌های ارتباطی، گالری‌ها و بخش‌های اختصاصی داشته باشند.",
-      duration: "۳ تا ۷ روز",
-      color: "#2196F3",
-    },
-    {
-      id: 4,
-      icon: "📰",
-      title: "طراحی سایت خبری و رسانه‌ای",
-      description: "طراحی سایت‌های خبری برای رسانه‌ها و سازمان‌هایی است که نیاز به انتشار روزانه اخبار و مطالب دارند. این سایت‌ها به سیستم مدیریت محتوا (CMS) پیشرفته نیاز دارند و باید به راحتی قابلیت به‌روزرسانی و انتشار اخبار را داشته باشند.",
-      duration: "۷ تا ۱۵ روز",
-      color: "#FF5722",
-    },
-    {
-      id: 5,
-      icon: "✍️",
-      title: "طراحی سایت شخصی یا بلاگ",
-      description: "این نوع سایت‌ها برای افرادی طراحی می‌شوند که می‌خواهند محتوای شخصی خود را به اشتراک بگذارند. طراحی این سایت‌ها ساده و سریع است و معمولاً به‌طور خاص برای نویسندگان و بلاگرها ساخته می‌شوند تا مقالات و تجربیات خود را به راحتی منتشر کنند.",
-      duration: "۲ تا ۳ روز",
-      color: "#9C27B0",
-    },
-  ];
+export default function WebDesignServicesPage() {
+  const [visibleSections, setVisibleSections] = useState(new Set());
+  const [openFaq, setOpenFaq] = useState(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => new Set([...prev, entry.target.id]));
+          }
+        });
+      },
+
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll("section[id]").forEach((section) => {
+      observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
 
   return (
     <>
-      <Head>
-        <title>طراحی سایت حرفه‌ای | مجموعه سیمرغ</title>
-        <meta
-          name="description"
-          content="طراحی انواع سایت: سئو شده، فروشگاهی، شرکتی، خبری و شخصی با بهترین کیفیت و قیمت"
-        />
-        <meta name="keywords" content="طراحی سایت، سئو، فروشگاهی، شرکتی، خبری، بلاگ" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
+      <section className="hero" id="hero">
+        <div className={`hero-content ${visibleSections.has("hero") ? "visible" : ""}`}
 
-      <div className="web-design-container">
-        {/* Hero Section */}
-        <section className="hero-section">
-          <h1 className="hero-title">خدمات طراحی سایت حرفه‌ای</h1>
-          <p className="hero-subtitle">
-            از سایت‌های ساده تا پیچیده، با بهترین کیفیت و سریع‌ترین زمان
+>
+          <h1 className="hero-title">طراحی سایت حرفه‌ای</h1>
+          <p className="hero-description">
+            در دنیای دیجیتال امروز، وب‌سایت شما نماینده اصلی برند شماست. ما با ترکیب تکنولوژی‌های روز و طراحی مدرن، 
+            سایت‌هایی می‌سازیم که نه‌تنها زیبا هستند، بلکه برای رشد کسب‌وکار شما بهینه‌سازی شده‌اند. 
+            از سایت‌های شخصی گرفته تا پلتفرم‌های پیچیده تجاری، ما راهکار شما هستیم.
           </p>
-        </section>
+        </div>
+      </section>
 
-        {/* Services Grid */}
-        <section className="services-section">
-          <h2 className="section-title">انواع خدمات طراحی سایت</h2>
-          <div className="services-grid">
-            {services.map((service) => (
-              <div key={service.id} className="service-card">
-                <div className="service-icon">{service.icon}</div>
-                <h3 className="service-title">{service.title}</h3>
-                <p className="service-description">{service.description}</p>
-                <div className="service-footer">
-                  <span className="service-duration">⏱️ {service.duration}</span>
-                </div>
-              </div>
-            ))}
+      <section className="info-section" id="info">
+        <div className="container">
+          <div className={`info-grid ${visibleSections.has("info") ? "visible" : ""}`}>
+            <div className="info-card">
+              <h2>چرا باید وب‌ سایت داشته باشیم؟</
+
+h2>
+              <p>
+                وب‌سایت دروازه ورود شما به بازار دیجیتال است. در عصری که مشتریان قبل از هر تصمیمی به اینترنت مراجعه می‌کنند، 
+                نداشتن وب‌سایت به معنای از دست دادن فرصت‌های بی‌شماری است. یک وب‌سایت حرفه‌ای اعتماد ایجاد می‌کند، 
+                دسترسی ۲۴ ساعته به مخاطبان فراهم می‌آورد و ابزاری قدرتمند برای رقابت با دیگران در بازار است. 
+                وب‌سایت شما می‌تواند مشتریان را جذب کند، محصولات را بفروشد و برند شما را به سطح جدیدی برساند.
+              </p>
+            </div>
+
+            <div className="info-card">
+              <h2>چه امکاناتی تیم ما ارائه می‌دهد؟</h2>
+              <p>
+                ما تمام مراحل ساخت وب‌سایت را پوشش 
+
+می‌دهیم: از طراحی رابط کاربری مدرن و کدنویسی با تکنولوژی‌های پیشرفته، 
+                تا بهینه‌سازی برای موتورهای جستجو و افزایش سرعت بارگذاری. سایت‌های ما کاملاً ریسپانسیو هستند و در تمام دستگاه‌ها 
+                به خوبی نمایش داده می‌شوند. امنیت، پشتیبانی مادام‌العمر، آموزش مدیریت محتوا و مشاوره رایگان از جمله خدماتی است 
+                که با هر پروژه ارائه می‌دهیم. شما فقط ایده را بیاورید، بقیه با ماست.
+              </p>
+            </div>
+
+            <div className="info-card">
+              <h2>تیم جوان و متخصص ما</h2>
+              <p>
+                تیم ما از افراد جوان، خلاق و متعهد تشکیل شده که با آخرین استانداردهای وب آشنا هستند. 
+                ما نه به مدرک، بلکه به مهارت واقعی اعتقاد داریم. هر خط کدی که می‌نویسیم و هر طراحی که ارائه می‌دهیم، 
+
+                نتیجه ساعت‌ها تمرین، یادگیری و تجربه عملی است. ما با شما به‌صورت شفاف همکاری می‌کنیم، 
+                پروژه شما را مانند پروژه خودمان می‌دانیم و تا زمانی که رضایت کامل شما حاصل نشود، کنار شما هستیم.
+              </p>
+            </div>
           </div>
-        </section>
 
-        {/* Student Discount Section */}
-        <section className="discount-section">
-          <div className="discount-badge">🎓</div>
-          <h2 className="discount-title">تخفیف ویژه دانشجویی</h2>
-          <p className="discount-text">
-            برای تمامی دانشجویان و دانش‌آموزان تخفیف ویژه‌ای در نظر گرفته‌ایم. 
-            کافی است هنگام ثبت سفارش، مدارک تحصیلی خود را ارسال کنید و از 
-            <strong> ۱۰٪ تخفیف </strong> بهره‌مند شوید.
-          </p>
-        </section>
-
-        {/* CTA Section */}
-        <section className="cta-section">
-          <h2 className="cta-title">خوشحال می‌شویم با شما همکاری کنیم</h2>
-          <p className="cta-text">
-            مجموعه سیمرغ با سال‌ها تجربه در طراحی سایت آماده همکاری با شما است. 
-            ما به شما کمک می‌کنیم تا سایت خود را به بهترین نحو طراحی و پیاده‌سازی کنید.
-          </p>
-          <button className="cta-button">
-            <a href="/contact" style={{ color: 'inherit', textDecoration: 'none' }}>
-              همین حالا شروع کنید 🚀
+          <div className="cta-container">
+            <a href="tel:09187634731" className="cta-button">
+              پروژه‌ات را ثبت کن
             </a>
-          </button>
-        </section>
-      </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="types-section" id="types">
+        <div className="container">
+          <h2 className="section-title">انواع 
+
+وب‌ سایت</h2>
+          <div className={`types-grid ${visibleSections.has("types") ? "visible" : ""}`}>
+            
+            <div className="type-card">
+              <h3>وردپرس</h3>
+              <p>
+                سایت‌های وردپرسی برای کسانی که می‌خواهند به راحتی محتوای خود را مدیریت کنند، بهترین گزینه‌اند. 
+                با پنل مدیریتی ساده، امکانات گسترده و قابلیت سفارشی‌سازی بالا، وردپرس برای بلاگ‌ها، 
+                سایت‌های شرکتی و حتی فروشگاه‌های کوچک مناسب است.
+              </p>
+            </div>
+
+            <div className="type-card">
+              <h3>فروشگاهی</h3>
+              <p>
+                سایت‌های فروشگاهی با سیستم‌های 
+
+پیشرفته سبد خرید، درگاه پرداخت امن، مدیریت موجودی و پیگیری سفارشات، 
+                به شما امکان می‌دهند محصولات خود را به راحتی آنلاین بفروشید. این سایت‌ها برای افزایش فروش و 
+                تجربه خرید بهتر مشتریان طراحی شده‌اند.
+              </p>
+            </div>
+
+            <div className="type-card">
+              <h3>شرکتی</h3>
+              <p>
+                سایت‌های شرکتی نمایانگر هویت حرفه‌ای کسب‌وکار شما هستند. با طراحی تمیز، ارائه خدمات، 
+                نمونه کارها و فرم‌های تماس، این سایت‌ها به شما کمک می‌کنند تا اعتماد مشتریان را جلب کرده و 
+                برند خود را به بهترین شکل معرفی کنید.
+              </p>
+            </div>
+
+            <div className="type-card">
+              <h3>شخصی / بلاگ</h3>
+
+              <p>
+                سایت‌ های شخصی و بلاگ‌ها فضایی برای به اشتراک‌ گذاری افکار، تجربیات و دانش شماست. 
+                این سایت‌ها با طراحی ساده و تمرکز بر محتوا، به شما امکان می‌دهند مخاطبان وفادار بسازید و 
+                صدای خود را در دنیای دیجیتال به گوش برسانید.
+              </p>
+            </div>
+
+            <div className="type-card">
+              <h3>خبری / رسانه‌ای</h3>
+              <p>
+                سایت‌های خبری برای انتشار سریع و مدیریت حجم بالای محتوا طراحی شده‌اند. 
+                با سیستم‌های مدیریت محتوای پیشرفته، دسته‌بندی خبرها، جستجوی پیشرفته و بارگذاری سریع، 
+                این سایت‌ها تجربه خواندن روان و حرفه‌ای را ارائه می‌دهند.
+              </p>
+
+            </div>
+
+            <div className="type-card">
+              <h3>آموزشی</h3>
+              <p>
+                پلتفرم‌های آموزشی با امکان ارائه دوره‌ها، مدیریت دانشجویان، سیستم پرداخت و پیگیری پیشرفت، 
+                به شما کمک می‌کنند دانش خود را به‌صورت آنلاین به اشتراک بگذارید. این سایت‌ها برای مدرسان، 
+                موسسات آموزشی و سازمان‌ها ایده‌آل هستند.
+              </p>
+            </div>
+
+            <div className="type-card">
+              <h3>رزومه و برند شخصی</h3>
+              <p>
+                سایت‌های رزومه و برند شخصی ابزاری قدرتمند برای نمایش مهارت‌ها، پروژه‌ها و دستاوردهای شماست. 
+
+                این سایت‌ها به شما کمک می‌کنند در چشم کارفرمایان و مشتریان بالقوه متمایز شوید و 
+                حضور حرفه‌ای در دنیای دیجیتال داشته باشید.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="trust-section" id="trust">
+        <div className="container">
+          <div className={`trust-content ${visibleSections.has("trust") ? "visible" : ""}`}>
+            <h2 className="trust-title">اگر هنوز شک دارید...</h2>
+            <p className="trust-text">
+              ما می‌دانیم که انتخاب تیم مناسب برای ساخت وب‌سایت تصمیم آسانی نیست. شاید نگران باشید که 
+              پروژه به موقع تحویل داده نشود، یا کیفیت 
+
+کار انتظارات شما را برآورده نکند. اما اینجا چیزی است که 
+              ما را متفاوت می‌کند: ما نه تنها وب‌سایت می‌سازیم، بلکه شریک رشد شما هستیم. هر پروژه برای ما 
+              فرصتی است تا اعتماد شما را جلب کنیم و ثابت کنیم که می‌توانیم فراتر از انتظارات عمل کنیم. 
+              ما با شفافیت کامل کار می‌کنیم، پرداخت به صورت مرحله‌ای است و تا زمانی که رضایت کامل شما حاصل نشود، 
+              کنار شما هستیم. پشتیبانی مادام‌العمر، تضمین کیفیت و تعهد به موعدها بخشی از وعده‌های ما به شماست. 
+              اگر هنوز مردد هستید، بیایید با هم صحبت کنیم و اجازه دهید با کارمان شما را متقاعد کنیم.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="faq-section" id="faq">
+
+        <div className="container">
+          <h2 className="section-title">سوالات شماست</h2>
+          <div className={`faq-list ${visibleSections.has("faq") ? "visible" : ""}`}>
+            
+            <div className="faq-item">
+              <button 
+                className={`faq-question ${openFaq === 0 ? "active" : ""}`}
+                onClick={() => toggleFaq(0)}
+              >
+                <span>چند سال تجربه دارید؟</span>
+                <span className="faq-icon">{openFaq === 0 ? "−" : "+"}</span>
+              </button>
+              <div className={`faq-answer ${openFaq === 0 ? "open" : ""}`}>
+                <p>
+                  مهارت ما در کدهایی است که نوشته‌ایم؛ تجربه واقعی به سن محدود نیست، به کیفیت کد خلاصه می‌شود.
+
+                </p>
+              </div>
+            </div>
+
+            <div className="faq-item">
+              <button 
+                className={`faq-question ${openFaq === 1 ? "active" : ""}`}
+                onClick={() => toggleFaq(1)}
+              >
+                <span>قیمت‌ها چطور است؟</span>
+                <span className="faq-icon">{openFaq === 1 ? "−" : "+"}</span>
+              </button>
+              <div className={`faq-answer ${openFaq === 1 ? "open" : ""}`}>
+                <p>
+ </p>
+ <p>
+                 قیمت‌های منصفانه، پرداخت مرحله‌ای، روند شفاف و تضمین کیفیت.
+                
+                </p>
+              </div>
+            </div>
+
+
+            <div className="faq-item">
+              <button 
+                className={`faq-question ${openFaq === 2 ? "active" : ""}`}
+                onClick={() => toggleFaq(2)}
+              >
+                <span>پشتیبانی بعد از اتمام سفارش دارید؟</span>
+                <span className="faq-icon">{openFaq === 2 ? "−" : "+"}</span>
+              </button>
+              <div className={`faq-answer ${openFaq === 2 ? "open" : ""}`}>
+                <p>
+                  بله، پشتیبانی مادام‌العمر داریم. البته با کیفیت کاری که ارائه می‌دهیم، احتمالاً نیازی نیست.
+                </p>
+              </div>
+            </div>
+
+            <div className="faq-item">
+
+              <button 
+                className={`faq-question ${openFaq === 3 ? "active" : ""}`}
+                onClick={() => toggleFaq(3)}
+              >
+                <span>آیا سایت اصول SEO را رعایت می‌کند؟</span>
+                <span className="faq-icon">{openFaq === 3 ? "−" : "+"}</span>
+              </button>
+              <div className={`faq-answer ${openFaq === 3 ? "open" : ""}`}>
+                <p>
+                  بله، تمام سایت‌ها مطابق اصول SEO طراحی می‌شوند تا در موتورهای جستجو رتبه بهتری بگیرند.
+                </p>
+              </div>
+            </div>
+
+            <div className="faq-item">
+              <button 
+
+                className={`faq-question ${openFaq === 4 ? "active" : ""}`}
+                onClick={() => toggleFaq(4)}
+              >
+                <span>آیا وب‌سایت کسب‌وکار من را رشد می‌دهد؟</span>
+                <span className="faq-icon">{openFaq === 4 ? "−" : "+"}</span>
+              </button>
+              <div className={`faq-answer ${openFaq === 4 ? "open" : ""}`}>
+                <p>
+                  بله، یک وب‌سایت حرفه‌ای می‌تواند رشد چندین برابری برای کسب‌وکار شما به ارمغان بیاورد.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
 
       <style jsx>{`
-        /* ============== CONTAINER ============== */
-        .web-design-container {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 1rem;
+
+        * {
+          box-sizing: border-box;
         }
 
-        /* ============== HERO SECTION ============== */
-        .hero-section {
-          background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(20, 20, 20, 0.98) 100%);
-          backdrop-filter: blur(20px);
-          padding: 4rem 2rem;
-          margin-bottom: 3rem;
-          border-radius: 20px;
-          border: 1px solid rgba(245, 197, 24, 0.3);
+        body {
+          margin: 0;
+          padding: 0;
+          background: #0f0f0f;
+          color: #ffffff;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+          direction: rtl;
+        }
+
+        .hero {
+          padding: 80px 24px 60px;
           text-align: center;
-          position: relative;
-          overflow: hidden;
-          animation: fadeInUp 0.8s ease-out;
         }
 
-        .hero-section::before {
-          content: "";
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background: radial-gradient(circle, rgba(245, 197, 24, 0.1) 0%, transparent 70%);
-          animation: rotate 15s linear infinite;
+        .hero-content {
+          max-width: 900px;
+
+          margin: 0 auto;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-content.visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .hero-title {
-          font-size: clamp(2rem, 6vw, 3.5rem);
-          font-weight: 800;
-          background: linear-gradient(135deg, #f5c518, #ffd700);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          margin-bottom: 1rem;
-          position: relative;
-          z-index: 1;
-        }
-
-        .hero-subtitle {
-          font-size: clamp(1.1rem, 3vw, 1.4rem);
-          color: #e0e0e0;
-          position: relative;
-          z-index: 1;
-        }
-
-        /* ============== SERVICES SECTION ============== */
-        .services-section {
-          margin-bottom: 3rem;
-        }
-
-        .section-title {
-          font-size: clamp(1.75rem, 5vw, 2.5rem);
-          font-weight: 700;
-          color: #f5c518;
-          text-align: center;
-          margin-bottom: 3rem;
-          position: relative;
-          padding-bottom: 1rem;
-        }
-
-        .section-title::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 100px;
-          height: 4px;
-          background: linear-gradient(90deg, #f5c518, #ffd700);
-          border-radius: 10px;
-        }
-
-        .services-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-          gap: 2rem;
-        }
-
-        .service-card {
-          background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(20, 20, 20, 0.98) 100%);
-          backdrop-filter: blur(20px);
-          padding: 2.5rem 2rem;
-          border-radius: 16px;
-          border: 1px solid rgba(245, 197, 24, 0.2);
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          position: relative;
-          overflow: hidden;
-          animation: fadeInUp 0.8s ease-out;
-        }
-
-        .service-card::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(245, 197, 24, 0.1), transparent);
-          transition: left 0.6s ease;
-        }
-
-        .service-card:hover::before {
-          left: 100%;
-        }
-
-        .service-card:hover {
-          transform: translateY(-12px) scale(1.02);
-          border-color: #f5c518;
-          box-shadow: 0 12px 40px rgba(245, 197, 24, 0.3);
-        }
-
-        .service-icon {
-          font-size: 4rem;
-          margin-bottom: 1.5rem;
-          animation: bounce 2s infinite;
-          display: inline-block;
-        }
-
-        .service-title {
-          font-size: clamp(1.4rem, 3vw, 1.8rem);
-          font-weight: 700;
-          color: #f5c518;
-          margin-bottom: 1.5rem;
-        }
-
-        .service-description {
-          color: #e0e0e0;
-          font-size: clamp(0.95rem, 2.5vw, 1.05rem);
-          line-height: 1.8;
-          margin-bottom: 1.5rem;
-          text-align: justify;
-        }
-
-        .service-footer {
-          padding-top: 1rem;
-          border-top: 1px solid rgba(245, 197, 24, 0.2);
-        }
-
-        .service-duration {
-          color: #ffd700;
+          font-size: clamp(32px, 5vw, 48px);
           font-weight: 600;
-          font-size: clamp(0.9rem, 2.5vw, 1rem);
+          color: #d5af40;
+          margin-bottom: 24px;
+          letter-spacing: -1px;
         }
 
-        /* ============== DISCOUNT SECTION ============== */
-        .discount-section {
-          background: linear-gradient(135deg, rgba(245, 197, 24, 0.15) 0%, rgba(255, 215, 0, 0.1) 100%);
-          backdrop-filter: blur(20px);
-          padding: 3rem 2rem;
-          margin-bottom: 3rem;
-          border-radius: 20px;
-          border: 2px solid rgba(245, 197, 24, 0.3);
-          text-align: center;
-          position: relative;
-          overflow: hidden;
-          animation: fadeInUp 1s ease-out;
-        }
+        .hero-description {
+          font-size: clamp(16px, 2.5vw, 18px);
 
-        .discount-badge {
-          font-size: 4rem;
-          margin-bottom: 1rem;
-          animation: bounce 2s infinite;
-        }
-
-        .discount-title {
-          font-size: clamp(1.75rem, 5vw, 2.5rem);
-          font-weight: 700;
-          color: #f5c518;
-          margin-bottom: 1.5rem;
-        }
-
-        .discount-text {
-          color: #e0e0e0;
-          font-size: clamp(1rem, 2.5vw, 1.2rem);
+          color: #ffffff;
           line-height: 1.8;
-          max-width: 800px;
+          font-weight: 400;
+        }
+
+        .info-section {
+          padding: 60px 24px;
+        }
+
+        .container {
+          max-width: 1200px;
           margin: 0 auto;
         }
 
-        .discount-text strong {
-          color: #f5c518;
-          font-size: 1.2em;
+        .info-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+          gap: 32px;
+          margin-bottom: 60px;
+          opacity: 0;
+          transform: translateY(20px);
+
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ============== CTA SECTION ============== */
-        .cta-section {
-          background: linear-gradient(135deg, rgba(20, 20, 20, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%);
-          backdrop-filter: blur(20px);
-          padding: 4rem 2rem;
-          margin-bottom: 2rem;
-          border-radius: 20px;
-          border: 1px solid rgba(245, 197, 24, 0.2);
-          text-align: center;
-          animation: fadeInUp 1.2s ease-out;
+        .info-grid.visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
-        .cta-title {
-          font-size: clamp(1.75rem, 5vw, 2.5rem);
-          font-weight: 700;
-          color: #f5c518;
-          margin-bottom: 1.5rem;
+        .info-card {
+          padding: 32px 24px;
+          border: 1px solid rgba(213, 175, 64, 0.15);
+          border-radius: 16px;
+          transition: all 0.3s ease;
         }
 
-        .cta-text {
-          color: #e0e0e0;
-          font-size: clamp(1rem, 2.5vw, 1.2rem);
+        .info-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 24px rgba(213, 175, 64, 0.15);
+          border-color: rgba(213, 175, 64, 0.3);
+
+        }
+
+        .info-card h2 {
+          font-size: clamp(20px, 3vw, 24px);
+          font-weight: 600;
+          color: #d5af40;
+          margin-bottom: 16px;
+          letter-spacing: -0.5px;
+        }
+
+        .info-card p {
+          font-size: 16px;
+          color: #ffffff;
           line-height: 1.8;
-          max-width: 800px;
-          margin: 0 auto 2.5rem;
+          font-weight: 400;
         }
+
+        .cta-container {
+          display: flex;
+          justify-content: center;
+          padding: 40px 0;
+        }
+
 
         .cta-button {
-          background: linear-gradient(135deg, #f5c518 0%, #ffd700 100%);
-          color: #000;
-          font-size: clamp(1.1rem, 3vw, 1.3rem);
-          font-weight: 700;
-          padding: 1.2rem 3rem;
-          border: none;
-          border-radius: 50px;
-          cursor: pointer;
+          display: inline-block;
+          padding: 16px 48px;
+          font-size: 16px;
+          font-weight: 600;
+          color: #0f0f0f;
+          background: #d5af40;
+          text-decoration: none;
+          border-radius: 24px;
           transition: all 0.3s ease;
-          box-shadow: 0 8px 25px rgba(245, 197, 24, 0.4);
-          position: relative;
-          overflow: hidden;
-        }
-
-        .cta-button::before {
-          content: "";
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 0;
-          height: 0;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.3);
-          transform: translate(-50%, -50%);
-          transition: width 0.6s, height 0.6s;
-        }
-
-        .cta-button:hover::before {
-          width: 300px;
-          height: 300px;
+          border: 1px solid #d5af40;
         }
 
         .cta-button:hover {
-          transform: translateY(-5px) scale(1.05);
-          box-shadow: 0 12px 35px rgba(245, 197, 24, 0.6);
+          background: #e5bf50;
+          transform: scale(1.05);
+          box-shadow: 0 8px 24px rgba(213, 175, 64, 0.3);
         }
 
-        /* ============== ANIMATIONS ============== */
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(40px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        .types-section {
+          padding: 60px 24px;
+
         }
 
-        @keyframes bounce {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-15px);
-          }
+        .section-title {
+          font-size: clamp(28px, 4vw, 40px);
+          font-weight: 600;
+          text-align: center;
+          margin-bottom: 60px;
+          color: #d5af40;
+          letter-spacing: -1px;
         }
 
-        @keyframes rotate {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
+        .types-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 32px;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ============== RESPONSIVE - MOBILE SMALL ============== */
-        @media screen and (max-width: 480px) {
-          .web-design-container {
-            padding: 0.75rem;
+        .types-grid.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .type-card {
+          padding: 32px 24px;
+          border: 1px solid rgba(213, 175, 64, 0.15);
+          border-radius: 16px;
+          transition: all 0.3s ease;
+        }
+
+        .type-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 24px rgba(213, 175, 64, 0.15);
+          border-color: rgba(213, 175, 64, 0.3);
+        }
+
+        .type-card h3 {
+          font-size: 20px;
+
+          font-weight: 600;
+          color: #d5af40;
+          margin-bottom: 12px;
+          letter-spacing: -0.5px;
+        }
+
+        .type-card p {
+          font-size: 15px;
+          color: #ffffff;
+          line-height: 1.7;
+          font-weight: 400;
+        }
+
+        .trust-section {
+          padding: 80px 24px;
+        }
+
+        .trust-content {
+          max-width: 900px;
+          margin: 0 auto;
+          text-align: center;
+          opacity: 0;
+
+          transform: translateY(20px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .trust-content.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .trust-title {
+          font-size: clamp(28px, 4vw, 36px);
+          font-weight: 600;
+          color: #d5af40;
+          margin-bottom: 24px;
+          letter-spacing: -1px;
+        }
+
+        .trust-text {
+          font-size: clamp(16px, 2.5vw, 18px);
+          color: #ffffff;
+          line-height: 1.8;
+
+          font-weight: 400;
+        }
+
+        .faq-section {
+          padding: 60px 24px 80px;
+        }
+
+        .faq-list {
+          max-width: 900px;
+          margin: 0 auto;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-list.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .faq-item {
+          margin-bottom: 16px;
+
+          border: 1px solid rgba(213, 175, 64, 0.15);
+          border-radius: 12px;
+          overflow: hidden;
+          transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+          border-color: rgba(213, 175, 64, 0.3);
+          box-shadow: 0 4px 16px rgba(213, 175, 64, 0.1);
+        }
+
+        .faq-question {
+          width: 100%;
+          padding: 20px 24px;
+          background: transparent;
+          border: none;
+          color: #d5af40;
+          font-size: 17px;
+          font-weight: 600;
+          text-align: right;
+
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+          background: rgba(213, 175, 64, 0.05);
+        }
+
+        .faq-question.active {
+          background: rgba(213, 175, 64, 0.08);
+        }
+
+        .faq-icon {
+          font-size: 24px;
+          font-weight: 400;
+          transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-answer.open {
+          max-height: 200px;
+        }
+
+        .faq-answer p {
+          padding: 0 24px 20px;
+          font-size: 15px;
+          color: #ffffff;
+          line-height: 1.7;
+          font-weight: 400;
+          margin: 0;
+        }
+
+        @media (max-width: 768px) {
+          .hero {
+            padding: 60px 20px 40px;
+
           }
 
-          .hero-section {
-            padding: 2.5rem 1.5rem;
-            margin-bottom: 2rem;
-            border-radius: 16px;
+          .info-section,
+          .types-section,
+          .trust-section,
+          .faq-section {
+            padding: 40px 20px;
           }
 
-          .services-grid {
+          .info-grid {
             grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 24px;
+            margin-bottom: 40px;
           }
 
-          .service-card {
-            padding: 2rem 1.5rem;
+          .types-grid {
+            grid-template-columns: 1fr;
+            gap: 24px;
           }
 
-          .service-icon {
-            font-size: 3rem;
+          .section-title {
+            margin-bottom: 40px;
+
           }
 
-          .discount-section,
-          .cta-section {
-            padding: 2rem 1.5rem;
-            border-radius: 16px;
+          .faq-question {
+            font-size: 16px;
+            padding: 18px 20px;
           }
 
-          .discount-badge {
-            font-size: 3rem;
+          .faq-answer p {
+            padding: 0 20px 18px;
+            font-size: 14px;
           }
 
           .cta-button {
-            padding: 1rem 2rem;
             width: 100%;
+            max-width: 300px;
           }
         }
 
-        /* ============== RESPONSIVE - MOBILE MEDIUM ============== */
-        @media screen and (min-width: 481px) and (max-width: 767px) {
-          .web-design-container {
-            padding: 1rem;
+        @media (max-width: 480px) {
+          .hero-title {
+            font-size: 28px;
           }
 
-          .hero-section {
-            padding: 3rem 2rem;
+
+          .hero-description,
+          .trust-text {
+            font-size: 15px;
           }
 
-          .services-grid {
-            grid-template-columns: 1fr;
-            gap: 1.75rem;
+          .info-card h2,
+          .type-card h3 {
+            font-size: 18px;
           }
 
-          .cta-button {
-            width: auto;
-            min-width: 250px;
-          }
-        }
-
-        /* ============== RESPONSIVE - TABLET ============== */
-        @media screen and (min-width: 768px) and (max-width: 1024px) {
-          .web-design-container {
-            padding: 1.5rem;
-          }
-
-          .services-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-          }
-        }
-
-        /* ============== RESPONSIVE - DESKTOP ============== */
-        @media screen and (min-width: 1025px) {
-          .web-design-container {
-            padding: 2rem;
-          }
-
-          .services-grid {
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
-          }
-        }
-
-        /* ============== LANDSCAPE MODE ============== */
-        @media screen and (max-height: 600px) and (orientation: landscape) {
-          .hero-section {
-            padding: 2rem 1.5rem;
-          }
-
-          .service-card {
-            padding: 1.5rem 1.25rem;
-          }
-
-          .service-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-          }
-
-          .discount-badge {
-            font-size: 2.5rem;
-          }
-
-          .cta-section {
-            padding: 2.5rem 2rem;
+          .info-card p,
+          .type-card p {
+            font-size: 14px;
           }
         }
       `}</style>
