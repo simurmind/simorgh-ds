@@ -138,7 +138,7 @@ export default function HomePage() {
       <section className="process-section" id="process">
         <div className="container">
 
-          <h2 className="section-title">فرآیند طراحی سایت</h2>
+          <h2 className="section-title">فرایند طراحی سایت</h2>
           <div className={`process-grid ${visibleSections.has("process") ? "visible" : ""}`}>
             <div className="process-card">
               <h3>کشف</h3>
