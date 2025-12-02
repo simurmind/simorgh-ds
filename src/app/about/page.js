@@ -1,622 +1,532 @@
+
 "use client";
 import React, { useState, useEffect } from "react";
-import Head from "next/head";
 
-const AboutPage = () => {
+export default function AboutPage() {
+  const [visibleSections, setVisibleSections] = useState(new Set());
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => new Set([...prev, entry.target.id]));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll("section[id]").forEach((section) => {
+      observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
-      <div className="about-page">
-        <section className="about-hero">
-          <div className="hero-content">
-            <div className="hero-icon" aria-hidden="true">🦅</div>
-            <h1 className="hero-title">درباره سیمرغ</h1>
-            <p className="hero-subtitle">
-              ترکیبی از هنر، فناوری و اصالت ایرانی
+      <section className="hero" id="hero">
+        <div className={`hero-content ${visibleSections.has("hero") ? "visible" : ""}`}>
+          <h1 className="hero-title">درباره سیمرغ دیزاین</h1>
+          <p className="hero-description">
+            سیمرغ دیزاین، تیمی ریشه‌دار در فرهنگ و هنر ایرانی است که با ترکیب خرد بومی و تکنولوژی‌های پیشرفته جهان، 
+            تجربه‌ای متفاوت از طراحی و توسعه را خلق 
+
+می‌کند. ما نه تنها وب‌سایت می‌سازیم؛ بلکه هویت دیجیتال برند شما را 
+            با دقت، خلاقیت و اصالت طراحی می‌کنیم. هر پروژه برای ما فرصتی است تا شکوه، زیبایی و قدرت فرهنگ ایرانی را 
+            با استانداردهای بین‌المللی درهم آمیزیم و اثری ماندگار بسازیم که هم زیباست، هم کارآمد و هم الهام‌بخش.
+          </p>
+        </div>
+      </section>
+
+      <section className="info-section" id="origin">
+        <div className="container">
+          <div className={`info-grid ${visibleSections.has("origin") ? "visible" : ""}`}>
+            
+            <div className="info-card full-width">
+              <h2>سیمرغ دیزاین: نماد اصالت و شکوه 
+
+ایرانی</h2>
+              <p>
+                سیمرغ، در دل اسطوره‌های کهن ایرانی، پرنده‌ای افسانه‌ای است که نماد خرد، قدرت و زیبایی به شمار می‌آید. 
+                در شاهنامه فردوسی، سیمرغ نه تنها مرشد و یاور قهرمانان است، بلکه نمادی از بلندپروازی، دانش و اصالتی است 
+                که در فرهنگ ایران همواره ارزشمند بوده است. انتخاب نام «سیمرغ دیزاین» بیانگر این باور است که ما نیز، 
+                همچون این پرنده اساطیری، راهنمای برندهای ایرانی در دنیای دیجیتال هستیم.
+              </p>
+              <p>
+                سیمرغ دیزاین ادامه‌دهنده همین مسیر است؛ ما با احترام به میراث فرهنگی و هنری ایران، طراحی‌هایی خلق می‌کنیم 
+                که در آن‌ها روح ایرانی با فناوری‌های روز دنیا پیوند می‌خورد. هر پروژه‌ای که می‌سازیم، نه تنها ابزاری کاربردی، 
+                بلکه اثری هنری است که هویت، زیبایی و 
+
+اصالت را در خود جای داده است. ما به دنبال آن هستیم که برندهای ایرانی 
+                با افتخار و شکوه در دنیای دیجیتال بدرخشند و نامی ماندگار برای خود بسازند.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section className="info-section" id="story">
+        <div className="container">
+          <div className={`info-grid ${visibleSections.has("story") ? "visible" : ""}`}>
+            
+            <div className="info-card full-width">
+              <h2>داستان آغاز ما</h2>
+              <p>
+
+                سال‌ها پیش، با اولین خط کدی که نوشتیم، سفری آغاز شد که تنها به کدنویسی محدود نماند. 
+                هر پروژه، درسی بود؛ هر چالش، فرصتی برای رشد. ما در مسیری قدم گذاشتیم که در آن، 
+                یادگیری هرگز متوقف نشد و هر روز، دانش و تجربه‌مان عمیق‌تر شد. پس از سال‌ها کار حرفه‌ای، 
+                تجربه‌اندوزی و همکاری با پروژه‌های مختلف، تصمیم گرفتیم که تیمی تشکیل دهیم؛ 
+                تیمی که نه تنها پروژه‌ها را به پایان برساند، بلکه آن‌ها را به سطحی بالاتر ببرد.
+              </p>
+              <p>
+                هدف ما از همان ابتدا روشن بود: رساندن پروژه‌های تیمی به بالاترین سطح ممکن. 
+                ما می‌خواستیم تیمی بسازیم که در آن، خلاقیت، دقت و تعهد در کنار هم قرار گیرند و 
+                استانداردهای جدیدی در طراحی، توسعه و تجربه کاربری خلق کنند. سیمرغ دیزاین از همین تصمیم متولد شد؛ 
+                تیمی جوان، متخصص و پرانرژی که با ایمان به توانایی‌های خود و با الهام از فرهنگ ایرانی، 
+                آماده است تا نام خود را در صنعت دیجیتال ایران و منطقه ثبت کند.
+
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section className="values-section" id="values">
+        <div className="container">
+          <h2 className="section-title">آنچه باور داریم</h2>
+          <div className={`values-grid ${visibleSections.has("values") ? "visible" : ""}`}>
+            
+            <div className="value-card">
+              <h3>خلاقیت اصیل ایرانی</h3>
+              <p>
+                ما اعتقاد داریم که خلاقیت واقعی، ریشه در فرهنگ و هویت دارد. هر طراحی که ارائه می‌دهیم، 
+                برآمده از زیبایی‌شناسی ایرانی و درک 
+
+عمیق از ارزش‌های بومی است. ما راه‌حل‌هایی می‌سازیم که 
+                نه تنها مدرن و کاربردی‌اند، بلکه روح و اصالت ایرانی را در خود حمل می‌کنند و در دنیای دیجیتال 
+                نمایندگی از هویت فرهنگی ما می‌کنند.
+              </p>
+            </div>
+
+            <div className="value-card">
+              <h3>کیفیت بدون مصالحه</h3>
+              <p>
+                برای ما، کیفیت خط قرمز است. هر خط کد، هر المان طراحی و هر تصمیمی که می‌گیریم، 
+                با دقت، تمرکز و تعهد به بالاترین استانداردها انجام می‌شود. ما کاری تحویل نمی‌دهیم مگر اینکه 
+                خودمان از آن راضی باشیم. تمام پروژه‌های ما بر اساس اصول حرفه‌ای، بهینه‌سازی کامل و اجرای بی‌نقص 
+                پیاده‌سازی می‌شوند تا نتیجه‌ای بسازیم که ماندگار و اثرگذار باشد.
+
+              </p>
+            </div>
+
+            <div className="value-card">
+              <h3>رشد و یادگیری مداوم</h3>
+              <p>
+                دنیای تکنولوژی هرگز متوقف نمی‌شود و ما نیز همینطور. ما به یادگیری مداوم، پیگیری تکنولوژی‌های جدید 
+                و ارتقای دانش خود ایمان داریم. هر پروژه برای ما فرصتی برای رشد است و ما همواره در تلاش هستیم که 
+                از دیروز قوی‌تر باشیم. این ذهنیت رشدمحور، ما را قادر می‌سازد تا همگام با دنیا پیش برویم و 
+                راه‌حل‌هایی ارائه دهیم که همیشه به‌روز و پیشرو باشند.
+              </p>
+            </div>
+
+            <div className="value-card">
+              <h3>تجربه واقعی برای مشتری</h3>
+
+              <p>
+                ما می‌دانیم که اعتماد شما سرمایه‌ای گرانبهاست. به همین دلیل، تجربه مشتری در هر مرحله از کار، 
+                برای ما اولویت اصلی است. ما با شفافیت کامل کار می‌کنیم، به تعهدات خود پایبندیم و تا زمانی که 
+                رضایت کامل شما حاصل نشود، کنار شما هستیم. هدف ما این است که نه تنها یک پروژه خوب تحویل دهیم، 
+                بلکه تجربه‌ای حرفه‌ای، متفاوت و اثرگذار برای شما خلق کنیم که همیشه به خاطر بسپارید.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section className="vision-section" id="vision">
+        <div className="container">
+
+          <div className={`vision-content ${visibleSections.has("vision") ? "visible" : ""}`}>
+            <h2 className="vision-title">چشم‌انداز سیمرغ دیزاین</h2>
+            <p className="vision-text">
+              چشم‌انداز ما فراتر از ساخت وب‌سایت است. ما آرزو داریم که سیمرغ دیزاین به یکی از تیم‌های پیشرو در ایران و منطقه 
+              تبدیل شود؛ تیمی که نه تنها با کیفیت کار خود شناخته شود، بلکه به‌عنوان نمادی از نوآوری، اصالت و تعهد 
+              در صنعت دیجیتال شناخته شود. ما به دنبال آن هستیم که برندهای ایرانی را در سطح جهانی معرفی کنیم و 
+              ثابت کنیم که خلاقیت و تخصص ایرانی می‌تواند در عرصه بین‌المللی نیز درخشان باشد.
+            </p>
+            <p className="vision-text">
+              ما با تمرکز بر استانداردهای جهانی، کیفیت بالا و نوآوری مستمر، گام به گام به سمت این هدف پیش می‌رویم. 
+              تیم جوان، متخصص و پرانرژی ما، با قدرت، 
+
+اشتیاق و تعهد، در مسیر تحقق این چشم‌انداز حرکت می‌کند. 
+              ما باور داریم که هر پروژه، فرصتی است برای ساخت آینده‌ای بهتر؛ آینده‌ای که در آن، برندهای ایرانی 
+              با افتخار و شکوه در دنیای دیجیتال حضور دارند و نام خود را در تاریخ ثبت می‌کنند.
             </p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <div className="about-container">
-          <section className="about-section about-intro">
-            <div className="section-icon" aria-hidden="true">✨</div>
-            <div className="section-header">
-              <h2 className="section-title">سیمرغ: نماد اصالت و شکوه ایرانی</h2>
-              <div className="title-underline"></div>
-            </div>
-            <div className="section-content">
-              <p className="section-text">
-                سیمرغ، در افسانه‌های ایرانی، پرنده‌ای افسانه‌ای و نمادین است که
-                با ویژگی‌های خاص خود در فرهنگ ایرانی شناخته می‌شود. این پرنده،
-                با ترکیب قدرت، زیبایی و حکمت، نمادی از بلند پروازی، دانش و
-                اصالت است. در ادبیات فارسی، سیمرغ همواره به عنوان موجودی
-                فراطبیعی و عظیم با قدرت‌های فوق‌العاده شناخته می‌شود که
-                الهام‌بخش بسیاری از داستان‌های پرمحتوا و آموزنده است.
-              </p>
-              <p className="section-text">
-                انتخاب نام "سیمرغ" برای برند ما به معنای پیوند دادن این نماد با
-                اهداف و ارزش‌های ماست. همانطور که سیمرغ نمادی از کمال و شکوه
-                است، ما نیز در مجموعه سیمرغ بر آن هستیم تا طراحی‌هایی خلق کنیم
-                که همواره زیبا، منحصر به فرد و باکیفیت باشند. این نام نه تنها به
-                تاریخ و فرهنگ غنی ایران اشاره دارد، بلکه نشان‌دهنده هدف ما برای
-                خلق تجربه‌های کاربری منحصر به فرد و طراحی‌هایی با روح ایرانی و
-                در عین حال استفاده از فناوری‌های روز دنیا است.
-              </p>
-            </div>
-          </section>
+      <section className="careers-section" id="careers">
+        <div className="container">
+          <div className={`careers-content ${visibleSections.has("careers") ? "visible" : ""}`}>
+            <h2 className="careers-title">دعوت به همکاری</h2>
+            <p className="careers-text">
+              سیمرغ دیزاین در حال رشد است و ما به 
 
-          <section className="about-section about-mission">
-            <div className="section-icon" aria-hidden="true">🎯</div>
-            <div className="section-header">
-              <h2 className="section-title">
-                مجموعه سیمرغ: ترکیب هنر و فناوری‌های مدرن
-              </h2>
-              <div className="title-underline"></div>
-            </div>
-            <div className="section-content">
-              <p className="section-text">
-                مجموعه سیمرغ با بهره‌گیری از ترکیب هنر و فناوری‌های روز دنیا،
-                هدفی بزرگ‌تر از طراحی سایت و دکوراسیون داخلی دارد. ما در سیمرغ
-                به دنبال ایجاد تجربیات منحصر به فرد برای کاربران هستیم.
-                طراحی‌هایی که نه تنها زیبا و منحصر به فرد باشند، بلکه تجربه
-                کاربری بی‌نظیری را نیز به ارمغان آورند.
-              </p>
-              <p className="section-text">
-                ما همیشه در تلاشیم تا روز به روز از دیروز قوی‌تر باشیم. هر
-                پروژه‌ای که آغاز می‌کنیم، فرصتی است برای ارتقای دانش و تجربه‌ ما
-                و اجرای پروژه‌ها با کیفیت بالاتر و دیدگاه جدیدتر. از طراحی
-                سایت‌ها با رابط کاربری جذاب و کاربردی تا ایجاد فضاهای داخلی که
-                هویت شما را در دل خود جای می‌دهند، تمامی پروژه‌ها را با دقت و به
-                شکلی متفاوت پیش می‌بریم.
-              </p>
-            </div>
-          </section>
+دنبال افرادی هستیم که با ما همراه شوند. اگر شما فردی خلاق، حرفه‌ای، 
+              پرتلاش و علاقه‌مند به کار در محیطی پویا و چالش‌برانگیز هستید، جای شما در تیم ما خالی است. 
+              ما به استعدادهای واقعی اعتقاد داریم؛ مهم نیست که چه مدرکی دارید یا از کجا آمده‌اید. 
+              آنچه برای ما اهمیت دارد، مهارت، انگیزه و روحیه یادگیری شماست.
+            </p>
+            <p className="careers-text">
+              در سیمرغ دیزاین، شما فرصت خواهید داشت تا در پروژه‌های واقعی و حرفه‌ای مشارکت کنید، مهارت‌های خود را ارتقا دهید 
+              و در کنار تیمی متخصص و پرانرژی رشد کنید. ما محیطی فراهم کرده‌ایم که در آن، خلاقیت، نوآوری و تعهد 
+              ارزشمند شمرده می‌شوند و هر فرد فرصت دارد تا توانمندی‌های خود را به نمایش بگذارد. 
+              اگر آماده‌اید تا بخشی از آینده روشن سیمرغ دیزاین باشید، با ما تماس بگیرید.
+            </p>
+            <div className="cta-container">
 
-          <section className="about-section about-values">
-            <div className="section-icon" aria-hidden="true">💎</div>
-            <div className="section-header">
-              <h2 className="section-title">ارزش‌های ما</h2>
-              <div className="title-underline"></div>
-            </div>
-            <div className="values-grid">
-              <div className="value-card">
-                <div className="value-icon" aria-hidden="true">🎨</div>
-                <h3 className="value-title">خلاقیت و نوآوری</h3>
-                <p className="value-description">
-                  هر طراحی برای ما یک فرصت است برای نمایش افق‌های جدید و متفاوت.
-                </p>
-              </div>
-              <div className="value-card">
-                <div className="value-icon" aria-hidden="true">⚡</div>
-                <h3 className="value-title">کیفیت و دقت</h3>
-                <p className="value-description">
-                  تمامی پروژه‌ها مطابق با استانداردهای جهانی و با دقت بالا اجرا
-                  می‌شود.
-                </p>
-              </div>
-              <div className="value-card">
-                <div className="value-icon" aria-hidden="true">👥</div>
-                <h3 className="value-title">تجربه کاربری</h3>
-                <p className="value-description">
-                  تمرکز اصلی ما بر ایجاد راحتی و تجربه کاربری بهینه برای مخاطبان
-                  است.
-                </p>
-              </div>
-              <div className="value-card">
-                <div className="value-icon" aria-hidden="true">📈</div>
-                <h3 className="value-title">رشد مستمر</h3>
-                <p className="value-description">
-                  ما به دنبال پیشرفت روز به روز در تمامی پروژه‌ها و خلق تجربه‌های
-                  نوین هستیم.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          <section className="about-section about-team">
-            <div className="section-icon" aria-hidden="true">🚀</div>
-            <div className="section-header">
-              <h2 className="section-title">تیم استارتاپی سیمرغ</h2>
-              <div className="title-underline"></div>
-            </div>
-            <div className="section-content">
-              <p className="section-text highlight-text">
-                در سیمرغ، قصد داریم تیم استارتاپی خود را بسازیم و به دنبال افرادی
-                با مهارت‌های بالا و ایده‌های نوآورانه هستیم. در تیم ما، رتبه کنکور
-                و پروژه‌ها اهمیت ندارد، بلکه تنها چیزی که مهم است توانمندی و
-                استعداد شماست.
-              </p>
-              <p className="section-text">
-                اگر شما در زمینه طراحی، برنامه‌نویسی، دکوراسیون داخلی یا هر حوزه
-                مرتبط دیگر مهارت‌های ویژه‌ای دارید و می‌خواهید بخشی از تیم خلاق و
-                پویا ما باشید، فرصت‌های زیادی برای شما وجود دارد. به ما بپیوندید
-                و در ساختن آینده‌ای روشن‌تر در کنار هم تلاش کنیم.
-              </p>
-            </div>
-          </section>
-
-          <section className="about-section about-careers">
-            <div className="careers-card">
-              <div className="careers-icon" aria-hidden="true">💼</div>
-              <h2 className="careers-title">فرصت‌های شغلی</h2>
-              <p className="careers-text">
-                اگر شما هم از افرادی هستید که مهارت‌های برجسته‌ای در طراحی،
-                توسعه، دکوراسیون داخلی یا دیگر زمینه‌های مرتبط دارید و به دنبال
-                چالش‌های جدید هستید، با ما تماس بگیرید و بخشی از تیم خلاق سیمرغ
-                باشید.
-              </p>
               <a 
                 href="https://t.me/SimorghAdmin" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="careers-button"
-                aria-label="ارسال درخواست همکاری در تلگرام"
+                className="cta-button"
               >
-                <span>همین الان درخواست دهید</span>
-                <span className="button-arrow" aria-hidden="true">←</span>
+                همین الان درخواست دهید
               </a>
             </div>
-          </section>
+          </div>
         </div>
-      </div>
+      </section>
 
       <style jsx>{`
-        .about-page {
-          min-height: 100vh;
-          background: #0a0a0a;
-          color: #fff;
-          direction: rtl;
-          font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
-        }
-
         * {
           box-sizing: border-box;
         }
 
-        .about-hero {
-          background: linear-gradient(
-            135deg,
-            rgba(26, 26, 26, 0.95) 0%,
-            rgba(20, 20, 20, 0.98) 100%
-          );
-          backdrop-filter: blur(20px);
-          border: 1px solid rgba(245, 197, 24, 0.3);
-          border-radius: 20px;
-          padding: 5rem 2rem;
-          margin: 2rem auto;
-          max-width: 1400px;
-          text-align: center;
-          position: relative;
-          overflow: hidden;
-          animation: fadeInUp 0.8s ease-out;
+        body {
+          margin: 0;
+          padding: 0;
+
+          background: #0f0f0f;
+          color: #ffffff;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+          direction: rtl;
         }
 
-        .about-hero::before {
-          content: "";
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background: radial-gradient(
-            circle,
-            rgba(245, 197, 24, 0.1) 0%,
-            transparent 70%
-          );
-          animation: rotate 15s linear infinite;
+        .hero {
+          padding: 80px 24px 60px;
+          text-align: center;
         }
 
         .hero-content {
-          position: relative;
-          z-index: 1;
+          max-width: 900px;
+          margin: 0 auto;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .hero-icon {
-          font-size: 5rem;
-          margin-bottom: 1.5rem;
-          animation: bounce 2s infinite;
-          filter: drop-shadow(0 0 20px rgba(245, 197, 24, 0.5));
+        .hero-content.visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .hero-title {
-          font-size: clamp(2.5rem, 7vw, 4rem);
-          font-weight: 800;
-          background: linear-gradient(135deg, #f5c518, #ffd700);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          margin-bottom: 1rem;
+          font-size: clamp(32px, 5vw, 48px);
+          font-weight: 600;
+          color: #d5af40;
+          margin-bottom: 24px;
+          letter-spacing: -1px;
         }
 
-        .hero-subtitle {
-          font-size: clamp(1.2rem, 3vw, 1.6rem);
-          color: #e0e0e0;
-          font-weight: 300;
+        .hero-description {
+          font-size: clamp(16px, 2.5vw, 18px);
+          color: #ffffff;
+          line-height: 1.8;
+          font-weight: 400;
         }
 
-        .about-container {
-          max-width: 1400px;
+        .info-section {
+          padding: 60px 24px;
+
+        }
+
+        .container {
+          max-width: 1200px;
           margin: 0 auto;
-          padding: 2rem 1rem;
         }
 
-        .about-section {
-          background: linear-gradient(
-            135deg,
-            rgba(26, 26, 26, 0.95) 0%,
-            rgba(20, 20, 20, 0.98) 100%
-          );
-          backdrop-filter: blur(20px);
-          border: 1px solid rgba(245, 197, 24, 0.2);
-          border-radius: 20px;
-          padding: 3rem 2.5rem;
-          margin-bottom: 3rem;
-          position: relative;
-          overflow: hidden;
-          animation: fadeInUp 0.8s ease-out both;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        .info-grid {
+          display: grid;
+          gap: 32px;
+          margin-bottom: 60px;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .about-section::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          right: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(245, 197, 24, 0.05),
-            transparent
-          );
-          transition: right 0.6s ease;
+        .info-grid.visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
-        .about-section:hover::before {
-          right: 100%;
+        .info-card {
+
+          padding: 32px 24px;
+          border: 1px solid rgba(213, 175, 64, 0.15);
+          border-radius: 16px;
+          transition: all 0.3s ease;
         }
 
-        .about-section:hover {
-          border-color: rgba(245, 197, 24, 0.4);
-          box-shadow: 0 10px 40px rgba(245, 197, 24, 0.2);
-          transform: translateY(-5px);
+        .info-card.full-width {
+          grid-column: 1 / -1;
         }
 
-        .section-icon {
-          font-size: 3rem;
-          text-align: center;
-          margin-bottom: 1.5rem;
-          animation: pulse 2s infinite;
-          filter: drop-shadow(0 0 15px rgba(245, 197, 24, 0.4));
+        .info-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 24px rgba(213, 175, 64, 0.15);
+          border-color: rgba(213, 175, 64, 0.3);
         }
 
-        .section-header {
-          margin-bottom: 2rem;
-          text-align: center;
+        .info-card h2 {
+          font-size: clamp(20px, 3vw, 24px);
+          font-weight: 600;
+          color: #d5af40;
+
+          margin-bottom: 16px;
+          letter-spacing: -0.5px;
+        }
+
+        .info-card p {
+          font-size: 16px;
+          color: #ffffff;
+          line-height: 1.8;
+          font-weight: 400;
+          margin-bottom: 16px;
+        }
+
+        .info-card p:last-child {
+          margin-bottom: 0;
+        }
+
+        .values-section {
+          padding: 60px 24px;
         }
 
         .section-title {
-          font-size: clamp(1.8rem, 4vw, 2.5rem);
-          font-weight: 700;
-          color: #f5c518;
-          margin-bottom: 0.5rem;
-        }
+          font-size: clamp(28px, 4vw, 40px);
 
-        .title-underline {
-          width: 80px;
-          height: 4px;
-          background: linear-gradient(90deg, #f5c518, #ffd700);
-          margin: 0 auto;
-          border-radius: 2px;
-          animation: expandWidth 1s ease-out;
-        }
-
-        .section-content {
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-        }
-
-        .section-text {
-          color: #e0e0e0;
-          font-size: clamp(1rem, 2.5vw, 1.15rem);
-          line-height: 2;
-          text-align: justify;
-        }
-
-        .highlight-text {
-          background: rgba(245, 197, 24, 0.1);
-          border-right: 4px solid #f5c518;
-          padding: 1.5rem;
-          border-radius: 10px;
+          font-weight: 600;
+          text-align: center;
+          margin-bottom: 60px;
+          color: #d5af40;
+          letter-spacing: -1px;
         }
 
         .values-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 2rem;
-          margin-top: 2rem;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 32px;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        .values-grid.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
 
         .value-card {
-          background: rgba(245, 197, 24, 0.05);
-          border: 1px solid rgba(245, 197, 24, 0.2);
-          border-radius: 15px;
-          padding: 2rem;
-          text-align: center;
+          padding: 32px 24px;
+          border: 1px solid rgba(213, 175, 64, 0.15);
+          border-radius: 16px;
           transition: all 0.3s ease;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .value-card::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(
-            135deg,
-            rgba(245, 197, 24, 0.1),
-            transparent
-          );
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-
-        .value-card:hover::before {
-          opacity: 1;
         }
 
         .value-card:hover {
-          transform: translateY(-10px);
-          border-color: #f5c518;
-          box-shadow: 0 15px 40px rgba(245, 197, 24, 0.3);
+          transform: translateY(-4px);
+          box-shadow: 0 8px 24px rgba(213, 175, 64, 0.15);
+          border-color: rgba(213, 175, 64, 0.3);
         }
 
-        .value-icon {
-          font-size: 3rem;
-          margin-bottom: 1rem;
-          animation: bounce 2s infinite;
+        .value-card h3 {
+          font-size: 20px;
+          font-weight: 600;
+          color: #d5af40;
+          margin-bottom: 12px;
+          letter-spacing: -0.5px;
+
         }
 
-        .value-title {
-          font-size: 1.3rem;
-          font-weight: 700;
-          color: #f5c518;
-          margin-bottom: 1rem;
+        .value-card p {
+          font-size: 15px;
+          color: #ffffff;
+          line-height: 1.7;
+          font-weight: 400;
         }
 
-        .value-description {
-          color: #e0e0e0;
-          font-size: 1rem;
-          line-height: 1.8;
+        .vision-section {
+          padding: 80px 24px;
         }
 
-        .careers-card {
-          background: linear-gradient(
-            135deg,
-            rgba(245, 197, 24, 0.1) 0%,
-            rgba(245, 197, 24, 0.05) 100%
-          );
-          border: 2px solid rgba(245, 197, 24, 0.3);
-          border-radius: 20px;
-          padding: 4rem 3rem;
+        .vision-content {
+          max-width: 900px;
+          margin: 0 auto;
           text-align: center;
-          position: relative;
-          overflow: hidden;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .careers-card::before {
-          content: "";
-          position: absolute;
-          top: -50%;
-          right: -50%;
-          width: 200%;
-          height: 200%;
-          background: radial-gradient(
-            circle,
-            rgba(245, 197, 24, 0.1) 0%,
-            transparent 70%
-          );
-          animation: rotate 20s linear infinite;
+
+        .vision-content.visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
-        .careers-icon {
-          font-size: 4rem;
-          margin-bottom: 1.5rem;
-          animation: bounce 2s infinite;
-          position: relative;
-          z-index: 1;
+        .vision-title {
+          font-size: clamp(28px, 4vw, 36px);
+          font-weight: 600;
+          color: #d5af40;
+          margin-bottom: 24px;
+          letter-spacing: -1px;
+        }
+
+        .vision-text {
+          font-size: clamp(16px, 2.5vw, 18px);
+          color: #ffffff;
+          line-height: 1.8;
+          font-weight: 400;
+          margin-bottom: 20px;
+        }
+
+        .vision-text:last-child {
+
+          margin-bottom: 0;
+        }
+
+        .careers-section {
+          padding: 60px 24px 80px;
+        }
+
+        .careers-content {
+          max-width: 900px;
+          margin: 0 auto;
+          text-align: center;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .careers-content.visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .careers-title {
-          font-size: clamp(2rem, 5vw, 2.8rem);
-          font-weight: 700;
-          color: #f5c518;
-          margin-bottom: 1.5rem;
-          position: relative;
-          z-index: 1;
+          font-size: clamp(28px, 4vw, 36px);
+          font-weight: 600;
+          color: #d5af40;
+          margin-bottom: 24px;
+          letter-spacing: -1px;
         }
 
         .careers-text {
-          color: #e0e0e0;
-          font-size: clamp(1.05rem, 2.5vw, 1.2rem);
-          line-height: 2;
-          max-width: 800px;
-          margin: 0 auto 2.5rem;
-          position: relative;
-          z-index: 1;
+          font-size: clamp(16px, 2.5vw, 18px);
+          color: #ffffff;
+          line-height: 1.8;
+          font-weight: 400;
+          margin-bottom: 20px;
         }
 
-        .careers-button {
-          background: linear-gradient(135deg, #f5c518, #ffd700);
-          color: #000;
-          padding: 1.2rem 3rem;
-          border: none;
-          border-radius: 50px;
-          font-size: 1.2rem;
-          font-weight: 700;
-          cursor: pointer;
-          display: inline-flex;
-          align-items: center;
-          gap: 1rem;
-          transition: all 0.3s ease;
-          box-shadow: 0 8px 25px rgba(245, 197, 24, 0.4);
-          position: relative;
-          z-index: 1;
+        .cta-container {
+          display: flex;
+          justify-content: center;
+          padding: 40px 0 0;
+        }
+
+        .cta-button {
+          display: inline-block;
+          padding: 16px 48px;
+          font-size: 16px;
+          font-weight: 600;
+          color: #0f0f0f;
+          background: #d5af40;
           text-decoration: none;
+          border-radius: 24px;
+          transition: all 0.3s ease;
+          border: 1px solid #d5af40;
         }
 
-        .careers-button:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 35px rgba(245, 197, 24, 0.6);
+        .cta-button:hover {
+          background: #e5bf50;
+          transform: scale(1.05);
+          box-shadow: 0 8px 24px rgba(213, 175, 64, 0.3);
         }
 
-        .careers-button:focus {
-          outline: 2px solid #f5c518;
-          outline-offset: 4px;
-        }
+        @media (max-width: 768px) {
+          .hero {
 
-        .button-arrow {
-          transition: transform 0.3s ease;
-        }
-
-        .careers-button:hover .button-arrow {
-          transform: translateX(-5px);
-        }
-
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(40px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes rotate {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        @keyframes bounce {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-15px);
-          }
-        }
-
-        @keyframes pulse {
-          0%,
-          100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.6;
-            transform: scale(1.1);
-          }
-        }
-
-        @keyframes expandWidth {
-          from {
-            width: 0;
-          }
-          to {
-            width: 80px;
-          }
-        }
-
-        @media screen and (max-width: 768px) {
-          .about-container {
-            padding: 1rem 0.75rem;
+            padding: 60px 20px 40px;
           }
 
-          .about-hero {
-            padding: 3rem 1.5rem;
-            margin: 1rem;
+          .info-section,
+          .values-section,
+          .vision-section,
+          .careers-section {
+            padding: 40px 20px;
           }
 
-          .hero-icon {
-            font-size: 3.5rem;
-          }
-
-          .about-section {
-            padding: 2rem 1.5rem;
-            margin-bottom: 2rem;
-          }
-
-          .section-icon {
-            font-size: 2.5rem;
-          }
-
+          .info-grid,
           .values-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 24px;
           }
 
-          .careers-card {
-            padding: 3rem 1.5rem;
+          .section-title,
+          .vision-title,
+          .careers-title {
+            margin-bottom: 40px;
           }
 
-          .careers-icon {
-            font-size: 3rem;
-          }
+          .cta-button {
 
-          .careers-button {
-            padding: 1rem 2rem;
-            font-size: 1rem;
+            width: 100%;
+            max-width: 300px;
           }
         }
 
-        @media screen and (min-width: 769px) and (max-width: 1024px) {
-          .about-container {
-            padding: 1.5rem 1rem;
+        @media (max-width: 480px) {
+          .hero-title {
+            font-size: 28px;
           }
 
-          .values-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        @media screen and (max-height: 600px) and (orientation: landscape) {
-          .about-hero {
-            padding: 2.5rem 2rem;
+          .hero-description,
+          .vision-text,
+          .careers-text {
+            font-size: 15px;
           }
 
-          .hero-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+          .info-card h2,
+          .value-card h3 {
+            font-size: 18px;
           }
 
-          .about-section {
-            padding: 2rem 2rem;
-          }
-        }
+          .info-card p,
+          .value-card p {
 
-        @media (prefers-reduced-motion: reduce) {
-          *,
-          *::before,
-          *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
+            font-size: 14px;
           }
         }
       `}</style>
     </>
   );
-};
-
-export default AboutPage;
+}
