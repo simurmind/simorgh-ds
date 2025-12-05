@@ -1,861 +1,575 @@
+
 "use client";
 import React, { useState, useEffect } from "react";
-import Head from "next/head";
+
 export default function ContactPage() {
-  const [copiedItem, setCopiedItem] = useState('');
+  const [visibleSections, setVisibleSections] = useState(new Set());
   const [openFaq, setOpenFaq] = useState(null);
 
-  const toggleFaq = (id) => {
-    setOpenFaq(openFaq === id ? null : id);
-  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => new Set([...prev, entry.target.id]));
+          }
+        });
+      },
+      { threshold: 0.1 }
 
-  const contactMethods = [
-    {
-      id: 1,
-      icon: "📞",
-      title: "تلفن تماس",
-      value: "09187634731",
-      link: "tel:+989187634731",
-      copyValue: "09187634731",
-      color: "#4CAF50",
-    },
-    {
-      id: 2,
-      icon: "✈️",
-      title: "تلگرام",
-      value: "@SimorghAdmin",
-      link: "https://t.me/SimorghAdmin",
-      copyValue: "@SimorghAdmin",
-      color: "#0088cc",
-    },
-    {
-      id: 3,
-      icon: "📧",
-      title: "ایمیل",
-      value: "ahmadreza.rezaee65@gmail.com",
-      link: "mailto:ahmadreza.rezaee65@gmail.com",
-      copyValue: "ahmadreza.rezaee65@gmail.com",
-      color: "#f5c518",
-    },
-  ];
+    );
 
-  const copyToClipboard = (text, itemId) => {
-    navigator.clipboard.writeText(text).then(() => {
-      setCopiedItem(itemId);
-      setTimeout(() => setCopiedItem(''), 2000);
+    document.querySelectorAll("section[id]").forEach((section) => {
+      observer.observe(section);
     });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? null : index);
   };
 
   return (
     <>
-      <div className="contact-page-container">
-        {/* Hero Section */}
-        <section className="contact-hero">
-          <div className="hero-content">
-            <h1 className="hero-title">ارتباط با ما</h1>
-            <p className="hero-subtitle">
-              ما همواره آماده پاسخگویی به سوالات و نیازهای شما هستیم
-            </p>
-          </div>
-        </section>
+      <section className="hero" id="hero">
+        <div className={`hero-content ${visibleSections.has("hero") ? "visible" : ""}`}>
 
-        {/* Main Content */}
-        <section className="contact-content">
-          <div className="intro-section">
-            <h2 className="section-title">همکاری با سیمرغ</h2>
-            <p className="intro-text">
-              در مجموعه سیمرغ ما همواره آماده‌ایم تا به شما در زمینه‌های مختلف کمک کنیم. 
-              از طراحی سایت‌های سفارشی تا دکوراسیون‌های منحصر به فرد، هر سوال یا نیازی که دارید، 
-              ما در کنار شما خواهیم بود.
-            </p>
-          </div>
+          <h1 className="hero-title">ارتباط با ما</h1>
+          <p className="hero-description">
+            برای دریافت مشاوره رایگان، سفارش پروژه یا پشتیبانی فنی، از طریق کانال‌های ارتباطی زیر با تیم سیمرغ در تماس باشید.
+          </p>
+          
+          <div className="contact-box">
+            <a href="tel:09187634731" className="phone-link">
+              <span className="phone-number">09187634731</span>
+              <svg className="phone-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 
 
-          {/* Contact Methods Grid */}
-          <div className="contact-methods-grid">
-            {contactMethods.map((method) => (
-              <div key={method.id} className="contact-method-card">
-                <div className="method-icon">{method.icon}</div>
-                <h3 className="method-title">{method.title}</h3>
-                <a 
-                  href={method.link} 
-                  className="method-value"
-                  target={method.id === 2 ? "_blank" : undefined}
-                  rel={method.id === 2 ? "noopener noreferrer" : undefined}
-                >
-                  {method.value}
-                </a>
-                <button
-                  onClick={() => copyToClipboard(method.copyValue, method.id)}
-                  className="copy-button"
-                  aria-label={`کپی ${method.title}`}
-                >
-                  {copiedItem === method.id ? (
-                    <>
-                      <span className="copy-icon">✓</span>
-                      <span>کپی شد!</span>
-                    </>
-                  ) : (
-                    <>
-                      <span className="copy-icon">📋</span>
-                      <span>کپی کردن</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            ))}
-          </div>
+1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+            </a>
+            
+            <div className="social-links">
+              <a href="https://t.me/SimorghAdmin" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="تلگرام">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 
 
-          {/* Student Collaboration Section */}
-          <section className="collaboration-section">
-            <div className="collaboration-badge">🎓</div>
-            <h2 className="collaboration-title">دعوت به همکاری دانشجویان</h2>
-            <p className="collaboration-text">
-              اگر شما یک دانشجوی با استعداد هستید که به دنبال فرصت‌های آموزشی و 
-              پروژه‌های چالش‌برانگیز در دنیای طراحی و تکنولوژی می‌گردید، 
-              ما در مجموعه سیمرغ به توانمندی‌های شما احترام می‌گذاریم. 
-              همکاری با شما برای ما فرصتی است تا در کنار هم به موفقیت‌های بزرگ دست یابیم.
-            </p>
-            <div className="collaboration-features">
-              <div className="feature-item">
-                <span className="feature-icon">💼</span>
-                <span>تجربه واقعی پروژه</span>
-              </div>
-              <div className="feature-item">
-                <span className="feature-icon">📚</span>
-                <span>یادگیری عملی</span>
-              </div>
-              <div className="feature-item">
-                <span className="feature-icon">🤝</span>
-                <span>همکاری تیمی</span>
-              </div>
-              <div className="feature-item">
-                <span className="feature-icon">🚀</span>
-                <span>رشد حرفه‌ای</span>
-              </div>
-            </div>
-          </section>
-
-          {/* Working Hours */}
-          <section className="hours-section">
-            <h2 className="section-title">ساعات پاسخگویی</h2>
-            <div className="hours-grid">
-              <div className="hours-item">
-                <span className="day">شنبه تا چهارشنبه</span>
-                <span className="time">۹:۰۰ - ۱۸:۰۰</span>
-              </div>
-              <div className="hours-item">
-                <span className="day">پنج‌شنبه</span>
-                <span className="time">۹:۰۰ - ۱۴:۰۰</span>
-              </div>
-              <div className="hours-item special">
-                <span className="day">پاسخگویی آنلاین</span>
-                <span className="time">۲۴ ساعته</span>
-              </div>
-            </div>
-          </section>
-
-          {/* FAQ Accordion */}
-          <section className="faq-section">
-            <h2 className="section-title">سوالات متداول</h2>
-            <div className="faq-accordion">
+4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                </svg>
+              </a>
               
-              {/* Question 1 */}
-              <div className={`faq-accordion-item ${openFaq === 1 ? 'active' : ''}`}>
-                <button 
-                  className="faq-question"
-                  onClick={() => toggleFaq(1)}
-                  aria-expanded={openFaq === 1}
-                >
-                  <span className="faq-q-content">
-                    <span className="faq-icon">❓</span>
-                    <span className="faq-q-text">چگونه سفارش ثبت کنم؟</span>
-                  </span>
-                  <span className={`faq-toggle ${openFaq === 1 ? 'open' : ''}`}>▼</span>
-                </button>
-                <div className={`faq-answer ${openFaq === 1 ? 'show' : ''}`}>
-                  <p>ثبت سفارش در سیمرغ بسیار آسان است:</p>
-                  <ul>
-                    <li><strong>تماس تلفنی:</strong> با شماره 09187634731 تماس بگیرید و نیاز خود را با ما در میان بگذارید.</li>
-                    <li><strong>پشتیبانی آنلاین:</strong> از طریق تلگرام (@SimorghAdmin) یا ایمیل با ما در ارتباط باشید.</li>
-                    <li><strong>جلسات مشاوره:</strong> پس از تماس اولیه، جلساتی برای درک کامل نیازها و خواسته‌های شما برگزار می‌شود تا بهترین راهکار را ارائه دهیم.</li>
-                    <li><strong>شروع پروژه:</strong> بعد از تایید نهایی، پروژه شما با دقت و سرعت آغاز خواهد شد.</li>
-                  </ul>
-                </div>
-              </div>
+              <a href="https://instagram.com/Simorghdesign.ir" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="اینستاگرام">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 
 
-              {/* Question 2 */}
-              <div className={`faq-accordion-item ${openFaq === 2 ? 'active' : ''}`}>
-                <button 
-                  className="faq-question"
-                  onClick={() => toggleFaq(2)}
-                  aria-expanded={openFaq === 2}
-                >
-                  <span className="faq-q-content">
-                    <span className="faq-icon">💰</span>
-                    <span className="faq-q-text">روش‌های پرداخت</span>
-                  </span>
-                  <span className={`faq-toggle ${openFaq === 2 ? 'open' : ''}`}>▼</span>
-                </button>
-                <div className={`faq-answer ${openFaq === 2 ? 'show' : ''}`}>
-                  <p>ما متنوع‌ترین روش‌های پرداخت را برای راحتی شما فراهم کرده‌ایم:</p>
-                  <ul>
-                    <li><strong>کارت به کارت:</strong> امن‌ترین و سریع‌ترین روش پرداخت داخلی با تضمین کامل.</li>
-                    <li><strong>ارزهای دیجیتال:</strong> پرداخت با Bitcoin، Ethereum، Tether و سایر رمزارزهای معتبر برای مشتریان بین‌المللی.</li>
-                    <li><strong>پرداخت قسطی:</strong> برای پروژه‌های بزرگ، امکان پرداخت به صورت مرحله‌ای وجود دارد.</li>
-                    <li><strong>انعطاف کامل:</strong> ما همیشه آماده هستیم تا بهترین شیوه پرداخت را متناسب با شرایط شما ارائه دهیم.</li>
-                  </ul>
-                </div>
-              </div>
+1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
 
-              {/* Question 3 */}
-              <div className={`faq-accordion-item ${openFaq === 3 ? 'active' : ''}`}>
-                <button 
-                  className="faq-question"
-                  onClick={() => toggleFaq(3)}
-                  aria-expanded={openFaq === 3}
-                >
-                  <span className="faq-q-content">
-                    <span className="faq-icon">⏱️</span>
-                    <span className="faq-q-text">مدت زمان تحویل</span>
-                  </span>
-                  <span className={`faq-toggle ${openFaq === 3 ? 'open' : ''}`}>▼</span>
-                </button>
-                <div className={`faq-answer ${openFaq === 3 ? 'show' : ''}`}>
-                  <p>سرعت و کیفیت، اولویت اصلی ما در سیمرغ است:</p>
-                  <ul>
-                    <li><strong>سریع‌ترین تحویل:</strong> ما افتخار می‌کنیم که یکی از سریع‌ترین تیم‌ها در بازار هستیم و در کمترین زمان ممکن، پروژه شما را تحویل می‌دهیم.</li>
-                    <li><strong>بدون کاهش کیفیت:</strong> سرعت ما هرگز به قیمت کاهش کیفیت نیست. هر پروژه با دقت و حرفه‌ای‌گری کامل انجام می‌شود.</li>
-                    <li><strong>برنامه‌ریزی شفاف:</strong> از همان ابتدا، تایم‌لاین مشخصی برای پروژه شما تعیین می‌شود و ما متعهد به رعایت آن هستیم.</li>
-                    <li><strong>پیشرو در صنعت:</strong> مقایسه ما با رقبا نشان می‌دهد که در زمان تحویل، همیشه جلوتر هستیم.</li>
-                  </ul>
-                </div>
-              </div>
+              </a>
+              
+              <a href="https://www.linkedin.com/in/simorgh-design-872624376" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="لینکدین">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 
 
-              {/* Question 4 */}
-              <div className={`faq-accordion-item ${openFaq === 4 ? 'active' : ''}`}>
-                <button 
-                  className="faq-question"
-                  onClick={() => toggleFaq(4)}
-                  aria-expanded={openFaq === 4}
-                >
-                  <span className="faq-q-content">
-                    <span className="faq-icon">🔧</span>
-                    <span className="faq-q-text">پشتیبانی پس از تحویل</span>
-                  </span>
-                  <span className={`faq-toggle ${openFaq === 4 ? 'open' : ''}`}>▼</span>
-                </button>
-                <div className={`faq-answer ${openFaq === 4 ? 'show' : ''}`}>
-                  <p>همراهی ما با شما پس از تحویل پروژه ادامه دارد:</p>
-                  <ul>
-                    <li><strong>پشتیبانی فنی مادام‌العمر:</strong> در صورت بروز هرگونه مشکل فنی یا نیاز به بروزرسانی، تیم ما همیشه در دسترس است.</li>
-                    <li><strong>رفع اشکال رایگان:</strong> هر مشکلی که از سمت ما باشد، به صورت کاملاً رایگان برطرف می‌شود.</li>
-                    <li><strong>آموزش و راهنمایی:</strong> شما را با نحوه استفاده بهینه از محصول یا خدمات خود آشنا می‌کنیم.</li>
-                    <li><strong>تماس مستقیم:</strong> همیشه می‌توانید مستقیماً با تیم پشتیبانی در ارتباط باشید و پاسخ سریع دریافت کنید.</li>
-                    <li><strong>بروزرسانی‌های منظم:</strong> برای پروژه‌های وب و نرم‌افزاری، بروزرسانی‌های امنیتی و عملکردی را به صورت مستمر ارائه می‌دهیم.</li>
-                  </ul>
-                </div>
-              </div>
+24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="hours-section" id="hours">
+        <div className="container">
+          <h2 className="section-title">ساعت های همراهی با شما</h2>
+          <div className={`hours-grid ${visibleSections.has("hours") ? "visible" : ""}`}>
+            <div className="hours-card">
+              <span className="day">شنبه تا چهارشنبه</span>
+              <span className="time">09:00 - 18:00</span>
 
             </div>
-          </section>
-        </section>
-      </div>
+            <div className="hours-card">
+              <span className="day">پنج‌شنبه</span>
+              <span className="time">09:00 - 14:00</span>
+            </div>
+            <div className="hours-card special">
+              <span className="day">پشتیبانی آنلاین</span>
+              <span className="time">24 ساعته</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="faq-section" id="faq">
+        <div className="container">
+          <h2 className="section-title">پرسش های پر تکرار</h2>
+          <div className={`faq-list ${visibleSections.has("faq") ? "visible" : ""}`}>
+            
+            <div className="faq-item">
+              <button 
+                className={`faq-question ${openFaq === 0 ? "active" : ""}`}
+                onClick={() => toggleFaq(0)}
+              >
+                <span>چگونه سفارش ثبت کنم؟</span>
+                <span className="faq-icon">{openFaq === 0 ? "−" : "+"}</span>
+              </button>
+              <div className={`faq-answer ${openFaq === 0 ? "open" : ""}`}>
+                <p>برای ثبت سفارش، مراحل زیر را طی کنید:</p>
+                <ul>
+                  <li>تماس اولیه: با شماره 09187634731 تماس بگیرید یا از طریق پلتفرم‌های 
+
+آنلاین درخواست خود را ارسال کنید.</li>
+                  <li>بررسی نیازمندی‌ها: تیم ما جلسه مشاوره‌ای برگزار کرده و نیازهای پروژه شما را تحلیل می‌کند.</li>
+                  <li>ارائه پیشنهاد: پس از بررسی، پیشنهاد قیمت و زمان‌بندی اجرا ارائه خواهد شد.</li>
+                  <li>شروع پروژه: با تایید نهایی شما، عملیات اجرایی آغاز می‌شود.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="faq-item">
+              <button 
+                className={`faq-question ${openFaq === 1 ? "active" : ""}`}
+                onClick={() => toggleFaq(1)}
+              >
+                <span>روش‌های پرداخت</span>
+                <span className="faq-icon">{openFaq === 1 ? "−" : "+"}</span>
+              </button>
+              <div className={`faq-answer ${openFaq === 1 ? "open" : ""}`}>
+                <p>مجموعه سیمرغ روش‌های پرداخت متنوعی را پشتیبانی می‌کند:</p>
+                <ul>
+                  <li>کارت به کارت: امن‌ترین روش پرداخت داخلی با ضمانت تحویل.</li>
+                  <li>درگاه بانکی: پرداخت آنلاین از طریق درگاه‌های معتبر بانکی.</li>
+                  <li>ارزهای دیجیتال: پذیرش Bitcoin, Ethereum, USDT برای مشتریان بین‌المللی.</li>
+                  <li>پرداخت مرحله‌ای: امکان پرداخت به صورت مرحله‌ای بر اساس پیشرفت پروژه.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="faq-item">
+              <button 
+                className={`faq-question ${openFaq === 2 ? "active" : ""}`}
+                onClick={() => toggleFaq(2)}
+              >
+
+                <span>مدت زمان تحویل پروژه</span>
+                <span className="faq-icon">{openFaq === 2 ? "−" : "+"}</span>
+              </button>
+              <div className={`faq-answer ${openFaq === 2 ? "open" : ""}`}>
+                <p>زمان تحویل بسته به نوع و حجم پروژه متغیر است:</p>
+                <ul>
+                  <li>پروژه‌های ساده: 7 تا 14 روز کاری</li>
+                  <li>پروژه‌های متوسط: 3 تا 6 هفته</li>
+                  <li>پروژه‌های پیچیده: بر اساس توافق و برنامه‌ریزی مشترک</li>
+                  <li>تمامی پروژه‌ها با رعایت استانداردهای کیفی و در کوتاه‌ترین زمان ممکن تحویل داده می‌شوند.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="faq-item">
+
+              <button 
+                className={`faq-question ${openFaq === 3 ? "active" : ""}`}
+                onClick={() => toggleFaq(3)}
+              >
+                <span>پشتیبانی پس از تحویل</span>
+                <span className="faq-icon">{openFaq === 3 ? "−" : "+"}</span>
+              </button>
+              <div className={`faq-answer ${openFaq === 3 ? "open" : ""}`}>
+                <p>سیمرغ متعهد به ارائه خدمات پس از فروش است:</p>
+                <ul>
+                  <li>گارانتی فنی: تمامی پروژه‌ها دارای گارانتی رفع نقص فنی هستند.</li>
+                  <li>پشتیبانی تلفنی: دسترسی مستقیم به تیم پشتیبانی در ساعات اداری.</li>
+                  <li>بروزرسانی: ارائه بروزرسانی‌های امنیتی و عملکردی برای پروژه‌های وب و نرم‌افزاری.</li>
+                  <li>آموزش: ارائه مستندات و جلسات 
+
+آموزشی برای استفاده بهینه از محصول.</li>
+                  <li>نگهداری: امکان عقد قرارداد نگهداری و پشتیبانی بلندمدت.</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
 
       <style jsx>{`
-        /* ============== CONTAINER ============== */
-        .contact-page-container {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 1rem;
+        * {
+          box-sizing: border-box;
         }
 
-        /* ============== HERO SECTION ============== */
-        .contact-hero {
-          background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(20, 20, 20, 0.98) 100%);
-          backdrop-filter: blur(20px);
-          padding: 4rem 2rem;
-          margin-bottom: 3rem;
-          border-radius: 20px;
-          border: 1px solid rgba(245, 197, 24, 0.3);
+        body {
+          margin: 0;
+          padding: 0;
+          background: #0f0f0f;
+          color: #ffffff;
+          font-family: -apple-system, 
+
+BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+          direction: rtl;
+        }
+
+        .hero {
+          padding: 80px 24px 60px;
           text-align: center;
-          position: relative;
-          overflow: hidden;
-          animation: fadeInUp 0.8s ease-out;
-        }
-
-        .contact-hero::before {
-          content: "";
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background: radial-gradient(circle, rgba(245, 197, 24, 0.1) 0%, transparent 70%);
-          animation: rotate 15s linear infinite;
         }
 
         .hero-content {
-          position: relative;
-          z-index: 1;
+          max-width: 900px;
+          margin: 0 auto;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-content.visible {
+          opacity: 1;
+          transform: translateY(0);
+
         }
 
         .hero-title {
-          font-size: clamp(2rem, 6vw, 3.5rem);
-          font-weight: 800;
-          background: linear-gradient(135deg, #f5c518, #ffd700);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          margin-bottom: 1rem;
-        }
-
-        .hero-subtitle {
-          font-size: clamp(1.1rem, 3vw, 1.4rem);
-          color: #e0e0e0;
-        }
-
-        /* ============== MAIN CONTENT ============== */
-        .contact-content {
-          display: flex;
-          flex-direction: column;
-          gap: 3rem;
-        }
-
-        .intro-section {
-          background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(20, 20, 20, 0.98) 100%);
-          backdrop-filter: blur(20px);
-          padding: 2.5rem 2rem;
-          border-radius: 16px;
-          border: 1px solid rgba(245, 197, 24, 0.2);
-          animation: fadeInUp 1s ease-out;
-        }
-
-        .section-title {
-          font-size: clamp(1.75rem, 5vw, 2.5rem);
-          font-weight: 700;
-          color: #f5c518;
-          text-align: center;
-          margin-bottom: 1.5rem;
-          position: relative;
-          padding-bottom: 1rem;
-        }
-
-        .section-title::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 80px;
-          height: 3px;
-          background: linear-gradient(90deg, #f5c518, #ffd700);
-          border-radius: 10px;
-        }
-
-        .intro-text {
-          color: #e0e0e0;
-          font-size: clamp(1rem, 2.5vw, 1.15rem);
-          line-height: 1.8;
-          text-align: justify;
-        }
-
-        /* ============== CONTACT METHODS GRID ============== */
-        .contact-methods-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 2rem;
-        }
-
-        .contact-method-card {
-          background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(20, 20, 20, 0.98) 100%);
-          backdrop-filter: blur(20px);
-          padding: 2.5rem 2rem;
-          border-radius: 16px;
-          border: 1px solid rgba(245, 197, 24, 0.2);
-          text-align: center;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          position: relative;
-          overflow: hidden;
-          animation: fadeInUp 1.2s ease-out;
-        }
-
-        .contact-method-card::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(245, 197, 24, 0.1), transparent);
-          transition: left 0.6s ease;
-        }
-
-        .contact-method-card:hover::before {
-          left: 100%;
-        }
-
-        .contact-method-card:hover {
-          transform: translateY(-12px);
-          border-color: #f5c518;
-          box-shadow: 0 12px 40px rgba(245, 197, 24, 0.3);
-        }
-
-        .method-icon {
-          font-size: 4rem;
-          margin-bottom: 1.5rem;
-          animation: bounce 2s infinite;
-        }
-
-        .method-title {
-          font-size: clamp(1.3rem, 3vw, 1.6rem);
-          font-weight: 700;
-          color: #f5c518;
-          margin-bottom: 1rem;
-        }
-
-        .method-value {
-          display: block;
-          color: #e0e0e0;
-          font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-          margin-bottom: 1.5rem;
-          text-decoration: none;
-          transition: all 0.3s ease;
-          word-break: break-word;
-        }
-
-        .method-value:hover {
-          color: #f5c518;
-          transform: scale(1.05);
-        }
-
-        .copy-button {
-          background: rgba(245, 197, 24, 0.1);
-          border: 1px solid rgba(245, 197, 24, 0.3);
-          color: #f5c518;
-          padding: 0.8rem 1.5rem;
-          border-radius: 8px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          font-size: clamp(0.9rem, 2.5vw, 1rem);
+          font-size: clamp(32px, 5vw, 48px);
           font-weight: 600;
+          color: #d5af40;
+          margin-bottom: 24px;
+          letter-spacing: -1px;
+        }
+
+        .hero-description {
+          font-size: clamp(16px, 2.5vw, 18px);
+          color: #ffffff;
+          line-height: 1.8;
+          font-weight: 400;
+          margin-bottom: 40px;
+        }
+
+        .contact-box {
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 32px 24px;
+          border: 1px solid rgba(213, 175, 64, 
+
+0.15);
+          border-radius: 16px;
+          transition: all 0.3s ease;
+        }
+
+        .contact-box:hover {
+          border-color: rgba(213, 175, 64, 0.3);
+          box-shadow: 0 8px 24px rgba(213, 175, 64, 0.15);
+        }
+
+        .phone-link {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 0.5rem;
-          margin: 0 auto;
+          gap: 12px;
+          text-decoration: none;
+          color: #d5af40;
+          font-size: clamp(20px, 3vw, 24px);
+          font-weight: 600;
+          margin-bottom: 24px;
+          transition: all 0.3s ease;
+
         }
 
-        .copy-button:hover {
-          background: rgba(245, 197, 24, 0.2);
-          border-color: #f5c518;
-          transform: translateY(-2px);
+        .phone-link:hover {
+          color: #e5bf50;
+          transform: scale(1.02);
         }
 
-        .copy-icon {
-          font-size: 1.2em;
+        .phone-number {
+          letter-spacing: 1px;
         }
 
-        /* ============== COLLABORATION SECTION ============== */
-        .collaboration-section {
-          background: linear-gradient(135deg, rgba(245, 197, 24, 0.15) 0%, rgba(255, 215, 0, 0.1) 100%);
-          backdrop-filter: blur(20px);
-          padding: 3rem 2rem;
-          border-radius: 20px;
-          border: 2px solid rgba(245, 197, 24, 0.3);
-          text-align: center;
-          animation: fadeInUp 1.4s ease-out;
+        .phone-icon {
+          width: 24px;
+          height: 24px;
+          flex-shrink: 0;
         }
 
-        .collaboration-badge {
-          font-size: 4rem;
-          margin-bottom: 1rem;
-          animation: bounce 2s infinite;
-        }
-
-        .collaboration-title {
-          font-size: clamp(1.75rem, 5vw, 2.5rem);
-          font-weight: 700;
-          color: #f5c518;
-          margin-bottom: 1.5rem;
-        }
-
-        .collaboration-text {
-          color: #e0e0e0;
-          font-size: clamp(1rem, 2.5vw, 1.15rem);
-          line-height: 1.8;
-          max-width: 900px;
-          margin: 0 auto 2rem;
-          text-align: justify;
-        }
-
-        .collaboration-features {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 1.5rem;
-          margin-top: 2rem;
-        }
-
-        .feature-item {
-          background: rgba(0, 0, 0, 0.3);
-          padding: 1.5rem 1rem;
-          border-radius: 12px;
+        .social-links {
           display: flex;
-          flex-direction: column;
+          justify-content: center;
           align-items: center;
-          gap: 0.75rem;
+          gap: 14px;
+
+          padding-top: 24px;
+          border-top: 1px solid rgba(213, 175, 64, 0.15);
+        }
+
+        .social-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
+          border: 1px solid rgba(213, 175, 64, 0.15);
+          color: #d5af40;
           transition: all 0.3s ease;
         }
 
-        .feature-item:hover {
-          transform: translateY(-5px);
-          background: rgba(0, 0, 0, 0.5);
+        .social-icon:hover {
+          background: rgba(213, 175, 64, 0.1);
+          border-color: rgba(213, 175, 64, 0.3);
+          transform: translateY(-2px);
+
         }
 
-        .feature-icon {
-          font-size: 2.5rem;
+        .social-icon svg {
+          width: 24px;
+          height: 24px;
         }
 
-        /* ============== HOURS SECTION ============== */
         .hours-section {
-          background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(20, 20, 20, 0.98) 100%);
-          backdrop-filter: blur(20px);
-          padding: 2.5rem 2rem;
-          border-radius: 16px;
-          border: 1px solid rgba(245, 197, 24, 0.2);
-          animation: fadeInUp 1.6s ease-out;
+          padding: 60px 24px;
+        }
+
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .section-title {
+          font-size: clamp(28px, 4vw, 40px);
+          font-weight: 600;
+          text-align: center;
+          margin-bottom: 60px;
+          color: #d5af40;
+
+          letter-spacing: -1px;
         }
 
         .hours-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 1.5rem;
-          margin-top: 2rem;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 24px;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .hours-item {
-          background: rgba(255, 255, 255, 0.02);
-          padding: 1.5rem;
-          border-radius: 12px;
-          border: 1px solid rgba(245, 197, 24, 0.2);
+        .hours-grid.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .hours-card {
+          padding: 32px 24px;
+          border: 1px solid rgba(213, 175, 64, 
+
+0.15);
+          border-radius: 16px;
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
+          align-items: center;
+          gap: 12px;
           transition: all 0.3s ease;
         }
 
-        .hours-item:hover {
-          transform: translateY(-5px);
-          border-color: #f5c518;
-          box-shadow: 0 8px 25px rgba(245, 197, 24, 0.2);
+        .hours-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 24px rgba(213, 175, 64, 0.15);
+          border-color: rgba(213, 175, 64, 0.3);
         }
 
-        .hours-item.special {
-          background: rgba(245, 197, 24, 0.1);
-          border-color: #f5c518;
+        .hours-card.special {
+          background: rgba(213, 175, 64, 0.05);
+          border-color: rgba(213, 175, 64, 0.25);
         }
 
         .day {
-          color: #f5c518;
+          font-size: clamp(16px, 2.5vw, 18px);
+
           font-weight: 600;
-          font-size: clamp(1rem, 2.5vw, 1.1rem);
+          color: #d5af40;
         }
 
         .time {
-          color: #e0e0e0;
-          font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+          font-size: clamp(15px, 2.5vw, 17px);
+          color: #ffffff;
         }
 
-        /* ============== FAQ ACCORDION SECTION ============== */
         .faq-section {
-          background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(20, 20, 20, 0.98) 100%);
-          backdrop-filter: blur(20px);
-          padding: 2.5rem 2rem;
-          border-radius: 16px;
-          border: 1px solid rgba(245, 197, 24, 0.2);
-          animation: fadeInUp 1.8s ease-out;
+          padding: 60px 24px 80px;
         }
 
-        .faq-accordion {
-          display: flex;
-          flex-direction: column;
-          gap: 1.25rem;
-          margin-top: 2rem;
+        .faq-list {
+          max-width: 900px;
+          margin: 0 auto;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .faq-accordion-item {
-          background: rgba(255, 255, 255, 0.02);
+        .faq-list.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .faq-item {
+          margin-bottom: 16px;
+          border: 1px solid rgba(213, 175, 64, 0.15);
           border-radius: 12px;
-          border: 1px solid rgba(245, 197, 24, 0.2);
           overflow: hidden;
           transition: all 0.3s ease;
         }
 
-        .faq-accordion-item.active {
-          border-color: #f5c518;
-          box-shadow: 0 4px 20px rgba(245, 197, 24, 0.15);
+        .faq-item:hover {
+          border-color: rgba(213, 175, 64, 0.3);
+          box-shadow: 0 4px 16px rgba(213, 175, 64, 0.1);
         }
 
         .faq-question {
           width: 100%;
+
+          padding: 20px 24px;
           background: transparent;
           border: none;
-          padding: 1.5rem;
+          color: #d5af40;
+          font-size: 17px;
+          font-weight: 600;
+          text-align: right;
+          cursor: pointer;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          cursor: pointer;
           transition: all 0.3s ease;
-          text-align: right;
         }
 
         .faq-question:hover {
-          background: rgba(245, 197, 24, 0.05);
+          background: rgba(213, 175, 64, 0.05);
         }
 
-        .faq-q-content {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
+        .faq-question.active {
+          background: rgba(213, 175, 64, 0.08);
         }
 
         .faq-icon {
-          font-size: 2rem;
-          flex-shrink: 0;
-        }
-
-        .faq-q-text {
-          color: #e0e0e0;
-          font-size: clamp(1rem, 2.5vw, 1.15rem);
-          font-weight: 600;
-        }
-
-        .faq-toggle {
-          color: #f5c518;
-          font-size: 1.2rem;
+          font-size: 24px;
+          font-weight: 400;
           transition: transform 0.3s ease;
-          flex-shrink: 0;
-        }
-
-        .faq-toggle.open {
-          transform: rotate(180deg);
         }
 
         .faq-answer {
           max-height: 0;
           overflow: hidden;
-          transition: max-height 0.4s ease, padding 0.4s ease;
-          padding: 0 1.5rem;
+          transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .faq-answer.show {
-          max-height: 1000px;
-          padding: 0 1.5rem 1.5rem 1.5rem;
+        .faq-answer.open {
+          max-height: 800px;
         }
 
         .faq-answer p {
-          color: #f5c518;
-          font-size: clamp(1rem, 2.5vw, 1.1rem);
+          padding: 0 24px 12px;
+          font-size: 16px;
+          color: #d5af40;
           font-weight: 600;
-          margin-bottom: 1rem;
+
+          margin: 0;
         }
 
         .faq-answer ul {
           list-style: none;
-          padding: 0;
+          padding: 0 24px 20px;
           margin: 0;
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
         }
 
         .faq-answer li {
-          color: #e0e0e0;
-          font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+          font-size: 15px;
+          color: #ffffff;
           line-height: 1.7;
-          padding-right: 1.5rem;
+          font-weight: 400;
+          margin-bottom: 12px;
+          padding-right: 20px;
           position: relative;
         }
 
-        .faq-answer li::before {
-          content: "✓";
+        .faq-answer li:before {
+          content: "•";
           position: absolute;
           right: 0;
-          color: #f5c518;
+
+          color: #d5af40;
           font-weight: bold;
         }
 
-        .faq-answer strong {
-          color: #f5c518;
-          font-weight: 700;
-        }
-
-        /* ============== ANIMATIONS ============== */
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(40px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes bounce {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-15px);
-          }
-        }
-
-        @keyframes rotate {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        /* ============== RESPONSIVE - MOBILE SMALL ============== */
-        @media screen and (max-width: 480px) {
-          .contact-page-container {
-            padding: 0.75rem;
+        @media (max-width: 768px) {
+          .hero {
+            padding: 60px 20px 40px;
           }
 
-          .contact-hero {
-            padding: 2.5rem 1.5rem;
-            margin-bottom: 2rem;
-            border-radius: 16px;
-          }
-
-          .intro-section,
           .hours-section,
           .faq-section {
-            padding: 2rem 1.5rem;
+            padding: 40px 20px;
           }
 
-          .contact-methods-grid {
+          .hours-grid {
             grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 20px;
           }
 
-          .contact-method-card {
-            padding: 2rem 1.5rem;
+          .section-title {
+            margin-bottom: 40px;
           }
 
-          .method-icon {
-            font-size: 3rem;
-          }
-
-          .collaboration-section {
-            padding: 2rem 1.5rem;
-          }
-
-          .collaboration-badge {
-            font-size: 3rem;
-          }
-
-          .collaboration-features {
-            grid-template-columns: 1fr;
-            gap: 1rem;
-          }
-
-          .hours-grid,
-          .faq-accordion {
-            gap: 1rem;
-          }
 
           .faq-question {
-            padding: 1.25rem 1rem;
+            font-size: 16px;
+            padding: 18px 20px;
           }
 
-          .faq-answer.show {
-            padding: 0 1rem 1.25rem 1rem;
+          .faq-answer p {
+            padding: 0 20px 12px;
+            font-size: 15px;
           }
 
-          .faq-q-content {
-            gap: 0.75rem;
+          .faq-answer ul {
+            padding: 0 20px 18px;
           }
 
-          .faq-icon {
-            font-size: 1.75rem;
-          }
-        }
-
-        /* ============== RESPONSIVE - MOBILE MEDIUM ============== */
-        @media screen and (min-width: 481px) and (max-width: 767px) {
-          .contact-page-container {
-            padding: 1rem;
+          .faq-answer li {
+            font-size: 14px;
           }
 
-          .contact-hero {
-            padding: 3rem 2rem;
+          .contact-box {
+            padding: 24px 20px;
           }
 
-          .contact-methods-grid {
-            grid-template-columns: 1fr;
-            gap: 1.75rem;
+
+          .social-links {
+            gap: 12px;
           }
 
-          .collaboration-features {
-            grid-template-columns: repeat(2, 1fr);
+          .social-icon {
+            width: 44px;
+            height: 44px;
           }
         }
 
-        /* ============== RESPONSIVE - TABLET ============== */
-        @media screen and (min-width: 768px) and (max-width: 1024px) {
-          .contact-page-container {
-            padding: 1.5rem;
+        @media (max-width: 480px) {
+          .hero-title {
+            font-size: 28px;
           }
 
-          .contact-methods-grid {
-            grid-template-columns: repeat(2, 1fr);
+          .hero-description {
+            font-size: 15px;
           }
 
-          .collaboration-features {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
+          .phone-link {
+            font-size: 18px;
 
-        /* ============== RESPONSIVE - DESKTOP ============== */
-        @media screen and (min-width: 1025px) {
-          .contact-page-container {
-            padding: 2rem;
           }
 
-          .contact-methods-grid {
-            grid-template-columns: repeat(3, 1fr);
+          .day {
+            font-size: 15px;
           }
 
-          .collaboration-features {
-            grid-template-columns: repeat(4, 1fr);
-          }
-        }
-
-        /* ============== LANDSCAPE MODE ============== */
-        @media screen and (max-height: 600px) and (orientation: landscape) {
-          .contact-hero {
-            padding: 2rem 1.5rem;
-          }
-
-          .contact-method-card {
-            padding: 1.5rem 1.25rem;
-          }
-
-          .method-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-          }
-
-          .collaboration-badge {
-            font-size: 2.5rem;
-          }
-
-          .collaboration-section {
-            padding: 2rem 1.5rem;
+          .time {
+            font-size: 14px;
           }
         }
       `}</style>

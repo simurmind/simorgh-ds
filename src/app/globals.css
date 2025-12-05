@@ -1248,7 +1248,6 @@ ul, ol {
 ul li, ol li {
   padding: var(--space-md);
   margin-bottom: var(--space-sm);
-  background: rgba(255, 255, 255, 0.02);
   border-radius: var(--radius-md);
   border-right: 3px solid var(--primary-color);
   transition: all var(--transition-base);
@@ -1269,7 +1268,6 @@ ol li::before {
 
 ul li:hover,
 ol li:hover {
-  background: rgba(255, 255, 255, 0.05);
   transform: translateX(-8px);
   border-right-width: 5px;
 }
