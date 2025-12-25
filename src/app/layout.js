@@ -222,7 +222,7 @@ setIsServicesOpen(!isServicesOpen)}
                 <a href="/portfolio">مشاهده نمونه کارها</a>
                 <a href="/web-design">طراحی سایت</a>
                 <a href="/decoration">دکوراسیون</a>
-                <a href="/contact">دعوت به همکاری</a>
+                <a href="/contact">ارتباط با ما</a>
               </div>
 
               <div className="footer-phone">
@@ -231,13 +231,13 @@ setIsServicesOpen(!isServicesOpen)}
               </div>
 
               <div className="footer-links">
-                <a href="/contact">درباره ما</a>
+                <a href="/about">درباره ما</a>
               </div>
             </div>
 
             <div className="footer-bottom">
               <p>
-                © {new Date().getFullYear()} مجموعه سیمرغ دیزاین | طراحی و توسعه توسط احمدرضا رضائی
+                © {new Date().getFullYear()} مجموعه سیمرغ دیزاین | طراحی و توسعه توسط تیم سیمرغ دیزاین
               </p>
             </div>
           </div>
