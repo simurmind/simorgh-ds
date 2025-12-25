@@ -1,3 +1,4 @@
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -9,12 +10,6 @@ const nextConfig = {
   
   // بهینه‌سازی با SWC
   swcMinify: true,
-  
-  // تنظیمات زبان فارسی
-  i18n: {
-    locales: ['fa'],
-    defaultLocale: 'fa',
-  },
   
   // بهینه‌سازی تصاویر
   images: {
@@ -58,7 +53,7 @@ const nextConfig = {
     ]
   },
   
-  // Redirects از www به non-www (اصلاح شده!)
+  // Redirects از www به non-www
   async redirects() {
     return [
       {
@@ -69,7 +64,7 @@ const nextConfig = {
             value: 'www.simorghdesign.ir',
           },
         ],
-        destination: 'https://simorghdesign.ir/:path*',  // ✅ اصلاح شد!
+        destination: 'https://simorghdesign.ir/:path*',
         permanent: true,
       },
     ]
